@@ -53,7 +53,7 @@ If you have used the ASK CLI previously, you will also need to make sure that yo
 	$ open en-US.json
 	```
 
-7. **Replace** the contents of en-US.json with the contents of [this JSON file](), and save it.
+7. **Replace** the contents of en-US.json with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/models/en-US.json), and save it.
 
 8. **Navigate** to the lambda folder.
 
