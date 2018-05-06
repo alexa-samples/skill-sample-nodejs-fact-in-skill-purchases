@@ -67,7 +67,7 @@ If you have used the ASK CLI previously, you will also need to make sure that yo
 	$ open index.js
 	```
 
-10. **Replace** the contents of index.js with the contents of [this JS file](), and save it.
+10. **Replace** the contents of index.js with the contents of [this JS file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/index.js), and save it.
 
 11. **Update** the Alexa SDK and the other npm dependencies.
 
