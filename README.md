@@ -7,7 +7,7 @@ There are several aspects of developing an Alexa skill with in-skill purchases t
 * [Quick Start Guide for Installing the ASK CLI](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html)
 * [ASK CLI Command Reference](https://developer.amazon.com/docs/smapi/ask-cli-command-reference.html)
 
-If you have used the ASK CLI previously, you will also need to make sure that you have the most recent version of the ASK CLI.  You can make sure you have the latest version by running the command:
+If you have used the ASK CLI previously, you will also need to **make sure** that you have the **most recent version** of the ASK CLI.  You can make sure you have the latest version by running the command:
 
 	```bash
 	$ npm update -g ask-cli
