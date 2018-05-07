@@ -103,21 +103,21 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 
 	```bash
 	? List of in-skill product templates you can choose (Use arrow keys)
-	❯ Entitlement_Base
+	❯ Entitlement_Template
 	```
 
 5. **Name** your in-skill product *science_pack*.
 
 	```bash
 	? Please type in your new in-skill product name:
- 	(Entitlement_Base) science_pack
+ 	(Entitlement_Template) science_pack
 	```
 
 6. **Repeat** steps #1 - #5 to create two more entitlements: *history_pack* and *space_pack*.
 
 	```bash
 	? Please type in your new in-skill product name:
- 	(Entitlement_Base) science_pack
+ 	(Entitlement_Template) science_pack
 	```
 
 7. **Create** a subscription product using a similar process.
@@ -130,10 +130,10 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 	❯ Subscription
 
 	? List of in-skill product templates you can choose (Use arrow keys)
-	❯ Subscription_Base
+	❯ Subscription_Template
 
 	? Please type in your new in-skill product name:
- 	(Subscription_Base) all_access
+ 	(Subscription_Template) all_access
 
 8. **Navigate** to the new ISPs directory, and note the two folders, *entitlement* and *subscription*.  This is where the JSON files for each of your in-skill products reside.
 
