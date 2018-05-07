@@ -1,12 +1,11 @@
 {
-  "name": "skill-sample-nodejs-hello-world",
+  "name": "skill-sample-nodejs-premium-facts",
   "version": "1.0.0",
-  "description": "Hello world sample skill",
+  "description": "In Skill Purchasing sample skill",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "alexa-sdk": "^1.0.0",
     "ask-sdk": "^2.0.1"
   }
 }
