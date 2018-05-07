@@ -48,9 +48,7 @@ upsellMessage['history_pack'] = "With the History pack, you will have unlimited 
 upsellMessage['space_pack']   = "With the Space pack, you will have unlimited access to our facts about space and the universe. ";
 upsellMessage['all_access']   = "With our all access subscription, you get unlimited ongoing access to all our fact categories including any new ones we add.";
 
-const skill_name = "Infinity Gauntlet";
-
-
+const skill_name = "Premium Facts Sample";
 
 /*
     Function to demonstrate how to filter inSkillProduct list to get list of
