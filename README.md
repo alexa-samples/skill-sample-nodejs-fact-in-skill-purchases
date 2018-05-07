@@ -159,14 +159,9 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 
 10. **Open** history_pack.json
 
-	```bash
-	$ cd entitlement
-	$ ls
-	```
+	This JSON file contains all of the necessary fields for your in-skill product, but you'll need to add the details to get them ready to sell. Because we used the Entitlement_Base template, we have provided a small explanation for each field, make sure you replace all of them. Take a look at [the sample in our docs](https://developer.amazon.com/docs/smapi/isp-schemas.html#entitlement-schema) for an additional reference.
 
-	This JSON file contains all of the details necessary to sell your in-skill product.  Because we used the *Entitlement_Base* template, you should notice that this file already contains all of the information you need for a new pack of history facts.
-
-	The other two files, *science_pack.json* and *space_pack.json* will look identical.  You will need to update these with content about your [science]() and [space]() products.  We have provided you with sample files you can use to replace the contents of those two files.
+	Fill out the details for the *science_pack.json* and *space_pack.json* files.  You will need to update with content about your science and space products including icons for each.
 
 	**IMPORTANT: Don't change the *referenceName* in your files, as our codebase is relying on those to be consistent.**
 
