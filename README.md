@@ -53,23 +53,31 @@ If you have used the ASK CLI previously, you will also need to make sure that yo
 	$ open en-US.json
 	```
 
-7. **Replace** the contents of en-US.json with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/models/en-US.json), and save it.
+7. **Replace** the contents of *en-US.json* with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/models/en-US.json), and save it.
 
-8. **Navigate** to the lambda folder.
+8. **Go back** to the projects root folder.
+
+	```bash
+	$ cd ..
+	```
+
+9. **Replace** the contents of *package.json*  with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/package.json), and save it.
+
+10. **Navigate** to the lambda folder.
 
 	```bash
 	$ cd ../lambda/custom
 	```
 
-9. **Open** the AWS Lambda file, index.js.
+11. **Open** the AWS Lambda file, index.js.
 
 	```bash
 	$ open index.js
 	```
 
-10. **Replace** the contents of index.js with the contents of [this JS file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/index.js), and save it.
+12. **Replace** the contents of *index.js* with the contents of [this JS file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/index.js), and save it.
 
-11. **Update** the Alexa SDK and the other npm dependencies.
+13. **Update** the Alexa SDK and the other npm dependencies.
 
 	```bash
 	$ npm update
