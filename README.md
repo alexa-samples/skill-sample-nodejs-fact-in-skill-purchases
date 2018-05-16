@@ -9,9 +9,9 @@ There are several aspects of developing an Alexa skill with in-skill purchases t
 
 If you have used the ASK CLI previously, you will also need to **make sure** that you have the **most recent version** of the ASK CLI.  You can make sure you have the latest version by running the command:
 
-	```bash
-	$ npm update -g ask-cli
-	```
+```bash
+$ npm update -g ask-cli
+```
 
 ### Installation
 1. **Create** a new skill using the CLI.
@@ -20,18 +20,18 @@ If you have used the ASK CLI previously, you will also need to **make sure** tha
 	$ ask new
 	```
 
-2. **Name** the skill "Premium_Facts_Live".
+2. **Name** the skill "Premium_Facts_Sample".
 
 	```bash
 	? Please type in your new skill name:
- 	Premium_Facts_Live
+ 	Premium_Facts_Sample
 	```
 
 
 3. **Navigate** to your project folder.
 
 	```bash
-	$ cd Premium_Facts_Live
+	$ cd Premium_Facts_Sample
 	```
 
 4. **Explore** the project structure.  You should see folders for lambda and models, and skill.json file.
@@ -55,7 +55,7 @@ If you have used the ASK CLI previously, you will also need to **make sure** tha
 
 7. **Replace** the contents of *en-US.json* with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/models/en-US.json), and save it.
 
-8. **Go back** to the projects root folder.
+8. **Go back** to the project's root folder.
 
 	```bash
 	$ cd ..
@@ -69,7 +69,7 @@ If you have used the ASK CLI previously, you will also need to **make sure** tha
 	$ cd ../lambda/custom
 	```
 
-11. **Open** the AWS Lambda file, index.js.
+11. **Open** the AWS Lambda function code file, index.js.
 
 	```bash
 	$ open index.js
@@ -107,7 +107,7 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
   	Subscription
 	```
 
-4. **Choose** Entitlement_Base as your template.
+4. **Choose** Entitlement_Template as your template.
 
 	```bash
 	? List of in-skill product templates you can choose (Use arrow keys)
@@ -121,14 +121,17 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
  	(Entitlement_Template) science_pack
 	```
 
-6. **Repeat** steps #1 - #5 to create two more entitlements: *history_pack* and *space_pack*.
+6. **Repeat** steps #2 - #5 to create two more entitlements: *history_pack* and *space_pack*.
 
 	```bash
 	? Please type in your new in-skill product name:
- 	(Entitlement_Template) science_pack
+ 	(Entitlement_Template) history_pack
+	...
+	? Please type in your new in-skill product name:
+ 	(Entitlement_Template) space_pack
 	```
 
-7. **Create** a subscription product using a similar process.
+7. **Create** a subscription product named *all_access* using a similar process.
 
 	```bash
 	$ ask add isp
@@ -159,13 +162,13 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 
 10. **Open** history_pack.json
 
-	This JSON file contains all of the necessary fields for your in-skill product, but you'll need to add the details to get them ready to sell. Because we used the Entitlement_Base template, we have provided a small explanation for each field, make sure you replace all of them. Take a look at [the sample in our docs](https://developer.amazon.com/docs/smapi/isp-schemas.html#entitlement-schema) for an additional reference.
+	This JSON file contains all of the necessary fields for your in-skill product, but you'll need to add the details to get them ready to sell. Because we used the Entitlement_Template template, we have provided a small explanation for each field, make sure you replace all of them. Take a look at [the sample in our docs](https://developer.amazon.com/docs/smapi/isp-schemas.html#entitlement-schema) for an additional reference.  For this sample, at a minimum, you will need to update the name (not referenceName!), smallIconUri, largeIconUri, summary, description, purchasePromptDescription, boughtCardDescription, releaseDate and privacyPolicyUrl.  Alternatively you can copy and paste the contents of the files found here: [ISP Entitlements](https://github.com/alexa/skill-sample-nodejs-fract-in-skill-purchases/isps.samples/entitlement).
 
-	Fill out the details for the *science_pack.json* and *space_pack.json* files.  You will need to update with content about your science and space products including icons for each.
+	After updating *history.pack.json*, Fill out the details for the *science_pack.json* and *space_pack.json* files.  You will need to update with content about your science and space products including icons for each.
 
 	**IMPORTANT: Don't change the *referenceName* in your files, as our codebase is relying on those to be consistent.**
 
-	Once you are happy with your pricing, descriptions, and the other metadata for your three entitlements, you can also go back and review the content for your subscription.
+	Once you are happy with your pricing, descriptions, and the other metadata for your three entitlements, you should update the same fields plus the subscriptionPaymentFrequency for your subscription.  Alternatively you can copy and paste the contents of [All Access ISP subscription sample](https://github.com/alexa/skill-sample-nodejs-fract-in-skill-purchases/isps.samples/subscription/all_access.json) into your *all_access.json* file.
 
 11. **Review and edit** the subscription file.
 
@@ -184,7 +187,7 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 	$ cd ../..
 	```
 
-2. **Deploy** the skill and the lambda function in one step by running the following command:
+2. **Deploy** the skill and the Lambda function in one step by running the following command:
 
 	```bash
 	$ ask deploy
@@ -194,13 +197,15 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 
 ### Testing
 
-1. To test, you need to login to [Alexa Developer Console](http://developer.amazon.com), and **enable the "Test" switch on your skill from the "Test" Tab**.
+1. To test, login to [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask), click on the **Premium Facts Sample** entry in your skill list, and click on the "Test" tab.  The "Test" switch on your skill should have been automatically enabled.  If it was not, enable it now.
 
 2. Your skill can now be tested on devices associated with your developer account, as well as the Test tab in the Developer Portal. To start using your skill, just type or say:
 
 	```text
-	Alexa, open premium facts live
+	Alexa, open premium facts sample
 	```
+
+**Note: The developer account associated with the skill is never charged for in-skill products.**  For more details about testing skills with in-skill products, please refer to the [In-Skill Purchase Testing Guide](https://developer.amazon.com/docs/in-skill-purchase/isp-test-guide.html)
 
 
 

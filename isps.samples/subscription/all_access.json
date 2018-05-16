@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "type": "SUBSCRIPTION",
+  "referenceName": "all_access",
+  "subscriptionInformation": {
+    "subscriptionPaymentFrequency": "MONTHLY",
+    "subscriptionTrialPeriodDays": 0
+  },
+  "publishingInformation": {
+    "locales": {
+      "en-US": {
+        "name": "All Access",
+        "summary": "TODO: Describe why this is a valuable product.",
+        "description": "TODO: Produce Description",
+        "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isp.samples/a_purple_small.png",
+        "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isp.samples/a_purple_large.png",
+        "examplePhrases": [
+          "TODO: Sample Utterance for how users will buy or invoke this product.  E.g. buy product name Or play product name"
+        ],
+        "keywords": [
+          "TODO: Keyword1",
+          "TODO: Keyword2"
+        ],
+        "customProductPrompts": {
+          "purchasePromptDescription": "TODO: Text that differs from summary. This could be read in sequence with summary.>",
+          "boughtCardDescription": "TODO: Text to diplsay in app card when customer has purhcased this product.>"
+        }
+      }
+    },
+    "distributionCountries": [
+      "US"
+    ],
+    "pricing": {
+      "amazon.com": {
+        "releaseDate": "2018-05-01T00:00Z",
+        "defaultPriceListing": {
+          "price": 0.99,
+          "currency": "USD"
+        }
+      }
+    },
+    "taxInformation": {
+      "category": "SOFTWARE"
+    }
+  },
+  "privacyAndCompliance": {
+    "locales": {
+      "en-US": {
+        "privacyPolicyUrl": "https://localhost/pricacy.html"
+      }
+    }
+  },
+  "testingInstructions": "<TESTING INSTRUCTIONS FOR THE CERTIFICATION TEAM SO THEY KNOW HOW TO PURCHASE AND USE THIS PRODUCT>",
+  "purchasableState": "PURCHASABLE"
+}

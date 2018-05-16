@@ -5,11 +5,11 @@
         "en-US": {
           "summary": "Sample Short Description",
           "examplePhrases": [
-            "Alexa open hello world",
-            "Alexa tell hello world I am Jeff",
-            "Alexa tell hello world my name is Peter"
+            "Alexa open Premium Facts Sample",
+            "tell me a science fact",
+            "buy an all access subscription"
           ],
-          "name": "Thanos",
+          "name": "Facts Sample w/In Skill Purchasing",
           "description": "Sample Full Description"
         }
       },
