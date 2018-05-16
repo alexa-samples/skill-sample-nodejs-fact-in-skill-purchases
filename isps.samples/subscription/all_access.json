@@ -12,8 +12,8 @@
         "name": "All Access",
         "summary": "TODO: Describe why this is a valuable product.",
         "description": "TODO: Produce Description",
-        "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isp.samples/a_purple_small.png",
-        "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isp.samples/a_purple_large.png",
+        "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/a_purple_small.png",
+        "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/a_purple_large.png",
         "examplePhrases": [
           "TODO: Sample Utterance for how users will buy or invoke this product.  E.g. buy product name Or play product name"
         ],

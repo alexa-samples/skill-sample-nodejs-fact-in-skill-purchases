@@ -422,12 +422,12 @@ const BuyResponseHandler = {
     return ms.getInSkillProducts(locale).then(function handlePurchaseResponse(result) {
       const product = result.inSkillProducts.filter(record => record.productId === productId);
       console.log(`PRODUCT = ${JSON.stringify(product)}`);
-      if (handlerInput.requestEnvelope.request.status.code === 200) {
+      if (handlerInput.requestEnvelope.request.status.code === '200') {
         if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'ACCEPTED') {
           let categoryFacts = ALL_FACTS;
           if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
 
-          const speakResponse = `You have unlocked the ${product[0].Name}.  Here is your ${product[0].referenceName.replace('_pack', '').replace('all_access', '')} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+          const speakResponse = `You have unlocked the ${product[0].name}.  Here is your ${product[0].referenceName.replace('_pack', '').replace('all_access', '')} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
           const repromptResponse = getRandomYesNoQuestion();
           return handlerInput.responseBuilder
             .speak(speakResponse)
@@ -469,7 +469,7 @@ const CancelResponseHandler = {
     return ms.getInSkillProducts(locale).then(function handleCancelResponse(result) {
       const product = result.inSkillProducts.filter(record => record.productId === productId);
       console.log(`PRODUCT = ${JSON.stringify(product)}`);
-      if (handlerInput.requestEnvelope.request.status.code === 200) {
+      if (handlerInput.requestEnvelope.request.status.code === '200') {
         if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'ACCEPTED') {
           const speakResponse = `You have successfully cancelled your subscription. ${getRandomYesNoQuestion()}`;
           const repromptResponse = getRandomYesNoQuestion();
@@ -506,7 +506,7 @@ const UpsellResponseHandler = {
   handle(handlerInput) {
     console.log('IN UPSELLRESPONSEHANDLER');
 
-    if (handlerInput.requestEnvelope.request.status.code === 200) {
+    if (handlerInput.requestEnvelope.request.status.code === '200') {
       if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'DECLINED') {
         const speakResponse = `OK.  Here's a random fact: ${getRandomFact(ALL_FACTS)} Would you like another random fact?`;
         const repromptResponse = 'Would you like another random fact?';

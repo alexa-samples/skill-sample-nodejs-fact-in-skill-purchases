@@ -14,6 +14,11 @@ $ npm update -g ask-cli
 ```
 
 ### Installation
+
+> _Note: if you have git installed, you can clone this repo and skip this section._
+
+> _Note: if you don't have git installed and want to skip this section, download the repo as a zip from [here](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/archive/master.zip)._
+
 1. **Create** a new skill using the CLI.
 
 	```bash
@@ -82,18 +87,17 @@ $ npm update -g ask-cli
 	```bash
 	$ npm update
 	```
-
-### Creating In-Skill Products
-
-There are ASK CLI commands for creating your in-skill purchases.  This guide will walk you through creating three different one-time purchases (entitlements), as well as a subscription.  Our sample code is expecting these to be created as described, so make sure to follow along carefully.
-
 1. **Navigate** back to the root project directory.
 
 	```bash
 	$ cd ../..
 	```
 
-2. **Create** your first in-skill product.
+### Creating In-Skill Products
+
+There are ASK CLI commands for creating your in-skill purchases.  This guide will walk you through creating three different one-time purchases (entitlements), as well as a subscription.  Our sample code is expecting these to be created as described, so make sure to follow along carefully.
+
+1. **Create** your first in-skill product.  You should be in the project's root directory.
 
 	```bash
 	$ ask add isp
@@ -166,7 +170,7 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 
 	After updating *history.pack.json*, Fill out the details for the *science_pack.json* and *space_pack.json* files.  You will need to update with content about your science and space products including icons for each.
 
-	**IMPORTANT: Don't change the *referenceName* in your files, as our codebase is relying on those to be consistent.**
+	> **IMPORTANT: Don't change the *referenceName* in your files, as our codebase is relying on those to be consistent.**
 
 	Once you are happy with your pricing, descriptions, and the other metadata for your three entitlements, you should update the same fields plus the subscriptionPaymentFrequency for your subscription.  Alternatively you can copy and paste the contents of [All Access ISP subscription sample](https://github.com/alexa/skill-sample-nodejs-fract-in-skill-purchases/isps.samples/subscription/all_access.json) into your *all_access.json* file.
 
@@ -178,6 +182,8 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 	```
 
 	Now that you have customized your in-skill products, you can deploy your skill using the ASK CLI, and start testing it.
+
+	> _Note: be sure to review the output to confirm there were no errors._
 
 ### Deployment
 
