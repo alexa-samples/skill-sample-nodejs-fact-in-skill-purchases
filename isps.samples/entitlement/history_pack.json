@@ -6,20 +6,19 @@
     "locales": {
       "en-US": {
         "name": "History Pack",
-        "summary": "TODO: Describe why this is a valuable product.",
-        "description": "TODO: Product Description",
+        "summary": "The history pack is a great addition because you will hear facts about history.",
+        "description": "The history pack expands the set of facts shared with you to include facts about history.",
         "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/h_blue_small.png",
         "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/h_blue_large.png",
         "examplePhrases": [
-          "TODO: Sample Utterance for how users will buy or invoke this product.  E.g. buy product name Or play product name"
+          "buy history pack"
         ],
         "keywords": [
-          "TODO: Keyword1",
-          "TODO: Keyword2"
+          "history"
         ],
         "customProductPrompts": {
-          "purchasePromptDescription": "TODO: Text that differs from summary. This could be read in sequence with summary.>",
-          "boughtCardDescription": "TODO: Text to diplsay in app card when customer has purhcased this product.>"
+          "purchasePromptDescription": "The history pack adds over 10 history facts into the set of facts randomly chosen to be shared with you.",
+          "boughtCardDescription": "Thanks for purchasing the history pack.  You now have access to history facts!"
         }
       }
     },
@@ -42,7 +41,7 @@
   "privacyAndCompliance": {
     "locales": {
       "en-US": {
-        "privacyPolicyUrl": "https://www.nowhere.com/pricacy.html"
+        "privacyPolicyUrl": "https://localhost/pricacy.html"
       }
     }
   },

@@ -6,20 +6,19 @@
     "locales": {
       "en-US": {
         "name": "Science Pack",
-        "summary": "TODO: Describe why this is a valuable product.",
-        "description": "TODO: Produce Description",
+        "summary": "The science pack is a great addition because you will hear facts about science.",
+        "description": "The science pack expands the set of facts shared with you to include facts about science.",
         "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/s_blue_small.png",
         "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/s_blue_large.png",
         "examplePhrases": [
-          "TODO: Sample Utterance for how users will buy or invoke this product.  E.g. buy product name Or play product name"
+          "buy science pack"
         ],
         "keywords": [
-          "TODO: Keyword1",
-          "TODO: Keyword2"
+          "science"
         ],
         "customProductPrompts": {
-          "purchasePromptDescription": "TODO: Text that differs from summary. This could be read in sequence with summary.>",
-          "boughtCardDescription": "TODO: Text to diplsay in app card when customer has purhcased this product.>"
+          "purchasePromptDescription": "The science pack adds over 10 science facts into the set of facts randomly chosen to be shared with you.",
+          "boughtCardDescription": "Thanks for purchasing the science pack.  You now have access to science facts!"
         }
       }
     },
@@ -42,7 +41,7 @@
   "privacyAndCompliance": {
     "locales": {
       "en-US": {
-        "privacyPolicyUrl": "https://www.nowhere.com/pricacy.html"
+        "privacyPolicyUrl": "https://localhost/pricacy.html"
       }
     }
   },

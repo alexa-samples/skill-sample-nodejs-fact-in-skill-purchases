@@ -10,20 +10,19 @@
     "locales": {
       "en-US": {
         "name": "All Access",
-        "summary": "TODO: Describe why this is a valuable product.",
-        "description": "TODO: Produce Description",
+        "summary": "All Access is a great addition because you will hear facts about history, science and space, plus any future categories added.",
+        "description": "All Access expands the set of facts shared with you to include facts about history, science and space.",
         "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/a_purple_small.png",
         "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/a_purple_large.png",
         "examplePhrases": [
-          "TODO: Sample Utterance for how users will buy or invoke this product.  E.g. buy product name Or play product name"
+          "Buy All Access"
         ],
         "keywords": [
-          "TODO: Keyword1",
-          "TODO: Keyword2"
+          "All Access"
         ],
         "customProductPrompts": {
-          "purchasePromptDescription": "TODO: Text that differs from summary. This could be read in sequence with summary.>",
-          "boughtCardDescription": "TODO: Text to diplsay in app card when customer has purhcased this product.>"
+          "purchasePromptDescription": "The All Access pass adds over 30 history, science and space facts into the set of facts randomly chosen to be shared with you.",
+          "boughtCardDescription": "Thanks for purchasing the All Access pass!  You now have access to history, science and space facts!"
         }
       }
     },
