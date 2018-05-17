@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "type": "ENTITLEMENT",
+  "referenceName": "history_pack",
+  "publishingInformation": {
+    "locales": {
+      "en-US": {
+        "name": "History Pack",
+        "summary": "The history pack is a great addition because you will hear facts about history.",
+        "description": "The history pack expands the set of facts shared with you to include facts about history.",
+        "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/h_blue_small.png",
+        "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/h_blue_large.png",
+        "examplePhrases": [
+          "buy history pack"
+        ],
+        "keywords": [
+          "history"
+        ],
+        "customProductPrompts": {
+          "purchasePromptDescription": "The history pack adds over 10 history facts into the set of facts randomly chosen to be shared with you.",
+          "boughtCardDescription": "Thanks for purchasing the history pack.  You now have access to history facts!"
+        }
+      }
+    },
+    "distributionCountries": [
+      "US"
+    ],
+    "pricing": {
+      "amazon.com": {
+        "releaseDate": "2018-05-09T00:00Z",
+        "defaultPriceListing": {
+          "price": 0.99,
+          "currency": "USD"
+        }
+      }
+    },
+    "taxInformation": {
+      "category": "SOFTWARE"
+    }
+  },
+  "privacyAndCompliance": {
+    "locales": {
+      "en-US": {
+        "privacyPolicyUrl": "https://localhost/pricacy.html"
+      }
+    }
+  },
+  "testingInstructions": "<TESTING INSTRUCTIONS FOR THE CERTIFICATION TEAM SO THEY KNOW HOW TO PURCHASE AND USE THIS PRODUCT>",
+  "purchasableState": "PURCHASABLE"
+}

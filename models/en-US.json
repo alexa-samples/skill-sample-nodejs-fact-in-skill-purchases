@@ -1,7 +1,7 @@
 {
     "interactionModel": {
       "languageModel": {
-        "invocationName": "premium facts live",
+        "invocationName": "premium facts sample",
         "intents": [
           {
             "name": "AMAZON.CancelIntent",
@@ -213,7 +213,7 @@
           "variations": [
             {
               "type": "PlainText",
-              "value": "Would you like a nature, science, space or history fact?"
+              "value": "Would you like a science, space or history fact?"
             }
           ]
         },

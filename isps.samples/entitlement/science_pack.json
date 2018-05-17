@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "type": "ENTITLEMENT",
+  "referenceName": "science_pack",
+  "publishingInformation": {
+    "locales": {
+      "en-US": {
+        "name": "Science Pack",
+        "summary": "The science pack is a great addition because you will hear facts about science.",
+        "description": "The science pack expands the set of facts shared with you to include facts about science.",
+        "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/s_blue_small.png",
+        "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/s_blue_large.png",
+        "examplePhrases": [
+          "buy science pack"
+        ],
+        "keywords": [
+          "science"
+        ],
+        "customProductPrompts": {
+          "purchasePromptDescription": "The science pack adds over 10 science facts into the set of facts randomly chosen to be shared with you.",
+          "boughtCardDescription": "Thanks for purchasing the science pack.  You now have access to science facts!"
+        }
+      }
+    },
+    "distributionCountries": [
+      "US"
+    ],
+    "pricing": {
+      "amazon.com": {
+        "releaseDate": "2018-05-09T00:00Z",
+        "defaultPriceListing": {
+          "price": 0.99,
+          "currency": "USD"
+        }
+      }
+    },
+    "taxInformation": {
+      "category": "SOFTWARE"
+    }
+  },
+  "privacyAndCompliance": {
+    "locales": {
+      "en-US": {
+        "privacyPolicyUrl": "https://localhost/pricacy.html"
+      }
+    }
+  },
+  "testingInstructions": "<TESTING INSTRUCTIONS FOR THE CERTIFICATION TEAM SO THEY KNOW HOW TO PURCHASE AND USE THIS PRODUCT>",
+  "purchasableState": "PURCHASABLE"
+}
