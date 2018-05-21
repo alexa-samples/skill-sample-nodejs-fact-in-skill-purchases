@@ -8,8 +8,8 @@
         "name": "Science Pack",
         "summary": "The science pack is a great addition because you will hear facts about science.",
         "description": "The science pack expands the set of facts shared with you to include facts about science.",
-        "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/s_blue_small.png",
-        "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/s_blue_large.png",
+        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
+        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
         "examplePhrases": [
           "buy science pack"
         ],

@@ -12,8 +12,8 @@
         "name": "All Access",
         "summary": "All Access is a great addition because you will hear facts about history, science and space, plus any future categories added.",
         "description": "All Access expands the set of facts shared with you to include facts about history, science and space.",
-        "smallIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/a_purple_small.png",
-        "largeIconUri": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/isps.samples/a_purple_large.png",
+        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/a_purple_small.png",
+        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/a_purple_large.png",
         "examplePhrases": [
           "Buy All Access"
         ],
