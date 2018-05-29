@@ -66,21 +66,21 @@ $ npm update -g ask-cli
 	$ cd ..
 	```
 
-9. **Replace** the contents of *package.json*  with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/package.json), and save it.
-
-10. **Navigate** to the custom folder under the lambda folder.
+9. **Navigate** to the custom folder under the lambda folder.
 
 	```bash
 	$ cd lambda/custom
 	```
 
-11. **Open** the AWS Lambda function code file, index.js.
+10. **Open** the AWS Lambda function code file, index.js.
 
 	```bash
 	$ open index.js
 	```
 
-12. **Replace** the contents of *index.js* with the contents of [this JS file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/index.js), and save it.
+11. **Replace** the contents of *index.js* with the contents of [this JS file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/index.js), and save it.
+
+12. **Replace** the contents of *package.json*  with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/package.json), and save it.
 
 13. **Update** the Alexa SDK and the other npm dependencies.
 
