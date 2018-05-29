@@ -68,10 +68,10 @@ $ npm update -g ask-cli
 
 9. **Replace** the contents of *package.json*  with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/package.json), and save it.
 
-10. **Navigate** to the lambda folder.
+10. **Navigate** to the custom folder under the lambda folder.
 
 	```bash
-	$ cd ../lambda/custom
+	$ cd lambda/custom
 	```
 
 11. **Open** the AWS Lambda function code file, index.js.
