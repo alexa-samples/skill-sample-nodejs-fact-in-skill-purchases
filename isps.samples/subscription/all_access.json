@@ -45,7 +45,7 @@
   "privacyAndCompliance": {
     "locales": {
       "en-US": {
-        "privacyPolicyUrl": "https://localhost/pricacy.html"
+        "privacyPolicyUrl": "https://localhost/privacy.html"
       }
     }
   },
