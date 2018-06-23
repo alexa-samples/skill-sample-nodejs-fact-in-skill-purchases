@@ -82,7 +82,7 @@ $ npm update -g ask-cli
 
 12. **Replace** the contents of *package.json*  with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/package.json), and save it.
 
-13. **Update** the Alexa SDK and the other npm dependencies.
+13. While still in the lambda/custom folder, **update** the ASK SDK and the other npm dependencies by running `npm update`.
 
 	```bash
 	$ npm update
