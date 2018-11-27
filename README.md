@@ -4,6 +4,8 @@
 ## Setup the ASK CLI
 There are several aspects of developing an Alexa skill with in-skill purchases that require the use of the Alexa Skills Kit Command Line Interface (ASK CLI), so this entire walkthrough will require you to have installed and configured the ASK CLI.  If you haven't done this before, here are the resources you need to get the ASK CLI installed on your machine:
 
+> Note: If you would like to setup the ASK CLI using AWS Cloud9, step-by-step instructions can be found [here](https://github.com/alexa/alexa-cookbook/blob/master/guides/cli/cli-cloud9.md).
+
 * [Quick Start Guide for Installing the ASK CLI](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html)
 * [ASK CLI Command Reference](https://developer.amazon.com/docs/smapi/ask-cli-command-reference.html)
 
