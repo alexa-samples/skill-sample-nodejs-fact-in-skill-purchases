@@ -6,8 +6,7 @@
           "summary": "Sample Short Description",
           "examplePhrases": [
             "Alexa open Premium Facts Sample",
-            "tell me a science fact",
-            "buy an all access subscription"
+            "tell me a science fact"
           ],
           "name": "Facts Sample w/In Skill Purchasing",
           "description": "Sample Full Description"
