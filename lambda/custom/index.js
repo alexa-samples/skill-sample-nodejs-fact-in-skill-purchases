@@ -142,6 +142,23 @@ const GetFactHandler = {
   },
 };
 
+const HelpHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === 'IntentRequest'
+      && request.intent.name === 'AMAZON.HelpIntent';
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak('To hear a random fact, you could say, \'Tell me a fact\' or you can ask' +
+      ' for a specific category you have purchased, for example, say \'Tell me a science fact\'. ' +
+      ' To know what else you can buy, say, \'What can i buy?\'. So, what can I help you' +
+      ' with?')
+      .reprompt('I didn\'t catch that. What can I help you with?')
+      .getResponse();
+  },
+};
+
 // IF THE USER SAYS YES, THEY WANT ANOTHER FACT.
 const YesHandler = {
   canHandle(handlerInput) {
@@ -630,6 +647,7 @@ exports.handler = Alexa.SkillBuilders.standard()
     BuyHandler,
     CancelSubscriptionHandler,
     SessionEndedHandler,
+    HelpHandler,
   )
   .addRequestInterceptors(RequestLog)
   .addResponseInterceptors(ResponseLog)
