@@ -1,232 +1,251 @@
 {
-    "interactionModel": {
-      "languageModel": {
-        "invocationName": "premium facts sample",
-        "intents": [
-          {
-            "name": "AMAZON.CancelIntent",
-            "samples": []
-          },
-          {
-            "name": "AMAZON.HelpIntent",
-            "samples": []
-          },
-          {
-            "name": "AMAZON.StopIntent",
-            "samples": []
-          },
-          {
-            "name": "AMAZON.YesIntent",
-            "samples": []
-          },
-          {
-            "name": "AMAZON.NoIntent",
-            "samples": []
-          },
-          {
-            "name": "GetFactIntent",
-            "samples": [
-              "read fact",
-              "read a fact",
-              "Tell me a fact",
-              "Give me a fact"
-            ]
-          },
-          {
-            "name": "GetCategoryFactIntent",
-            "slots": [
-              {
-                "name": "factCategory",
-                "type": "factType",
-                "samples": [
-                  "{factCategory} fact",
-                  "{factCategory}"
-                ]
-              }
-            ],
-            "samples": [
-              "I want a {factCategory} fact",
-              "{factCategory} fact",
-              "Tell me a {factCategory} fact",
-              "Get me a {factCategory} fact"
-            ]
-          },
-          {
-            "name": "ShoppingIntent",
-            "samples": [
-              "I want to purchase",
-              "I want to buy",
-              "what could i buy",
-              "can i buy something",
-              "i want to buy something",
-              "what is available to buy",
-              "what can i buy"
-            ]
-          },
-          {
-            "name": "BuyIntent",
-            "slots": [
-              {
-                "name": "productCategory",
-                "type": "factType"
-              }
-            ],
-            "samples": [
-              "subscribe for all access",
-              "subscribe for all access pack",
-              "subscribe to all access",
-              "buy all access",
-              "subscribe all access pack",
-              "subscribe to all access pack",
-              "buy all access subscription",
-              "I want to buy all access subscription",
-              "i want to buy all access pack",
-              "let's buy {productCategory} pack",
-              "how do i buy {productCategory} pack",
-              "Can I buy {productCategory} pack",
-              "purchase {productCategory} pack ",
-              "buy {productCategory} pack",
-              "I want to buy {productCategory} pack"
-            ]
-          },
-          {
-            "name": "CancelSubscriptionIntent",
-            "slots": [
-              {
-                "name": "productCategory",
-                "type": "factType"
-              }
-            ],
-            "samples": [
-              "cancel {productCategory} fact",
-              "cancel all access",
-              "cancel subscription",
-              "cancel all access subscription",
-              "Cancel all access pack",
-              "Cancel {productCategory} pack"
-            ]
-          },
-          {
-            "name": "UpsellIntent",
-            "slots": [
-              {
-                "name": "productCategory",
-                "type": "factType"
-              }
-            ],
-            "samples": [
-              "upsell subscription",
-              "upsell {productCategory} pack",
-              "upsell me to {productCategory} pack"
-            ]
-          },
-          {
-            "name": "ProductDetailIntent",
-            "slots": [
-              {
-                "name": "productCategory",
-                "type": "factType",
-                "samples": [
-                  "{productCategory} pack",
-                  "Tell me about a {productCategory} pack",
-                  "Tell me about the {productCategory} pack",
-                  "Tell me about {productCategory} pack"
-                ]
-              }
-            ],
-            "samples": [
-              "tell me more about {productCategory} pack",
-              "tell me more about the {productCategory} pack",
-              "tell me more about {productCategory} product",
-              "tell me about product",
-              "tell me about a product",
-              "tell me about {productCategory} product",
-              "Tell me about {productCategory} pack"
-            ]
-          }
-        ],
-        "types": [
-          {
-            "values": [
-              {
-                "name": {
-                  "value": "random"
-                }
-              },
-              {
-                "name": {
-                  "value": "space"
-                }
-              },
-              {
-                "name": {
-                  "value": "history"
-                }
-              },
-              {
-                "name": {
-                  "value": "science"
-                }
-              }
-            ],
-            "name": "factType"
-          }
-        ]
-      },
-      "dialog": {
-        "intents": [
-          {
-            "name": "GetCategoryFactIntent",
-            "confirmationRequired": false,
-            "slots": [
-              {
-                "name": "factCategory",
-                "type": "factType",
-                "elicitationRequired": true,
-                "confirmationRequired": false,
-                "prompts": {
-                  "elicitation": "Elicit.Slot.339715283752.1159186034704"
-                }
-              }
-            ]
-          },
-          {
-            "name": "ProductDetailIntent",
-            "confirmationRequired": false,
-            "slots": [
-              {
-                "name": "productCategory",
-                "type": "factType",
-                "elicitationRequired": true,
-                "confirmationRequired": false,
-                "prompts": {
-                  "elicitation": "Elicit.Slot.592643468739.613787488648"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "prompts": [
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "premium facts sample",
+      "intents": [
         {
-          "id": "Elicit.Slot.339715283752.1159186034704",
-          "variations": [
-            {
-              "type": "PlainText",
-              "value": "Would you like a science, space or history fact?"
-            }
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "GetRandomFactIntent",
+          "slots": [],
+          "samples": [
+            "I want a fact",
+            "Get me a fact",
+            "read fact",
+            "read a fact",
+            "Tell me a fact",
+            "Give me a fact"
           ]
         },
         {
-          "id": "Elicit.Slot.592643468739.613787488648",
-          "variations": [
+          "name": "GetCategoryFactIntent",
+          "slots": [
             {
-              "type": "PlainText",
-              "value": "Tell me the name of the product you would like to learn more about. For example, you could say, 'Tell me about the science pack'"
+              "name": "factCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "{factCategory}",
+            "I want a {factCategory} fact",
+            "{factCategory} fact",
+            "Tell me a {factCategory} fact",
+            "Get me a {factCategory} fact",
+            "read {factCategory} fact",
+            "read a {factCategory} fact",
+            "Give me a {factCategory} fact"
+          ]
+        },
+        {
+          "name": "ShoppingIntent",
+          "slots": [],
+          "samples": [
+            "I want to purchase",
+            "I want to buy",
+            "what could i buy",
+            "can i buy something",
+            "i want to buy something",
+            "what is available to buy",
+            "what can i buy"
+          ]
+        },
+        {
+          "name": "BuyIntent",
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "subscribe for {productCategory}",
+            "subscribe for {productCategory} pack",
+            "subscribe to {productCategory}",
+            "buy {productCategory}",
+            "subscribe {productCategory} pack",
+            "subscribe to {productCategory} pack",
+            "buy {productCategory} subscription",
+            "I want to buy {productCategory} subscription",
+            "i want to buy {productCategory} pack",
+            "let's buy {productCategory} pack",
+            "how do i buy {productCategory} pack",
+            "Can I buy {productCategory} pack",
+            "purchase {productCategory} pack ",
+            "buy {productCategory} pack",
+            "I want to buy {productCategory} pack"
+          ]
+        },
+        {
+          "name": "CancelSubscriptionIntent",
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "cancel {productCategory} fact",
+            "cancel {productCategory}",
+            "cancel subscription",
+            "cancel {productCategory} subscription",
+            "cancel {productCategory} pack"
+          ]
+        },
+        {
+          "name": "UpsellIntent",
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "upsell subscription",
+            "upsell {productCategory} pack",
+            "upsell me to {productCategory} pack"
+          ]
+        },
+        {
+          "name": "ProductDetailIntent",
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType",
+              "samples": [
+                "{productCategory} pack",
+                "Tell me about a {productCategory} pack",
+                "Tell me about the {productCategory} pack",
+                "Tell me about {productCategory} pack"
+              ]
+            }
+          ],
+          "samples": [
+            "tell me more about {productCategory} pack",
+            "tell me more about the {productCategory} pack",
+            "tell me more about {productCategory} product",
+            "tell me about product",
+            "tell me about a product",
+            "tell me about {productCategory} product",
+            "Tell me about {productCategory} pack"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "factType",
+          "values": [
+            {
+              "name": {
+                "value": "random"
+              }
+            },
+            {
+              "name": {
+                "value": "free"
+              }
+            },
+            {
+              "name": {
+                "value": "all_access",
+                "synonyms": [
+                  "all access"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "space"
+              }
+            },
+            {
+              "name": {
+                "value": "history"
+              }
+            },
+            {
+              "name": {
+                "value": "science"
+              }
             }
           ]
         }
       ]
-    }
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "GetCategoryFactIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "factCategory",
+              "type": "factType",
+              "confirmationRequired": false,
+              "elicitationRequired": false,
+              "prompts": {}
+            }
+          ]
+        },
+        {
+          "name": "ProductDetailIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.592643468739.613787488648"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.339715283752.1159186034704",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Would you like a science, space or history fact?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.592643468739.613787488648",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Tell me the name of the product you would like to learn more about. For example, you could say, 'Tell me about the science pack'"
+          }
+        ]
+      }
+    ]
   }
-  
+}

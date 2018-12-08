@@ -10,6 +10,10 @@ const Alexa = require('ask-sdk');
     the free and premium content served by the Skill
 */
 const ALL_FACTS = [
+  { type: 'free', fact: 'There are 365 days in a year, except leap years, which have 366 days.' },
+  { type: 'free', fact: 'What goes up, must come down.  Except when it doesn\'t.' },
+  { type: 'free', fact: 'Two wrongs don\'t make a right, but three lefts do.' },
+  { type: 'free', fact: 'There are 24 hours in a day.' },
   { type: 'science', fact: 'There is enough DNA in an average person\'s body to stretch from the sun to Pluto and back — 17 times.' },
   { type: 'science', fact: 'The average human body carries ten times more bacterial cells than human cells.' },
   { type: 'science', fact: 'It can take a photon 40,000 years to travel from the core of the sun to its surface, but only 8 minutes to travel the rest of the way to Earth.' },
@@ -50,6 +54,7 @@ const skillName = 'Premium Facts Sample';
 */
 function getAllEntitledProducts(inSkillProductList) {
   const entitledProductList = inSkillProductList.filter(record => record.entitled === 'ENTITLED');
+  console.log(`Currently entitled products: ${JSON.stringify(entitledProductList)}`);
   return entitledProductList;
 }
 
@@ -68,6 +73,24 @@ function getRandomGoodbye() {
   return goodbyes[Math.floor(Math.random() * goodbyes.length)];
 }
 
+function getFilteredFacts(factsToFilter, handlerInput) {
+  // lookup entitled products, and filter accordingly
+  const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+  const entitledProducts = sessionAttributes.entitledProducts;
+  let factTypesToInclude;
+  if (entitledProducts) {
+    factTypesToInclude = entitledProducts.map(item => item.name.toLowerCase().replace(' pack', ''));
+    factTypesToInclude.push('free');
+  } else {
+    // no entitled products, so just give free ones
+    factTypesToInclude = ['free'];
+  }
+  console.log(`types to include: ${factTypesToInclude}`);
+  const filteredFacts = factsToFilter
+    .filter(record => factTypesToInclude.indexOf(record.type) >= 0);
+
+  return filteredFacts;
+}
 /*
     Helper function that returns a speakable list of product names from a list of
     entitled products.
@@ -86,61 +109,32 @@ const LaunchRequestHandler = {
   handle(handlerInput) {
     console.log('IN LAUNCHREQUEST');
 
-    const locale = handlerInput.requestEnvelope.request.locale;
-    const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+    // entitled products are obtained by request interceptor and stored in the session attributes
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    const entitledProducts = sessionAttributes.entitledProducts;
 
-    return ms.getInSkillProducts(locale).then(
-      function reportPurchasedProducts(result) {
-        const entitledProducts = getAllEntitledProducts(result.inSkillProducts);
-        if (entitledProducts && entitledProducts.length > 0) {
-          // Customer owns one or more products
+    if (entitledProducts && entitledProducts.length > 0) {
+      // Customer owns one or more products
+      return handlerInput.responseBuilder
+        .speak(`Welcome to ${skillName}. You currently own ${getSpeakableListOfProducts(entitledProducts)}` +
+          ' products. To hear a random fact, you could say, \'Tell me a fact\' or you can ask' +
+          ' for a specific category you have purchased, for example, say \'Tell me a science fact\'. ' +
+          ' To know what else you can buy, say, \'What can i buy?\'. So, what can I help you' +
+          ' with?')
+        .reprompt('I didn\'t catch that. What can I help you with?')
+        .getResponse();
+    }
 
-          return handlerInput.responseBuilder
-            .speak(`Welcome to ${skillName}. You currently own ${getSpeakableListOfProducts(entitledProducts)}` +
-              ' products. To hear a random fact, you could say, \'Tell me a fact\' or you can ask' +
-              ' for a specific category you have purchased, for example, say \'Tell me a science fact\'. ' +
-              ' To know what else you can buy, say, \'What can i buy?\'. So, what can I help you' +
-              ' with?')
-            .reprompt('I didn\'t catch that. What can I help you with?')
-            .getResponse();
-        }
-
-        // Not entitled to anything yet.
-        console.log('No entitledProducts');
-        return handlerInput.responseBuilder
-          .speak(`Welcome to ${skillName}. To hear a random fact you can say 'Tell me a fact',` +
-            ' or to hear about the premium categories for purchase, say \'What can I buy\'. ' +
-            ' For help, say , \'Help me\'... So, What can I help you with?')
-          .reprompt('I didn\'t catch that. What can I help you with?')
-          .getResponse();
-      },
-      function reportPurchasedProductsError(err) {
-        console.log(`Error calling InSkillProducts API: ${err}`);
-
-        return handlerInput.responseBuilder
-          .speak('Something went wrong in loading your purchase history')
-          .getResponse();
-      },
-    );
-  },
-}; // End LaunchRequestHandler
-
-
-const GetFactHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
-      handlerInput.requestEnvelope.request.intent.name === 'GetFactIntent';
-  },
-  handle(handlerInput) {
-    console.log('In GetFactHandler');
-
-    const factText = getRandomFact(ALL_FACTS);
+    // Not entitled to anything yet.
+    console.log('No entitledProducts');
     return handlerInput.responseBuilder
-      .speak(`Here's your random fact: ${factText} ${getRandomYesNoQuestion()}`)
-      .reprompt(getRandomYesNoQuestion())
+      .speak(`Welcome to ${skillName}. To hear a random fact you can say 'Tell me a fact',` +
+        ' or to hear about the premium categories for purchase, say \'What can I buy\'. ' +
+        ' For help, say , \'Help me\'... So, What can I help you with?')
+      .reprompt('I didn\'t catch that. What can I help you with?')
       .getResponse();
   },
-};
+}; // End LaunchRequestHandler
 
 const HelpHandler = {
   canHandle(handlerInput) {
@@ -163,17 +157,21 @@ const HelpHandler = {
 const YesHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
-      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
+      (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent' ||
+       handlerInput.requestEnvelope.request.intent.name === 'GetRandomFactIntent');
   },
   handle(handlerInput) {
     console.log('In YesHandler');
 
-    const speakResponse = `Here's your random fact: ${getRandomFact(ALL_FACTS)} ${getRandomYesNoQuestion()}`;
-    const repromptResponse = getRandomYesNoQuestion();
+    // reduce fact list to those purchased
+    const filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
+
+    const speakOutput = `Here's your random fact: ${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
+    const repromptOutput = getRandomYesNoQuestion();
 
     return handlerInput.responseBuilder
-      .speak(speakResponse)
-      .reprompt(repromptResponse)
+      .speak(speakOutput)
+      .reprompt(repromptOutput)
       .getResponse();
   },
 };
@@ -187,13 +185,12 @@ const NoHandler = {
   handle(handlerInput) {
     console.log('IN NOHANDLER');
 
-    const speakResponse = getRandomGoodbye();
+    const speakOutput = getRandomGoodbye();
     return handlerInput.responseBuilder
-      .speak(speakResponse)
+      .speak(speakOutput)
       .getResponse();
   },
 };
-
 
 const GetCategoryFactHandler = {
   canHandle(handlerInput) {
@@ -212,49 +209,82 @@ const GetCategoryFactHandler = {
       const slotValue = getSpokenValue(handlerInput.requestEnvelope, 'factCategory');
       let speakPrefix = '';
       if (slotValue !== undefined) speakPrefix = `I heard you say ${slotValue}. `;
-      const speakResponse = `${speakPrefix} I don't have facts for that category.  You can ask for science, space, or history facts.  Which one would you like?`;
-      const repromptResponse = 'Which fact category would you like?  I have science, space, or history.';
+      const speakOutput = `${speakPrefix} I don't have facts for that category.  You can ask for science, space, or history facts.  Which one would you like?`;
+      const repromptOutput = 'Which fact category would you like?  I have science, space, or history.';
 
       return handlerInput.responseBuilder
-        .speak(speakResponse)
-        .reprompt(repromptResponse)
+        .speak(speakOutput)
+        .reprompt(repromptOutput)
         .getResponse();
     }
-    // IF THERE WAS AN ENTITY RESOLUTION MATCH FOR THIS SLOT VALUE
-    categoryFacts = ALL_FACTS.filter(record => record.type === factCategory);
-    const locale = handlerInput.requestEnvelope.request.locale;
-    const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
-    return ms.getInSkillProducts(locale).then(function checkForProductAccess(result) {
-      const subscription = result.inSkillProducts.filter(record => record.referenceName === 'all_access');
-      const categoryProduct = result.inSkillProducts.filter(record => record.referenceName === `${factCategory}_pack`);
+    // these are all used somewhere in the switch statement
+    let speakOutput;
+    let repromptOutput;
+    let filteredFacts;
+    let upsellMessage;
+    let locale;
+    let ms;
+    let subscription;
+    let categoryProduct;
 
-      // IF USER HAS ACCESS TO THIS PRODUCT
-      if (isEntitled(subscription) || isEntitled(categoryProduct)) {
-        const speakResponse = `Here's your ${factCategory} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
-        const repromptResponse = getRandomYesNoQuestion();
-
+    switch (factCategory) {
+      case 'free':
+        // don't need to buy 'free' category, so give what was asked
+        categoryFacts = ALL_FACTS.filter(record => record.type === factCategory);
+        speakOutput = `Here's your ${factCategory} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+        repromptOutput = getRandomYesNoQuestion();
         return handlerInput.responseBuilder
-          .speak(speakResponse)
-          .reprompt(repromptResponse)
+          .speak(speakOutput)
+          .reprompt(repromptOutput)
           .getResponse();
-      }
-      const upsellMessage = `You don't currently own the ${factCategory} pack. ${categoryProduct[0].summary} Want to learn more?`;
+      case 'random':
+      case 'all_access':
+        // choose from the available facts based on entitlements
+        filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
+        speakOutput = `Here's your random fact: ${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
+        repromptOutput = getRandomYesNoQuestion();
+        return handlerInput.responseBuilder
+          .speak(speakOutput)
+          .reprompt(repromptOutput)
+          .getResponse();
+      default:
+        // IF THERE WAS AN ENTITY RESOLUTION MATCH FOR THIS SLOT VALUE
+        categoryFacts = ALL_FACTS.filter(record => record.type === factCategory);
+        locale = handlerInput.requestEnvelope.request.locale;
+        ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
-      return handlerInput.responseBuilder
-        .addDirective({
-          type: 'Connections.SendRequest',
-          name: 'Upsell',
-          payload: {
-            InSkillProduct: {
-              productId: categoryProduct[0].productId,
-            },
-            upsellMessage,
-          },
-          token: 'correlationToken',
-        })
-        .getResponse();
-    });
+        return ms.getInSkillProducts(locale).then(function checkForProductAccess(result) {
+          subscription = result.inSkillProducts.filter(record => record.referenceName === 'all_access');
+          categoryProduct = result.inSkillProducts.filter(record => record.referenceName === `${factCategory}_pack`);
+
+          // IF USER HAS ACCESS TO THIS PRODUCT
+          if (isEntitled(subscription) || isEntitled(categoryProduct)) {
+            speakOutput = `Here's your ${factCategory} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+            repromptOutput = getRandomYesNoQuestion();
+
+            return handlerInput.responseBuilder
+              .speak(speakOutput)
+              .reprompt(repromptOutput)
+              .getResponse();
+          }
+          upsellMessage = `You don't currently own the ${factCategory} pack. ${categoryProduct[0].summary} Want to learn more?`;
+
+          return handlerInput.responseBuilder
+            .addDirective({
+              type: 'Connections.SendRequest',
+              name: 'Upsell',
+              payload: {
+                InSkillProduct: {
+                  productId: categoryProduct[0].productId,
+                },
+                upsellMessage,
+              },
+              token: 'correlationToken',
+            })
+            .getResponse();
+        });
+    }
   },
 };
 
@@ -270,7 +300,7 @@ const ShoppingHandler = {
   handle(handlerInput) {
     console.log('In Shopping Handler');
 
-    // Inform the user aboutwhat products are available for purchase
+    // Inform the user about what products are available for purchase
 
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -307,6 +337,14 @@ const ProductDetailHandler = {
 
     return ms.getInSkillProducts(locale).then(function fetchProductDetails(result) {
       let productCategory = getResolvedValue(handlerInput.requestEnvelope, 'productCategory');
+      const spokenCategory = getSpokenValue(handlerInput.requestEnvelope, 'productCategory');
+
+      // nothing spoken for the slot value
+      if (spokenCategory === undefined) {
+        return handlerInput.responseBuilder
+          .addDelegateDirective()
+          .getResponse();
+      }
 
       // NO ENTITY RESOLUTION MATCH
       if (productCategory === undefined) {
@@ -322,11 +360,11 @@ const ProductDetailHandler = {
         .filter(record => record.referenceName === productCategory);
 
       if (isProduct(product)) {
-        const speakResponse = `${product[0].summary}. To buy it, say Buy ${product[0].name}. `;
-        const repromptResponse = `I didn't catch that. To buy ${product[0].name}, say Buy ${product[0].name}. `;
+        const speakOutput = `${product[0].summary}. To buy it, say Buy ${product[0].name}. `;
+        const repromptOutput = `I didn't catch that. To buy ${product[0].name}, say Buy ${product[0].name}. `;
         return handlerInput.responseBuilder
-          .speak(speakResponse)
-          .reprompt(repromptResponse)
+          .speak(speakOutput)
+          .reprompt(repromptOutput)
           .getResponse();
       }
       return handlerInput.responseBuilder
@@ -423,11 +461,12 @@ const CancelSubscriptionHandler = {
   },
 };
 
-// THIS HANDLES THE CONNECTIONS.RESPONSE EVENT AFTER A BUY OCCURS.
+// THIS HANDLES THE CONNECTIONS.RESPONSE EVENT AFTER A BUY or UPSELL OCCURS.
 const BuyResponseHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'Connections.Response' &&
-      handlerInput.requestEnvelope.request.name === 'Buy';
+      (handlerInput.requestEnvelope.request.name === 'Buy' ||
+        handlerInput.requestEnvelope.request.name === 'Upsell');
   },
   handle(handlerInput) {
     console.log('IN BUYRESPONSEHANDLER');
@@ -440,25 +479,47 @@ const BuyResponseHandler = {
       const product = result.inSkillProducts.filter(record => record.productId === productId);
       console.log(`PRODUCT = ${JSON.stringify(product)}`);
       if (handlerInput.requestEnvelope.request.status.code === '200') {
-        if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'ACCEPTED') {
-          let categoryFacts = ALL_FACTS;
-          if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
+        let speakOutput;
+        let repromptOutput;
+        let filteredFacts;
+        let categoryFacts = ALL_FACTS;
+        switch (handlerInput.requestEnvelope.request.payload.purchaseResult) {
+          case 'ACCEPTED':
+            if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
 
-          const speakResponse = `You have unlocked the ${product[0].name}.  Here is your ${product[0].referenceName.replace('_pack', '').replace('all_access', '')} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
-          const repromptResponse = getRandomYesNoQuestion();
-          return handlerInput.responseBuilder
-            .speak(speakResponse)
-            .reprompt(repromptResponse)
-            .getResponse();
+            speakOutput = `You have unlocked the ${product[0].name}.  Here is your ${product[0].referenceName.replace('_pack', '').replace('all_access', '')} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+            repromptOutput = getRandomYesNoQuestion();
+            break;
+          case 'DECLINED':
+            if (handlerInput.requestEnvelope.request.name === 'Buy') {
+              // response when declined buy request
+              speakOutput = `Thanks for your interest in the ${product[0].name}.  Would you like another random fact?`;
+              repromptOutput = 'Would you like another random fact?';
+              break;
+            }
+            // response when declined upsell request
+            filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
+            speakOutput = `OK.  Here's a random fact: ${getRandomFact(filteredFacts)} Would you like another random fact?`;
+            repromptOutput = 'Would you like another random fact?';
+            break;
+          case 'ALREADY_PURCHASED':
+            // may have access to more than what was asked for, but give them a random
+            // fact from the product they asked to buy
+            if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
+
+            speakOutput = `Here is your ${product[0].referenceName.replace('_pack', '').replace('all_access', '')} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+            repromptOutput = getRandomYesNoQuestion();
+            break;
+          default:
+            console.log(`unhandled purchaseResult: ${handlerInput.requestEnvelope.payload.purchaseResult}`);
+            speakOutput = `Something unexpected happened, but thanks for your interest in the ${product[0].name}.  Would you like another random fact?`;
+            repromptOutput = 'Would you like another random fact?';
+            break;
         }
-        if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'DECLINED') {
-          const speakResponse = `Thanks for your interest in the ${product[0].name}.  Would you like another random fact?`;
-          const repromptResponse = 'Would you like another random fact?';
-          return handlerInput.responseBuilder
-            .speak(speakResponse)
-            .reprompt(repromptResponse)
-            .getResponse();
-        }
+        return handlerInput.responseBuilder
+          .speak(speakOutput)
+          .reprompt(repromptOutput)
+          .getResponse();
       }
       // Something failed.
       console.log(`Connections.Response indicated failure. error: ${handlerInput.requestEnvelope.request.status.message}`);
@@ -488,19 +549,19 @@ const CancelResponseHandler = {
       console.log(`PRODUCT = ${JSON.stringify(product)}`);
       if (handlerInput.requestEnvelope.request.status.code === '200') {
         if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'ACCEPTED') {
-          const speakResponse = `You have successfully cancelled your subscription. ${getRandomYesNoQuestion()}`;
-          const repromptResponse = getRandomYesNoQuestion();
+          const speakOutput = `You have successfully cancelled your subscription. ${getRandomYesNoQuestion()}`;
+          const repromptOutput = getRandomYesNoQuestion();
           return handlerInput.responseBuilder
-            .speak(speakResponse)
-            .reprompt(repromptResponse)
+            .speak(speakOutput)
+            .reprompt(repromptOutput)
             .getResponse();
         }
         if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'NOT_ENTITLED') {
-          const speakResponse = `You don't currently have a subscription to cancel. ${getRandomYesNoQuestion()}`;
-          const repromptResponse = getRandomYesNoQuestion();
+          const speakOutput = `You don't currently have a subscription to cancel. ${getRandomYesNoQuestion()}`;
+          const repromptOutput = getRandomYesNoQuestion();
           return handlerInput.responseBuilder
-            .speak(speakResponse)
-            .reprompt(repromptResponse)
+            .speak(speakOutput)
+            .reprompt(repromptOutput)
             .getResponse();
         }
       }
@@ -513,35 +574,6 @@ const CancelResponseHandler = {
     });
   },
 };
-
-// THIS HANDLES THE CONNECTIONS.RESPONSE EVENT AFTER A BUY OCCURS.
-const UpsellResponseHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'Connections.Response' &&
-      handlerInput.requestEnvelope.request.name === 'Upsell';
-  },
-  handle(handlerInput) {
-    console.log('IN UPSELLRESPONSEHANDLER');
-
-    if (handlerInput.requestEnvelope.request.status.code === '200') {
-      if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'DECLINED') {
-        const speakResponse = `OK.  Here's a random fact: ${getRandomFact(ALL_FACTS)} Would you like another random fact?`;
-        const repromptResponse = 'Would you like another random fact?';
-        return handlerInput.responseBuilder
-          .speak(speakResponse)
-          .reprompt(repromptResponse)
-          .getResponse();
-      }
-    }
-    // Something failed.
-    console.log(`Connections.Response indicated failure. error: ${handlerInput.requestEnvelope.request.status.message}`);
-
-    return handlerInput.responseBuilder
-      .speak('There was an error handling your purchase request. Please try again or contact us for help.')
-      .getResponse();
-  },
-};
-
 
 const SessionEndedHandler = {
   canHandle(handlerInput) {
@@ -557,6 +589,20 @@ const SessionEndedHandler = {
   },
 };
 
+const FallbackHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.FallbackIntent';
+  },
+  handle(handlerInput) {
+    console.log('IN FallbackHandler');
+    return handlerInput.responseBuilder
+      .speak('Sorry, I didn\'t understand what you meant. Please try again.')
+      .reprompt('Sorry, I didn\'t understand what you meant. Please try again.')
+      .getResponse();
+  },
+};
+
 const ErrorHandler = {
   canHandle() {
     return true;
@@ -565,7 +611,8 @@ const ErrorHandler = {
     console.log(`Error handled: ${JSON.stringify(error.message)}`);
     console.log(`handlerInput: ${JSON.stringify(handlerInput)}`);
     return handlerInput.responseBuilder
-      .speak('Sorry, I can\'t understand the command. Please try again.')
+      .speak('Sorry, I didn\'t understand what you meant. Please try again.')
+      .reprompt('Sorry, I didn\'t understand what you meant. Please try again.')
       .getResponse();
   },
 };
@@ -626,30 +673,52 @@ const RequestLog = {
   },
 };
 
+const EntitledProductsCheck = {
+  async process(handlerInput) {
+    if (handlerInput.requestEnvelope.session.new === true) {
+      // new session, check to see what products are already owned.
+      try {
+        const locale = handlerInput.requestEnvelope.request.locale;
+        const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+        const result = await ms.getInSkillProducts(locale);
+        const entitledProducts = getAllEntitledProducts(result.inSkillProducts);
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.entitledProducts = entitledProducts;
+        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+      } catch (error) {
+        console.log(`Error calling InSkillProducts API: ${error}`);
+      }
+    }
+  },
+};
+
 const ResponseLog = {
   process(handlerInput) {
     console.log(`RESPONSE BUILDER = ${JSON.stringify(handlerInput)}`);
+    console.log(`RESPONSE = ${JSON.stringify(handlerInput.responseBuilder.getResponse())}`);
   },
 };
 
 exports.handler = Alexa.SkillBuilders.standard()
   .addRequestHandlers(
     LaunchRequestHandler,
-    GetFactHandler,
     YesHandler,
     NoHandler,
     GetCategoryFactHandler,
     BuyResponseHandler,
     CancelResponseHandler,
-    UpsellResponseHandler,
     ShoppingHandler,
     ProductDetailHandler,
     BuyHandler,
     CancelSubscriptionHandler,
     SessionEndedHandler,
     HelpHandler,
+    FallbackHandler,
   )
-  .addRequestInterceptors(RequestLog)
+  .addRequestInterceptors(
+    RequestLog,
+    EntitledProductsCheck,
+  )
   .addResponseInterceptors(ResponseLog)
   .addErrorHandlers(ErrorHandler)
   .lambda();
