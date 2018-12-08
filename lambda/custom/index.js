@@ -86,6 +86,9 @@ function getFilteredFacts(factsToFilter, handlerInput) {
     factTypesToInclude = ['free'];
   }
   console.log(`types to include: ${factTypesToInclude}`);
+  if (factTypesToInclude.indexOf('all access') >= 0) {
+    return factsToFilter;
+  }
   const filteredFacts = factsToFilter
     .filter(record => factTypesToInclude.indexOf(record.type) >= 0);
 
@@ -396,7 +399,7 @@ const BuyHandler = {
       // NO ENTITY RESOLUTION MATCH
       if (productCategory === undefined) {
         productCategory = 'all_access';
-      } else {
+      } else if (productCategory !== 'all_access') {
         productCategory += '_pack';
       }
 
