@@ -114,20 +114,6 @@
           ]
         },
         {
-          "name": "UpsellIntent",
-          "slots": [
-            {
-              "name": "productCategory",
-              "type": "factType"
-            }
-          ],
-          "samples": [
-            "upsell subscription",
-            "upsell {productCategory} pack",
-            "upsell me to {productCategory} pack"
-          ]
-        },
-        {
           "name": "ProductDetailIntent",
           "slots": [
             {
