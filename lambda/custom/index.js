@@ -148,9 +148,9 @@ const HelpHandler = {
   handle(handlerInput) {
     return handlerInput.responseBuilder
       .speak('To hear a random fact, you could say, \'Tell me a fact\' or you can ask' +
-      ' for a specific category you have purchased, for example, say \'Tell me a science fact\'. ' +
-      ' To know what else you can buy, say, \'What can i buy?\'. So, what can I help you' +
-      ' with?')
+        ' for a specific category you have purchased, for example, say \'Tell me a science fact\'. ' +
+        ' To know what else you can buy, say, \'What can i buy?\'. So, what can I help you' +
+        ' with?')
       .reprompt('I didn\'t catch that. What can I help you with?')
       .getResponse();
   },
@@ -161,7 +161,7 @@ const YesHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent' ||
-       handlerInput.requestEnvelope.request.intent.name === 'GetRandomFactIntent');
+        handlerInput.requestEnvelope.request.intent.name === 'GetRandomFactIntent');
   },
   handle(handlerInput) {
     console.log('In YesHandler');
@@ -271,20 +271,38 @@ const GetCategoryFactHandler = {
               .reprompt(repromptOutput)
               .getResponse();
           }
-          upsellMessage = `You don't currently own the ${factCategory} pack. ${categoryProduct[0].summary} Want to learn more?`;
+
+          if (categoryProduct[0]) {
+            // the category requested is an available product
+            upsellMessage = `You don't currently own the ${factCategory} pack. ${categoryProduct[0].summary} Want to learn more?`;
+
+            return handlerInput.responseBuilder
+              .addDirective({
+                type: 'Connections.SendRequest',
+                name: 'Upsell',
+                payload: {
+                  InSkillProduct: {
+                    productId: categoryProduct[0].productId,
+                  },
+                  upsellMessage,
+                },
+                token: 'correlationToken',
+              })
+              .getResponse();
+          }
+
+          // no category for what was requested
+          // either product not created or not available
+          console.log(`ALERT!  The category **${factCategory}** seemed to be valid, but no matching product was found. `
+            + ' This could be due to no ISPs being created and linked to the skill, the ISPs being created '
+            + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
+
+          speakOutput = `I'm having trouble accessing the ${factCategory} facts right now.  Try a different category for now.  ${getRandomYesNoQuestion()}`;
+          repromptOutput = getRandomYesNoQuestion();
 
           return handlerInput.responseBuilder
-            .addDirective({
-              type: 'Connections.SendRequest',
-              name: 'Upsell',
-              payload: {
-                InSkillProduct: {
-                  productId: categoryProduct[0].productId,
-                },
-                upsellMessage,
-              },
-              token: 'correlationToken',
-            })
+            .speak(speakOutput)
+            .reprompt(repromptOutput)
             .getResponse();
         });
     }
@@ -292,7 +310,7 @@ const GetCategoryFactHandler = {
 };
 
 
-// Following handler demonstrates how skills can hanlde user requests to discover what
+// Following handler demonstrates how skills can handle user requests to discover what
 // products are available for purchase in-skill.
 // Use says: Alexa, ask Premium facts what can i buy
 const ShoppingHandler = {
@@ -304,26 +322,43 @@ const ShoppingHandler = {
     console.log('In Shopping Handler');
 
     // Inform the user about what products are available for purchase
-
+    let speakOutput;
+    let repromptOutput;
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
     return ms.getInSkillProducts(locale).then(function fetchPurchasableProducts(result) {
       const purchasableProducts = result.inSkillProducts.filter(record => record.entitled === 'NOT_ENTITLED' && record.purchasable === 'PURCHASABLE');
 
-      return handlerInput.responseBuilder
-        .speak(`Products available for purchase at this time are ${getSpeakableListOfProducts(purchasableProducts)}` +
+      if (purchasableProducts.length > 0) {
+        speakOutput = `Products available for purchase at this time are ${getSpeakableListOfProducts(purchasableProducts)}` +
           '. To learn more about a product, say \'Tell me more about\' followed by the product name. ' +
-          ' If you are ready to buy say \'Buy\' followed by the product name. So what can I help you with?')
-        .reprompt('I didn\'t catch that. What can I help you with?')
+          ' If you are ready to buy say \'Buy\' followed by the product name. So what can I help you with?';
+        repromptOutput = 'I didn\'t catch that. What can I help you with?';
+
+        return handlerInput.responseBuilder
+          .speak(speakOutput)
+          .reprompt(repromptOutput)
+          .getResponse();
+      }
+      // no products!
+      console.log('!!! ALERT !!!  The product list came back as empty.  This could be due to no ISPs being created and linked to the skill, the ISPs being created '
+        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
+      speakOutput = 'I\'ve checked high and low, however I can\'t find any products to offer to you right now.  Sorry about that.  '
+        + 'I can\t guarantee it, but I might be able to find something later.  Would you like a random fact now instead?';
+      repromptOutput = 'I didn\'t catch that. What can I help you with?';
+
+      return handlerInput.responseBuilder
+        .speak(speakOutput)
+        .reprompt(repromptOutput)
         .getResponse();
     });
   },
 };
 
-// Following handler demonstrates how skills can hanlde user requests to discover what
+// Following handler demonstrates how skills can handle user requests to discover what
 // products are available for purchase in-skill.
-// Use says: Alexa, ask Premium facts what can i buy
+// Use says: Alexa, ask Premium facts to tell me about the history pack
 const ProductDetailHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -370,8 +405,12 @@ const ProductDetailHandler = {
           .reprompt(repromptOutput)
           .getResponse();
       }
+
+      console.log(`!!! ALERT !!!  The requested product **${productCategory}** could not be found.  This could be due to no ISPs being created and linked to the skill, the ISPs being created `
+        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
+
       return handlerInput.responseBuilder
-        .speak('I don\'t think we have a product by that name.  Can you try again?')
+        .speak('I can\'t find a product by that name.  Can you try again?')
         .reprompt('I didn\'t catch that. Can you try again?')
         .getResponse();
     });
@@ -406,17 +445,28 @@ const BuyHandler = {
       const product = result.inSkillProducts
         .filter(record => record.referenceName === productCategory);
 
-      return handlerInput.responseBuilder
-        .addDirective({
-          type: 'Connections.SendRequest',
-          name: 'Buy',
-          payload: {
-            InSkillProduct: {
-              productId: product[0].productId,
+      if (product.length > 0) {
+        return handlerInput.responseBuilder
+          .addDirective({
+            type: 'Connections.SendRequest',
+            name: 'Buy',
+            payload: {
+              InSkillProduct: {
+                productId: product[0].productId,
+              },
             },
-          },
-          token: 'correlationToken',
-        })
+            token: 'correlationToken',
+          })
+          .getResponse();
+      }
+
+      // requested product didn't match something from the catalog
+      console.log(`!!! ALERT !!!  The requested product **${productCategory}** could not be found.  This could be due to no ISPs being created and linked to the skill, the ISPs being created `
+        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
+
+      return handlerInput.responseBuilder
+        .speak('I don\'t think we have a product by that name.  Can you try again?')
+        .reprompt('I didn\'t catch that. Can you try again?')
         .getResponse();
     });
   },
@@ -448,17 +498,28 @@ const CancelSubscriptionHandler = {
       const product = result.inSkillProducts
         .filter(record => record.referenceName === productCategory);
 
-      return handlerInput.responseBuilder
-        .addDirective({
-          type: 'Connections.SendRequest',
-          name: 'Cancel',
-          payload: {
-            InSkillProduct: {
-              productId: product[0].productId,
+      if (product.length > 0) {
+        return handlerInput.responseBuilder
+          .addDirective({
+            type: 'Connections.SendRequest',
+            name: 'Cancel',
+            payload: {
+              InSkillProduct: {
+                productId: product[0].productId,
+              },
             },
-          },
-          token: 'correlationToken',
-        })
+            token: 'correlationToken',
+          })
+          .getResponse();
+      }
+
+      // requested product didn't match something from the catalog
+      console.log(`!!! ALERT !!!  The requested product **${productCategory}** could not be found.  This could be due to no ISPs being created and linked to the skill, the ISPs being created `
+        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
+
+      return handlerInput.responseBuilder
+        .speak('I don\'t think we have a product by that name.  Can you try again?')
+        .reprompt('I didn\'t catch that. Can you try again?')
         .getResponse();
     });
   },
