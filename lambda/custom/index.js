@@ -110,7 +110,7 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    console.log('IN LAUNCHREQUEST');
+    console.log('IN: LaunchRequestHandler.handle');
 
     // entitled products are obtained by request interceptor and stored in the session attributes
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
@@ -186,7 +186,7 @@ const NoHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NoIntent';
   },
   handle(handlerInput) {
-    console.log('IN NOHANDLER');
+    console.log('IN: NoHandler.handle');
 
     const speakOutput = getRandomGoodbye();
     return handlerInput.responseBuilder
@@ -417,7 +417,7 @@ const ProductDetailHandler = {
   },
 };
 
-// Following handler demonstrates how Skills would recieve Buy requests from customers
+// Following handler demonstrates how Skills would receive Buy requests from customers
 // and then trigger a Purchase flow request to Alexa
 const BuyHandler = {
   canHandle(handlerInput) {
@@ -425,7 +425,7 @@ const BuyHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'BuyIntent';
   },
   handle(handlerInput) {
-    console.log('IN BUYINTENTHANDLER');
+    console.log('IN: BuyHandler.handle');
 
     // Inform the user about what products are available for purchase
 
@@ -481,7 +481,7 @@ const CancelSubscriptionHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'CancelSubscriptionIntent';
   },
   handle(handlerInput) {
-    console.log('IN CANCELINTENTHANDLER');
+    console.log('IN: CancelSubscriptionHandler.handle');
 
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -533,7 +533,7 @@ const BuyResponseHandler = {
         handlerInput.requestEnvelope.request.name === 'Upsell');
   },
   handle(handlerInput) {
-    console.log('IN BUYRESPONSEHANDLER');
+    console.log('IN: BuyResponseHandler.handle');
 
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -602,7 +602,7 @@ const CancelResponseHandler = {
       handlerInput.requestEnvelope.request.name === 'Cancel';
   },
   handle(handlerInput) {
-    console.log('IN CANCELRESPONSEHANDLER');
+    console.log('IN: CancelResponseHandler.handle');
 
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -646,7 +646,7 @@ const SessionEndedHandler = {
       (handlerInput.requestEnvelope.request.type === 'IntentRequest' && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent');
   },
   handle(handlerInput) {
-    console.log('IN SESSIONENDEDHANDLER');
+    console.log('IN: SessionEndedHandler.handle');
     return handlerInput.responseBuilder
       .speak(getRandomGoodbye())
       .getResponse();
