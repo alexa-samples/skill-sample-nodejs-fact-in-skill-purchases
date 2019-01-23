@@ -19,5 +19,9 @@ To **Get Started** using the Alexa Developer Console, click the button below:
 * [Voice Design Guide](https://developer.amazon.com/designing-for-voice/) - A great resource for learning conversational and voice user interface design.
 
 ### Documentation
-* [Official Alexa Skills Kit Node.js SDK](https://www.npmjs.com/package/ask-sdk) - The Official Node.js SDK Documentation
-*  [Official Alexa Skills Kit Documentation](https://developer.amazon.com/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html) - Official Alexa Skills Kit Documentation
+* [Alexa Skills Kit SDK for Node.js Documentation](https://ask-sdk-for-nodejs.readthedocs.io/en/latest/)
+*  [Alexa Skills Kit Documentation](https://developer.amazon.com/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html)
+
+## License Summary
+
+This sample code is made available under a modified MIT license. See the LICENSE file.

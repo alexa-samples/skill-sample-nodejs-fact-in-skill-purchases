@@ -92,7 +92,7 @@ We are almost done!  The last step is to add the metadata that your skill will u
 
 	**Note:** More details on certification are [available here.](https://alexa.design/certification)
 
-14. Run a beta test.  Click [here]() for more details on how to do that.
+14. Run a beta test.  Click [here](https://alexa.design/skillbetatesting) for more details on how to do that.
 
 > Note: Beta testers don't pay for in-skill products during the beta test.
 
@@ -104,4 +104,7 @@ We are almost done!  The last step is to add the metadata that your skill will u
 
     *  **Did something go wrong?** Our team of evangelists run [online office hours every Tuesday from 1-2pm Pacific Time](https://alexa.design/office-hours).  They can help answer any questions you might have.  Also check out the Forums - your question may have already been answered and you won't have to wait for office hours!
 
-    *  **Want the coolest t-shirt you've ever seen?** Every month, we create a brand-new Alexa Developer t-shirt or hoodie, and send them out to developers that published a skill that month.  [You can get yours here if you live in the US](https://developer.amazon.com/alexa-skills-kit/alexa-developer-skill-promotion), [here for the UK](https://developer.amazon.com/en-gb/alexa-skills-kit/alexa-developer-skill-promotion), and [here for Germany](https://developer.amazon.com/de-de/alexa-skills-kit/alexa-developer-skill-promotion).
+    *  **Want to earn developer perks?** Check out current opportunities to earn perks for building skills: https://developer.amazon.com/alexa-skills-kit/alexa-developer-skill-promotion
+    
+    If you’re not in the US, please check out our other promotions in the [UK](https://developer.amazon.com/en-gb/alexa-skills-kit/alexa-developer-skill-promotion), [Germany](https://developer.amazon.com/de/alexa-skills-kit/alexa-developer-skill-promotion), [Japan](https://developer.amazon.com/ja/alexa-skills-kit/alexa-developer-skill-promotion), [France](https://developer.amazon.com/fr/alexa-skills-kit/alexa-developer-skills-promotion), [Australia](https://developer.amazon.com/alexa-skills-kit/anz/alexa-developer-skill-promotion), [Italy](https://developer.amazon.com/it/alexa-skills-kit/alexa-developer-skill-promotion), [Spain](https://developer.amazon.com/es/alexa-skills-kit/alexa-developer-skill-promotion), [Mexico](https://developer.amazon.com/es-mx/alexa-skills-kit/alexa-developer-skill-promotion), [Canada](https://developer.amazon.com/alexa-skills-kit/alexa-developer-skill-promotion-canada), and [India](https://developer.amazon.com/alexa-skills-kit/alexa-developer-skill-promotion-india) to see if your country of residence is included.
+    
