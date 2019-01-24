@@ -284,7 +284,7 @@ const GetCategoryFactHandler = {
                   InSkillProduct: {
                     productId: categoryProduct[0].productId,
                   },
-                  upsellMessage,
+                  upsellMessage: upsellMessage,
                 },
                 token: 'correlationToken',
               })
