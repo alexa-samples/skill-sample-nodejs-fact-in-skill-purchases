@@ -136,6 +136,10 @@
             "tell me about {productCategory} product",
             "Tell me about {productCategory} pack"
           ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
         }
       ],
       "types": [

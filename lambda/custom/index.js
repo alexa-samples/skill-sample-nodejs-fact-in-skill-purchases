@@ -785,4 +785,5 @@ exports.handler = Alexa.SkillBuilders.standard()
   )
   .addResponseInterceptors(ResponseLog)
   .addErrorHandlers(ErrorHandler)
+  .withCustomUserAgent('sample/premium-fact/v1')
   .lambda();

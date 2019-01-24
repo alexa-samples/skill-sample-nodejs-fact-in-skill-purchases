@@ -11,7 +11,7 @@ So far, we have [created a Voice User Interface](./voice-user-interface.md), [a 
 
 1. Access the **Alexa Simulator**, by selecting the **Test** link from the top navigation menu.
 
-1. Enable Testing by selecting **Development** from the drop down. It should be underneath the top navigation menu.  Enabling should change it to read **Test is enabled for this skill**.
+1. Enable Testing by selecting **Development** from the drop down found directly below the top navigation menu.  Once enabled, the label should read **Skill testing is enabled in:** `Development`.
 
 1. To validate that your skill is working as expected, invoke your skill from the **Alexa Simulator**. You can either type or click and hold the mic from the input box to use your voice.
 	1. **Type** "Open" followed by the invocation name you gave your skill in [Step 1](./voice-user-interface.md). For example, "Open premium facts sample".
@@ -27,6 +27,8 @@ So far, we have [created a Voice User Interface](./voice-user-interface.md), [a 
 > **Note: The developer account associated with the skill is never charged for in-skill products.**  For more details about testing skills with in-skill products, please refer to the [In-Skill Purchase Testing Guide](https://developer.amazon.com/docs/in-skill-purchase/isp-test-guide.html)
 
 > If you need to reset a test purchase, you can return to the In-Skill Products page in the Alexa Developer Console.  (That's on the **Build** tab, and click on **In-Skill Products** in the left nav.  If you don't see it there, click on the In-Skill Products item in the Skill Builder Checklist.)  Then click on the **Reset test purchases** link to reset your purchases for that product.  This will work regardless of how you setup the in-skill product (console or CLI).
+
+> **Pro Tip**: type or say `exit` in the simulator to reset the session before each test pass.  The simulator holds a session open longer than on a device to assist in your testing and it's easy to forget a session is still open.
 
 1. Ensure your skill works the way that you designed it to.
 	* After you interact with the Alexa Simulator, you should see the Skill I/O **JSON Input** and **JSON Output** boxes get populated with JSON data. You can also view the **Device Log** to trace your steps.

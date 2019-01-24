@@ -17,16 +17,15 @@ In the [first step of this guide](./voice-user-interface.md), we built the Voice
     * SkillDescription
     * SkillFunctionName
     > If this is not your first time creating this sample in this account, you will need to change the Application Name.  If it already exists, you may see an error like 'Could not create StackChangeSet'.
-1. **Click the deploy button** at the bottom of the page.
+1. Click the **Deploy** button at the bottom of the page.
 1. Wait for the status of all resources to change to **CREATE_COMPLETE**
-1. Click the **Test App** button to go to the Lambda console.
-1. **Open** the function that was **just created** by clicking on it.
-1. (Optional, but recommended) To **secure this Lambda function** follow the instructions found [here](https://alexa.design/secure-lambda-function)
+1. In the list of Resources, click the **SkillFunctionResource** link to open the newly created function in the Lambda console.
+1. (Optional, but recommended) To secure this Lambda function follow the instructions found [here](https://alexa.design/secure-lambda-function)
 1. Scroll down the page until you see a section called **Function code**.
 
-> Note: if you don't see the section called **function code**, click on the button in the designer with the lambda function name.
+> Note: if you don't see the section called **Function code**, click on the button in the designer with the lambda function name.
 
-1. The Lambda function is the same as found [here](../lambda/custom/index.js).  You can modify the code directly within this code editor.  When you later want to customize the skill, this is one tool you can use to do that.  Remember to click Save if you make any changes.
+1. The Lambda function is based on the code found [here](../lambda/custom/index.js).  You can modify the code directly within this code editor.  When you later want to customize the skill, this is one tool you can use to do that.  Remember to click Save if you make any changes.
 
 1. You should see the Amazon Resource Name (ARN) a unique identifier for this function in the top right corner of the page. **Copy the ARN value for this Lambda function** by clicking the copy button.  You will need this in the next section of the guide.
 
