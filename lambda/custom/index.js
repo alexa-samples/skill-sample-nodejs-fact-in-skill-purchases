@@ -313,13 +313,13 @@ const GetCategoryFactHandler = {
 // Following handler demonstrates how skills can handle user requests to discover what
 // products are available for purchase in-skill.
 // Use says: Alexa, ask Premium facts what can i buy
-const ShoppingHandler = {
+const WhatCanIBuyHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
-      handlerInput.requestEnvelope.request.intent.name === 'ShoppingIntent';
+      handlerInput.requestEnvelope.request.intent.name === 'WhatCanIBuyIntent';
   },
   handle(handlerInput) {
-    console.log('In Shopping Handler');
+    console.log('In WhatCanIBuy Handler');
 
     // Inform the user about what products are available for purchase
     let speakOutput;
@@ -771,7 +771,7 @@ exports.handler = Alexa.SkillBuilders.standard()
     GetCategoryFactHandler,
     BuyResponseHandler,
     CancelResponseHandler,
-    ShoppingHandler,
+    WhatCanIBuyHandler,
     ProductDetailHandler,
     BuyHandler,
     CancelSubscriptionHandler,
