@@ -491,7 +491,7 @@ const CancelSubscriptionHandler = {
 
       if (productCategory === undefined) {
         productCategory = 'all_access';
-      } else {
+      } else if (productCategory !== 'all_access') {
         productCategory += '_pack';
       }
 
