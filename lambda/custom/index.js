@@ -10,43 +10,15 @@ const Alexa = require('ask-sdk');
     the free and premium content served by the Skill
 */
 const ALL_FACTS = [
-  { type: 'free', fact: 'There are 365 days in a year, except leap years, which have 366 days.' },
-  { type: 'free', fact: 'What goes up, must come down.  Except when it doesn\'t.' },
-  { type: 'free', fact: 'Two wrongs don\'t make a right, but three lefts do.' },
-  { type: 'free', fact: 'There are 24 hours in a day.' },
-  { type: 'science', fact: 'There is enough DNA in an average person\'s body to stretch from the sun to Pluto and back — 17 times.' },
-  { type: 'science', fact: 'The average human body carries ten times more bacterial cells than human cells.' },
-  { type: 'science', fact: 'It can take a photon 40,000 years to travel from the core of the sun to its surface, but only 8 minutes to travel the rest of the way to Earth.' },
-  { type: 'science', fact: 'At over 2000 kilometers long, The Great Barrier Reef is the largest living structure on Earth.' },
-  { type: 'science', fact: 'There are 8 times as many atoms in a teaspoonful of water as there are teaspoonfuls of water in the Atlantic ocean.' },
-  { type: 'science', fact: 'The average person walks the equivalent of five times around the world in a lifetime.' },
-  { type: 'science', fact: 'When Helium is cooled to absolute zero it flows against gravity and will start running up and over the lip of a glass container!' },
-  { type: 'science', fact: 'An individual blood cell takes about 60 seconds to make a complete circuit of the body.' },
-  { type: 'science', fact: 'The longest cells in the human body are the motor neurons. They can be up to 4.5 feet (1.37 meters) long and run from the lower spinal cord to the big toe.' },
-  { type: 'science', fact: 'The human eye blinks an average of 4,200,000 times a year.' },
-  { type: 'history', fact: 'The Hundred Years War actually lasted 116 years from thirteen thirty seven to fourteen fifty three.' },
-  { type: 'history', fact: 'There are ninety two known cases of nuclear bombs lost at sea.' },
-  { type: 'history', fact: 'Despite popular belief, Napoleon Bonaparte stood 5 feet 6 inch tall. Average height for men at the time.' },
-  { type: 'history', fact: 'Leonardo Da Vinci designed the first helicopter, tank, submarine, parachute and ammunition igniter... Five hundred years ago.' },
-  { type: 'history', fact: 'The shortest war on record was fought between Zanzibar and England in eighteen ninety six. Zanzibar surrendered after 38 minutes.' },
-  { type: 'history', fact: 'X-rays of the Mona Lisa show that there are 3 different versions under the present one.' },
-  { type: 'history', fact: 'At Andrew Jackson\'s funeral in 1845, his pet parrot had to be removed because it was swearing too much.' },
-  { type: 'history', fact: 'English was once a language for “commoners,” while the British elites spoke French.' },
-  { type: 'history', fact: 'In ancient Egypt, servants were smeared with honey in order to attract flies away from the pharaoh.' },
-  { type: 'history', fact: 'Ronald Reagan was a lifeguard during high school and saved 77 people’s lives.' },
-  { type: 'space', fact: 'A year on Mercury is just 88 days long.' },
-  { type: 'space', fact: 'Despite being farther from the Sun, Venus experiences higher temperatures than Mercury.' },
-  { type: 'space', fact: 'Venus rotates anti-clockwise, possibly because of a collision in the past with an asteroid.' },
-  { type: 'space', fact: 'On Mars, the Sun appears about half the size as it does on Earth.' },
-  { type: 'space', fact: 'Earth is the only planet not named after a god.' },
-  { type: 'space', fact: 'Jupiter has the shortest day of all the planets.' },
-  { type: 'space', fact: 'The Milky Way galaxy will collide with the Andromeda Galaxy in about 5 billion years.' },
-  { type: 'space', fact: 'The Sun contains 99.86% of the mass in the Solar System.' },
-  { type: 'space', fact: 'The Sun is an almost perfect sphere.' },
-  { type: 'space', fact: 'A total solar eclipse can happen once every 1 to 2 years. This makes them a rare event.' },
+  { type: 'free', fact: '1年は365日です。' },
+  { type: 'free', fact: 'いち日は24時間です。' },
+  { type: 'science', fact: '人間の目は平均で１年に420万回のまばたきをします。' },
+  { type: 'history', fact: 'レオナルド・ダ・ヴィンチは500年前に初めてのヘリコプターや潜水艦をデザインしました。' },
+  { type: 'history', fact: '古代エジプトでは、ファラオからハエを遠ざけるため、奴隷にハチミツを塗っていました。' },
+  { type: 'space', fact: '太陽は太陽系の全質量のうち99.86%を占めています。' },
 ];
 
-const skillName = 'Premium Facts Sample';
+const skillName = 'プレミアムトリビア';
 
 /*
     Function to demonstrate how to filter inSkillProduct list to get list of
@@ -64,12 +36,12 @@ function getRandomFact(facts) {
 }
 
 function getRandomYesNoQuestion() {
-  const questions = ['Would you like another fact?', 'Can I tell you another fact?', 'Do you want to hear another fact?'];
+  const questions = ['他のトリビアを聞きますか？'];
   return questions[Math.floor(Math.random() * questions.length)];
 }
 
 function getRandomGoodbye() {
-  const goodbyes = ['OK.  Goodbye!', 'Have a great day!', 'Come back again soon!'];
+  const goodbyes = ['さようなら！', 'また使ってね！', ''];
   return goodbyes[Math.floor(Math.random() * goodbyes.length)];
 }
 
@@ -79,14 +51,14 @@ function getFilteredFacts(factsToFilter, handlerInput) {
   const entitledProducts = sessionAttributes.entitledProducts;
   let factTypesToInclude;
   if (entitledProducts) {
-    factTypesToInclude = entitledProducts.map(item => item.name.toLowerCase().replace(' pack', ''));
+    factTypesToInclude = entitledProducts.map(item => item.referenceName.toLowerCase().replace('_pack', ''));
     factTypesToInclude.push('free');
   } else {
     // no entitled products, so just give free ones
     factTypesToInclude = ['free'];
   }
   console.log(`types to include: ${factTypesToInclude}`);
-  if (factTypesToInclude.indexOf('all access') >= 0) {
+  if (factTypesToInclude.indexOf('all_access') >= 0) {
     return factsToFilter;
   }
   const filteredFacts = factsToFilter
@@ -94,14 +66,15 @@ function getFilteredFacts(factsToFilter, handlerInput) {
 
   return filteredFacts;
 }
+
 /*
     Helper function that returns a speakable list of product names from a list of
     entitled products.
 */
 function getSpeakableListOfProducts(entitleProductsList) {
   const productNameList = entitleProductsList.map(item => item.name);
-  let productListSpeech = productNameList.join(', '); // Generate a single string with comma separated product names
-  productListSpeech = productListSpeech.replace(/_([^_]*)$/, 'and $1'); // Replace last comma with an 'and '
+  let productListSpeech = productNameList.join('と、'); // Generate a single string with comma separated product names
+  // productListSpeech = productListSpeech.replace(/_([^_]*)$/, 'and $1'); // Replace last comma with an 'and '
   return productListSpeech;
 }
 
@@ -110,7 +83,7 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    console.log('IN: LaunchRequestHandler.handle');
+    console.log('IN LAUNCHREQUEST');
 
     // entitled products are obtained by request interceptor and stored in the session attributes
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
@@ -119,22 +92,20 @@ const LaunchRequestHandler = {
     if (entitledProducts && entitledProducts.length > 0) {
       // Customer owns one or more products
       return handlerInput.responseBuilder
-        .speak(`Welcome to ${skillName}. You currently own ${getSpeakableListOfProducts(entitledProducts)}` +
-          ' products. To hear a random fact, you could say, \'Tell me a fact\' or you can ask' +
-          ' for a specific category you have purchased, for example, say \'Tell me a science fact\'. ' +
-          ' To know what else you can buy, say, \'What can i buy?\'. So, what can I help you' +
-          ' with?')
-        .reprompt('I didn\'t catch that. What can I help you with?')
+        .speak(`${skillName}へようこそ。現在、${getSpeakableListOfProducts(entitledProducts)}をお持ちです。` +
+          'トリビアを聞くには、「トリビアを教えて」もしくは「歴史のトリビアを教えて」のように言ってみてください。' +
+          '「何を買える？」と聞くとプレミアムコンテンツについて説明します。どうしますか？')
+        .reprompt('どうしますか？')
         .getResponse();
     }
 
     // Not entitled to anything yet.
     console.log('No entitledProducts');
     return handlerInput.responseBuilder
-      .speak(`Welcome to ${skillName}. To hear a random fact you can say 'Tell me a fact',` +
-        ' or to hear about the premium categories for purchase, say \'What can I buy\'. ' +
-        ' For help, say , \'Help me\'... So, What can I help you with?')
-      .reprompt('I didn\'t catch that. What can I help you with?')
+      .speak(`${skillName}へようこそ。` +
+        'トリビアを聞くには、「トリビアを教えて」もしくは「歴史のトリビアを教えて」のように言ってみてください。' +
+        '「何を買える？」と聞くとプレミアムコンテンツについて説明します。どうしますか？')
+      .reprompt('どうしますか？')
       .getResponse();
   },
 }; // End LaunchRequestHandler
@@ -147,11 +118,9 @@ const HelpHandler = {
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
-      .speak('To hear a random fact, you could say, \'Tell me a fact\' or you can ask' +
-        ' for a specific category you have purchased, for example, say \'Tell me a science fact\'. ' +
-        ' To know what else you can buy, say, \'What can i buy?\'. So, what can I help you' +
-        ' with?')
-      .reprompt('I didn\'t catch that. What can I help you with?')
+      .speak('トリビアを聞くには、「トリビアを教えて」もしくは「歴史のトリビアを教えて」のように言ってみてください。' +
+      '「何を買える？」と聞くとプレミアムコンテンツについて説明します。どうしますか？')
+      .reprompt('どうしますか？')
       .getResponse();
   },
 };
@@ -161,7 +130,7 @@ const YesHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent' ||
-        handlerInput.requestEnvelope.request.intent.name === 'GetRandomFactIntent');
+       handlerInput.requestEnvelope.request.intent.name === 'GetRandomFactIntent');
   },
   handle(handlerInput) {
     console.log('In YesHandler');
@@ -169,7 +138,7 @@ const YesHandler = {
     // reduce fact list to those purchased
     const filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
 
-    const speakOutput = `Here's your random fact: ${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
+    const speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
     const repromptOutput = getRandomYesNoQuestion();
 
     return handlerInput.responseBuilder
@@ -186,7 +155,7 @@ const NoHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NoIntent';
   },
   handle(handlerInput) {
-    console.log('IN: NoHandler.handle');
+    console.log('IN NOHANDLER');
 
     const speakOutput = getRandomGoodbye();
     return handlerInput.responseBuilder
@@ -204,6 +173,7 @@ const GetCategoryFactHandler = {
     console.log('In GetCategoryFactHandler');
 
     const factCategory = getResolvedValue(handlerInput.requestEnvelope, 'factCategory');
+    const factCategoryValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'factCategory');
     console.log(`FACT CATEGORY = XX ${factCategory} XX`);
     let categoryFacts = ALL_FACTS;
 
@@ -211,9 +181,9 @@ const GetCategoryFactHandler = {
     if (factCategory === undefined) {
       const slotValue = getSpokenValue(handlerInput.requestEnvelope, 'factCategory');
       let speakPrefix = '';
-      if (slotValue !== undefined) speakPrefix = `I heard you say ${slotValue}. `;
-      const speakOutput = `${speakPrefix} I don't have facts for that category.  You can ask for science, space, or history facts.  Which one would you like?`;
-      const repromptOutput = 'Which fact category would you like?  I have science, space, or history.';
+      if (slotValue !== undefined) speakPrefix = `${slotValue}ですね。`;
+      const speakOutput = `${speakPrefix}そのカテゴリのトリビアはありません。科学、宇宙、歴史のどれにしますか？`;
+      const repromptOutput = '科学、宇宙、歴史のどれにしますか？';
 
       return handlerInput.responseBuilder
         .speak(speakOutput)
@@ -235,7 +205,7 @@ const GetCategoryFactHandler = {
       case 'free':
         // don't need to buy 'free' category, so give what was asked
         categoryFacts = ALL_FACTS.filter(record => record.type === factCategory);
-        speakOutput = `Here's your ${factCategory} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+        speakOutput = `トリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
         repromptOutput = getRandomYesNoQuestion();
         return handlerInput.responseBuilder
           .speak(speakOutput)
@@ -245,7 +215,7 @@ const GetCategoryFactHandler = {
       case 'all_access':
         // choose from the available facts based on entitlements
         filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
-        speakOutput = `Here's your random fact: ${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
+        speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
         repromptOutput = getRandomYesNoQuestion();
         return handlerInput.responseBuilder
           .speak(speakOutput)
@@ -263,7 +233,7 @@ const GetCategoryFactHandler = {
 
           // IF USER HAS ACCESS TO THIS PRODUCT
           if (isEntitled(subscription) || isEntitled(categoryProduct)) {
-            speakOutput = `Here's your ${factCategory} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+            speakOutput = `トリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
             repromptOutput = getRandomYesNoQuestion();
 
             return handlerInput.responseBuilder
@@ -272,37 +242,20 @@ const GetCategoryFactHandler = {
               .getResponse();
           }
 
-          if (categoryProduct[0]) {
-            // the category requested is an available product
-            upsellMessage = `You don't currently own the ${factCategory} pack. ${categoryProduct[0].summary} Want to learn more?`;
-
-            return handlerInput.responseBuilder
-              .addDirective({
-                type: 'Connections.SendRequest',
-                name: 'Upsell',
-                payload: {
-                  InSkillProduct: {
-                    productId: categoryProduct[0].productId,
-                  },
-                  upsellMessage: upsellMessage,
-                },
-                token: 'correlationToken',
-              })
-              .getResponse();
-          }
-
-          // no category for what was requested
-          // either product not created or not available
-          console.log(`ALERT!  The category **${factCategory}** seemed to be valid, but no matching product was found. `
-            + ' This could be due to no ISPs being created and linked to the skill, the ISPs being created '
-            + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
-
-          speakOutput = `I'm having trouble accessing the ${factCategory} facts right now.  Try a different category for now.  ${getRandomYesNoQuestion()}`;
-          repromptOutput = getRandomYesNoQuestion();
+          upsellMessage = `${factCategoryValue}パックはまだ購入していません。 ${categoryProduct[0].summary}詳細を聞きますか？`;
 
           return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(repromptOutput)
+            .addDirective({
+              type: 'Connections.SendRequest',
+              name: 'Upsell',
+              payload: {
+                InSkillProduct: {
+                  productId: categoryProduct[0].productId,
+                },
+                upsellMessage,
+              },
+              token: 'correlationToken',
+            })
             .getResponse();
         });
     }
@@ -310,7 +263,7 @@ const GetCategoryFactHandler = {
 };
 
 
-// Following handler demonstrates how skills can handle user requests to discover what
+// Following handler demonstrates how skills can hanlde user requests to discover what
 // products are available for purchase in-skill.
 // Use says: Alexa, ask Premium facts what can i buy
 const WhatCanIBuyHandler = {
@@ -322,43 +275,26 @@ const WhatCanIBuyHandler = {
     console.log('In WhatCanIBuy Handler');
 
     // Inform the user about what products are available for purchase
-    let speakOutput;
-    let repromptOutput;
+
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
     return ms.getInSkillProducts(locale).then(function fetchPurchasableProducts(result) {
       const purchasableProducts = result.inSkillProducts.filter(record => record.entitled === 'NOT_ENTITLED' && record.purchasable === 'PURCHASABLE');
 
-      if (purchasableProducts.length > 0) {
-        speakOutput = `Products available for purchase at this time are ${getSpeakableListOfProducts(purchasableProducts)}` +
-          '. To learn more about a product, say \'Tell me more about\' followed by the product name. ' +
-          ' If you are ready to buy say \'Buy\' followed by the product name. So what can I help you with?';
-        repromptOutput = 'I didn\'t catch that. What can I help you with?';
-
-        return handlerInput.responseBuilder
-          .speak(speakOutput)
-          .reprompt(repromptOutput)
-          .getResponse();
-      }
-      // no products!
-      console.log('!!! ALERT !!!  The product list came back as empty.  This could be due to no ISPs being created and linked to the skill, the ISPs being created '
-        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
-      speakOutput = 'I\'ve checked high and low, however I can\'t find any products to offer to you right now.  Sorry about that.  '
-        + 'I can\t guarantee it, but I might be able to find something later.  Would you like a random fact now instead?';
-      repromptOutput = 'I didn\'t catch that. What can I help you with?';
-
       return handlerInput.responseBuilder
-        .speak(speakOutput)
-        .reprompt(repromptOutput)
+        .speak(`現在購入できる商品は、${getSpeakableListOfProducts(purchasableProducts)}です。` +
+          '詳しく知りたい場合には、歴史パックについて教えて、のように言ってみてください。' +
+          'また購入する場合には、宇宙パックを購入、のように言ってください。どうしますか？')
+        .reprompt('どうしますか？')
         .getResponse();
     });
   },
 };
 
-// Following handler demonstrates how skills can handle user requests to discover what
+// Following handler demonstrates how skills can hanlde user requests to discover what
 // products are available for purchase in-skill.
-// Use says: Alexa, ask Premium facts to tell me about the history pack
+// Use says: Alexa, ask Premium facts what can i buy
 const ProductDetailHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -387,8 +323,8 @@ const ProductDetailHandler = {
       // NO ENTITY RESOLUTION MATCH
       if (productCategory === undefined) {
         return handlerInput.responseBuilder
-          .speak('I don\'t think we have a product by that name.  Can you try again?')
-          .reprompt('I didn\'t catch that. Can you try again?')
+          .speak('すみません、分かりませんでした。もう一度お願いできますか？')
+          .reprompt('もう一度お願いできますか？')
           .getResponse();
       }
 
@@ -398,26 +334,22 @@ const ProductDetailHandler = {
         .filter(record => record.referenceName === productCategory);
 
       if (isProduct(product)) {
-        const speakOutput = `${product[0].summary}. To buy it, say Buy ${product[0].name}. `;
-        const repromptOutput = `I didn't catch that. To buy ${product[0].name}, say Buy ${product[0].name}. `;
+        const speakOutput = `${product[0].summary}購入するには、${product[0].name}を購入、と言ってください。`;
+        const repromptOutput = `購入するには、${product[0].name}を購入、と言ってください。 `;
         return handlerInput.responseBuilder
           .speak(speakOutput)
           .reprompt(repromptOutput)
           .getResponse();
       }
-
-      console.log(`!!! ALERT !!!  The requested product **${productCategory}** could not be found.  This could be due to no ISPs being created and linked to the skill, the ISPs being created `
-        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
-
       return handlerInput.responseBuilder
-        .speak('I can\'t find a product by that name.  Can you try again?')
-        .reprompt('I didn\'t catch that. Can you try again?')
+        .speak('すみません、分かりませんでした。もう一度お願いできますか？')
+        .reprompt('もう一度お願いできますか？')
         .getResponse();
     });
   },
 };
 
-// Following handler demonstrates how Skills would receive Buy requests from customers
+// Following handler demonstrates how Skills would recieve Buy requests from customers
 // and then trigger a Purchase flow request to Alexa
 const BuyHandler = {
   canHandle(handlerInput) {
@@ -425,7 +357,7 @@ const BuyHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'BuyIntent';
   },
   handle(handlerInput) {
-    console.log('IN: BuyHandler.handle');
+    console.log('IN BUYINTENTHANDLER');
 
     // Inform the user about what products are available for purchase
 
@@ -445,28 +377,17 @@ const BuyHandler = {
       const product = result.inSkillProducts
         .filter(record => record.referenceName === productCategory);
 
-      if (product.length > 0) {
-        return handlerInput.responseBuilder
-          .addDirective({
-            type: 'Connections.SendRequest',
-            name: 'Buy',
-            payload: {
-              InSkillProduct: {
-                productId: product[0].productId,
-              },
-            },
-            token: 'correlationToken',
-          })
-          .getResponse();
-      }
-
-      // requested product didn't match something from the catalog
-      console.log(`!!! ALERT !!!  The requested product **${productCategory}** could not be found.  This could be due to no ISPs being created and linked to the skill, the ISPs being created `
-        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
-
       return handlerInput.responseBuilder
-        .speak('I don\'t think we have a product by that name.  Can you try again?')
-        .reprompt('I didn\'t catch that. Can you try again?')
+        .addDirective({
+          type: 'Connections.SendRequest',
+          name: 'Buy',
+          payload: {
+            InSkillProduct: {
+              productId: product[0].productId,
+            },
+          },
+          token: 'correlationToken',
+        })
         .getResponse();
     });
   },
@@ -481,7 +402,7 @@ const CancelSubscriptionHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'CancelSubscriptionIntent';
   },
   handle(handlerInput) {
-    console.log('IN: CancelSubscriptionHandler.handle');
+    console.log('IN CANCELINTENTHANDLER');
 
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -491,35 +412,24 @@ const CancelSubscriptionHandler = {
 
       if (productCategory === undefined) {
         productCategory = 'all_access';
-      } else if (productCategory !== 'all_access') {
+      } else {
         productCategory += '_pack';
       }
 
       const product = result.inSkillProducts
         .filter(record => record.referenceName === productCategory);
 
-      if (product.length > 0) {
-        return handlerInput.responseBuilder
-          .addDirective({
-            type: 'Connections.SendRequest',
-            name: 'Cancel',
-            payload: {
-              InSkillProduct: {
-                productId: product[0].productId,
-              },
-            },
-            token: 'correlationToken',
-          })
-          .getResponse();
-      }
-
-      // requested product didn't match something from the catalog
-      console.log(`!!! ALERT !!!  The requested product **${productCategory}** could not be found.  This could be due to no ISPs being created and linked to the skill, the ISPs being created `
-        + ' incorrectly, the locale not supporting ISPs, or the customer\'s account being from an unsupported marketplace.');
-
       return handlerInput.responseBuilder
-        .speak('I don\'t think we have a product by that name.  Can you try again?')
-        .reprompt('I didn\'t catch that. Can you try again?')
+        .addDirective({
+          type: 'Connections.SendRequest',
+          name: 'Cancel',
+          payload: {
+            InSkillProduct: {
+              productId: product[0].productId,
+            },
+          },
+          token: 'correlationToken',
+        })
         .getResponse();
     });
   },
@@ -533,7 +443,7 @@ const BuyResponseHandler = {
         handlerInput.requestEnvelope.request.name === 'Upsell');
   },
   handle(handlerInput) {
-    console.log('IN: BuyResponseHandler.handle');
+    console.log('IN BUYRESPONSEHANDLER');
 
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -551,33 +461,33 @@ const BuyResponseHandler = {
           case 'ACCEPTED':
             if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
 
-            speakOutput = `You have unlocked the ${product[0].name}.  Here is your ${product[0].referenceName.replace('_pack', '').replace('all_access', '')} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+            speakOutput = `${product[0].name}を聞けるようになりました。${product[0].referenceName.replace('_pack', '').replace('all_access', '')}トリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
             repromptOutput = getRandomYesNoQuestion();
             break;
           case 'DECLINED':
             if (handlerInput.requestEnvelope.request.name === 'Buy') {
               // response when declined buy request
-              speakOutput = `Thanks for your interest in the ${product[0].name}.  Would you like another random fact?`;
-              repromptOutput = 'Would you like another random fact?';
+              speakOutput = `またチェックしてくださいね。他のトリビアを聞きますか？`;
+              repromptOutput = '他のトリビアを聞きますか？';
               break;
             }
             // response when declined upsell request
             filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
-            speakOutput = `OK.  Here's a random fact: ${getRandomFact(filteredFacts)} Would you like another random fact?`;
-            repromptOutput = 'Would you like another random fact?';
+            speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)}他のトリビアも聞きますか？`;
+            repromptOutput = '他のトリビアも聞きますか？';
             break;
           case 'ALREADY_PURCHASED':
             // may have access to more than what was asked for, but give them a random
             // fact from the product they asked to buy
             if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
 
-            speakOutput = `Here is your ${product[0].referenceName.replace('_pack', '').replace('all_access', '')} fact: ${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
+            speakOutput = `${product[0].referenceName.replace('_pack', '').replace('all_access', '')}のトリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
             repromptOutput = getRandomYesNoQuestion();
             break;
           default:
             console.log(`unhandled purchaseResult: ${handlerInput.requestEnvelope.payload.purchaseResult}`);
-            speakOutput = `Something unexpected happened, but thanks for your interest in the ${product[0].name}.  Would you like another random fact?`;
-            repromptOutput = 'Would you like another random fact?';
+            speakOutput = `購入できませんでした。音声ショッピングの設定やお支払い方法をご確認ください。他のトリビアを聞きますか？`;
+            repromptOutput = '他のトリビアを聞きますか？';
             break;
         }
         return handlerInput.responseBuilder
@@ -589,7 +499,7 @@ const BuyResponseHandler = {
       console.log(`Connections.Response indicated failure. error: ${handlerInput.requestEnvelope.request.status.message}`);
 
       return handlerInput.responseBuilder
-        .speak('There was an error handling your purchase request. Please try again or contact us for help.')
+        .speak('購入処理でエラーが発生しました。もう一度試すか、カスタマーサービスにご連絡ください。')
         .getResponse();
     });
   },
@@ -602,7 +512,7 @@ const CancelResponseHandler = {
       handlerInput.requestEnvelope.request.name === 'Cancel';
   },
   handle(handlerInput) {
-    console.log('IN: CancelResponseHandler.handle');
+    console.log('IN CANCELRESPONSEHANDLER');
 
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -613,15 +523,21 @@ const CancelResponseHandler = {
       console.log(`PRODUCT = ${JSON.stringify(product)}`);
       if (handlerInput.requestEnvelope.request.status.code === '200') {
         if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'ACCEPTED') {
-          const speakOutput = `You have successfully cancelled your subscription. ${getRandomYesNoQuestion()}`;
+          const speakOutput = `${getRandomYesNoQuestion()}`;
           const repromptOutput = getRandomYesNoQuestion();
           return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(repromptOutput)
             .getResponse();
-        }
-        if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'NOT_ENTITLED') {
-          const speakOutput = `You don't currently have a subscription to cancel. ${getRandomYesNoQuestion()}`;
+        } else if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'NOT_ENTITLED') {
+          const speakOutput = `キャンセルできるサブスクリプションはありません。${getRandomYesNoQuestion()}`;
+          const repromptOutput = getRandomYesNoQuestion();
+          return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(repromptOutput)
+            .getResponse();
+        } else if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'DECLINED') {
+          const speakOutput = `分かりました。${getRandomYesNoQuestion()}`;
           const repromptOutput = getRandomYesNoQuestion();
           return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -633,7 +549,7 @@ const CancelResponseHandler = {
       console.log(`Connections.Response indicated failure. error: ${handlerInput.requestEnvelope.request.status.message}`);
 
       return handlerInput.responseBuilder
-        .speak('There was an error handling your purchase request. Please try again or contact us for help.')
+        .speak('キャンセル処理でエラーが発生しました。もう一度試すか、カスタマーサービスにご連絡ください。')
         .getResponse();
     });
   },
@@ -646,7 +562,7 @@ const SessionEndedHandler = {
       (handlerInput.requestEnvelope.request.type === 'IntentRequest' && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent');
   },
   handle(handlerInput) {
-    console.log('IN: SessionEndedHandler.handle');
+    console.log('IN SESSIONENDEDHANDLER');
     return handlerInput.responseBuilder
       .speak(getRandomGoodbye())
       .getResponse();
@@ -661,8 +577,8 @@ const FallbackHandler = {
   handle(handlerInput) {
     console.log('IN FallbackHandler');
     return handlerInput.responseBuilder
-      .speak('Sorry, I didn\'t understand what you meant. Please try again.')
-      .reprompt('Sorry, I didn\'t understand what you meant. Please try again.')
+      .speak('すみません、分かりませんでした。もう一度言ってください。')
+      .reprompt('もう一度言ってください。')
       .getResponse();
   },
 };
@@ -675,8 +591,8 @@ const ErrorHandler = {
     console.log(`Error handled: ${JSON.stringify(error.message)}`);
     console.log(`handlerInput: ${JSON.stringify(handlerInput)}`);
     return handlerInput.responseBuilder
-      .speak('Sorry, I didn\'t understand what you meant. Please try again.')
-      .reprompt('Sorry, I didn\'t understand what you meant. Please try again.')
+      .speak('すみません、分かりませんでした。もう一度言ってください。')
+      .reprompt('もう一度言ってください。')
       .getResponse();
   },
 };
@@ -698,7 +614,7 @@ function getResolvedValue(requestEnvelope, slotName) {
     requestEnvelope.request.intent.slots[slotName].resolutions.resolutionsPerAuthority[0].values[0]
       .value.name) {
     return requestEnvelope.request.intent.slots[slotName].resolutions
-      .resolutionsPerAuthority[0].values[0].value.name;
+      .resolutionsPerAuthority[0].values[0].value.id;
   }
   return undefined;
 }
@@ -785,5 +701,4 @@ exports.handler = Alexa.SkillBuilders.standard()
   )
   .addResponseInterceptors(ResponseLog)
   .addErrorHandlers(ErrorHandler)
-  .withCustomUserAgent('sample/premium-fact/v1')
   .lambda();

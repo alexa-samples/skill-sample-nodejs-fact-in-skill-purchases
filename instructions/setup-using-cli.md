@@ -1,111 +1,117 @@
-# Build An Alexa Skill with In-Skill Purchases
+# プレミアムトリビア - スキル内課金を使ったスキルの作成
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/header._TTH_.png" />
 
-## Setup the ASK CLI
-This walkthrough uses the ASK CLI.  Click [here](./voice-user-interface.md) if you would rather use the Alexa Developer Console.  If this is your first time using the ASK CLI, here are the resources you need to get the ASK CLI installed.
+## ASK CLI のセットアップ
 
-* [Quick Start Guide for Installing the ASK CLI](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html)
-* [ASK CLI Command Reference](https://developer.amazon.com/docs/smapi/ask-cli-command-reference.html)
+ここでは ASK CLI を使った手順を説明します。 Alexa 開発者コンソールを利用した方法については [こちら](./voice-user-interface.md) を参照してください。 もし ASK CLI を初めてご利用になる場合は、以下のリソースを参照して ASK CLI のインストールを行ってください。
 
-> Note: If you would like to setup the ASK CLI using AWS Cloud9 (a cloud-based IDE with pay-as-you-go pricing and is eligible for AWS Free Tier pricing), step-by-step instructions can be found [here](https://alexa.design/cli-on-cloud9).
+* [Alexaスキル開発トレーニングシリーズ第5回: 本格的なスキル開発に向けて](https://developer.amazon.com/ja/blogs/alexa/post/a35ad62f-dafa-4f4b-9648-a77913129871/alexatraining-advanceddevelopment)
+* [クイックスタート： Alexa Skills Kitコマンドラインインターフェース（ASK CLI）](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html)
+* [lexa Skills Kitコマンドラインインターフェース（ASK CLI）リファレンス](https://developer.amazon.com/docs/smapi/ask-cli-command-reference.html)
 
-If you have used the ASK CLI previously, you will also need to **make sure** that you have the **most recent version** of the ASK CLI.  You can make sure you have the latest version by running the command:
+> ノート: AWS Cloud9 (クラウドベースの統合開発環境) をご利用になる場合は、[こちら(英語)](https://alexa.design/cli-on-cloud9) に、ステップバイステップの説明があります。
+
+これまで ASK CLI をご利用になったことがある方は、**最新版** の ASK CLI であることを **確認** してください。 次のコマンドで最新版の入手が可能です。
 
 ```bash
 npm update -g ask-cli
 ```
 
-### Installation
 
-> _Note: if you have git installed, you can clone this repo and skip this section._
+### インストール
 
-> _Note: if you don't have git installed and want to skip this section, download the repo as a zip from [here](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/archive/master.zip)._
+> ノート: もし git をインストールされているようでしたら、[このレポジトリ](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/tree/ja-JP) を clone することで、このセクションをスキップできます(13のステップだけ必要です)。
 
-1. **Create** a new skill using the CLI.
+> ノート: git をインストールされていない場合でも、[こちら](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/archive/ja-JP.zip) から zip としてレポジトリをダウンロードすることで、このセクションをスキップすることもできます(13のステップだけ必要です)。
+
+1. CLI を使って新しいスキルを **作成** します。
 
 	```bash
 	ask new
 	```
 
-2. **Name** the skill "Premium_Facts_Sample".
+2. スキルの **名前** を "Premium_Facts_Sample" とします。
 
 	```bash
 	? Please type in your new skill name:
  	Premium_Facts_Sample
 	```
 
-
-3. **Navigate** to your project folder.
+3. プロジェクトのフォルダに **移動**してください。
 
 	```bash
 	cd Premium_Facts_Sample
 	```
 
-4. **Explore** the project structure.  You should see folders for lambda and models, and skill.json file.
+4. プロジェクトの構成を **確認** してください.  次のように lambda、models フォルダと skill.json ファイルがあるはずです。
 
 	```bash
 	ls
 	lambda		models		skill.json
 	```
 
-5. **Open** the models folder.
+5. models フォルダを **開いて** ください。
 
 	```bash
 	cd models
 	```
 
-6. **Open** the interaction model file, en-US.json.
+6. 対話モデルファイル en-US.json を ja-JP.json に変更して、**開いて** ください.
 
 	```bash
-	open en-US.json
+	mv en-US.json ja-JP.json
+	open ja-JP.json
 	```
 
-7. **Replace** the contents of *en-US.json* with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/models/en-US.json), and save it.
+7. *ja-JP.json* の内容を、[この JSON ファイル](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/ja-JP/models/ja-JP.json) の内容で **置き換え** て、保存してください。
 
-8. **Go back** to the project's root folder.
+8. プロジェクトのルートフォルダに **戻って** ください。
 
 	```bash
 	cd ..
 	```
 
-9. **Navigate** to the custom folder under the lambda folder.
+9. lambda フォルダの下の custom フォルダに **移動** してください。
 
 	```bash
 	cd lambda/custom
 	```
 
-10. **Open** the AWS Lambda function code file, index.js.
+10. AWS Lambda 関数のコードファイル index.js を **開いて** ください。
 
 	```bash
 	open index.js
 	```
 
-11. **Replace** the contents of *index.js* with the contents of [this JS file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/index.js), and save it.
+11. *index.js* の内容を、[この JS ファイル](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/ja-JP/lambda/custom/index.js) の内容で **置き換え** て、保存してください。
 
-12. **Replace** the contents of *package.json*  with the contents of [this JSON file](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/master/lambda/custom/package.json), and save it.
+12. *package.json* の内容を、[この JSON ファイル](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/blob/ja-JP/lambda/custom/package.json) の内容で **置き換え** て、保存してください。
 
-13. While still in the lambda/custom folder, **update** the ASK SDK and the other npm dependencies by running `npm update`.
+13. lambda/custom フォルダにいる状態で、`npm update`　を実行して、ASK SDK とその他の npm 依存関係を **更新** してください。
 
 	```bash
 	npm update
 	```
-1. **Navigate** back to the root project directory.
+1. プロジェクトのルートディレクトリに **移動** してください。 skill.json というファイルがありますおで、[こちらの内容](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/tree/ja-JP/skill.json) に置き換えてください。
 
 	```bash
 	cd ../..
+	open skill.json
 	```
 
-### Creating In-Skill Products
+### スキル内商品の作成
 
-There are ASK CLI commands for creating your in-skill purchases.  This guide will walk you through creating three different one-time purchases (entitlements), as well as a subscription.  Our sample code is expecting these to be created as described, so make sure to follow along carefully.
+スキル内課金のための ASK CLI コマンドが用意されています。 このガイドでは、3つの買い切り型商品と1つのサブスクリプション型商品の作成手順を紹介します。 サンプルのコードは以下手順を想定して作成されていますので、ご注意ください。
 
-1. **Create** your first in-skill product.  You should be in the project's root directory.
+1. プロジェクトのルートディレクトリにいることを確認してください。
+
+2. 最初のスキル内商品を **作成** します。
 
 	```bash
 	ask add isp
 	```
 
-3. **Choose** Entitlement.
+3. Entitlement (買い切り型) を **選択** してください。
 
 	```bash
 	? List of in-skill product types you can choose (Use arrow keys)
@@ -113,21 +119,21 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
   	Subscription
 	```
 
-4. **Choose** Entitlement_Template as your template.
+4. Entitlement_Template を **選択** してください。
 
 	```bash
 	? List of in-skill product templates you can choose (Use arrow keys)
 	❯ Entitlement_Template
 	```
 
-5. **Name** your in-skill product *science_pack*.
+5. スキル内商品の **名前** を *science_pack* と入力してください。
 
 	```bash
 	? Please type in your new in-skill product name:
  	(Entitlement_Template) science_pack
 	```
 
-6. **Repeat** steps #2 - #5 to create two more entitlements: *history_pack* and *space_pack*.
+6. ステップ #2 から #5 を繰り返して、*history_pack* と *space_pack* という名前で、残り2つの買い切り型商品を作成してください。
 
 	```bash
 	? Please type in your new in-skill product name:
@@ -137,7 +143,7 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
  	(Entitlement_Template) space_pack
 	```
 
-7. **Create** a subscription product named *all_access* using a similar process.
+7. *all_access* という名前のサブスクリプション型の商品を同様の手順で **作成** します。
 
 	```bash
 	ask add isp
@@ -152,59 +158,56 @@ There are ASK CLI commands for creating your in-skill purchases.  This guide wil
 	? Please type in your new in-skill product name:
  	(Subscription_Template) all_access
 
-8. **Navigate** to the new ISPs directory, and note the two folders, *entitlement* and *subscription*.  This is where the JSON files for each of your in-skill products reside.
+8. 新しく作成された ISPs ディレクトリに **移動** すると、*entitlement* と *subscriptiopn* という ２つのフォルダが作成されています。これらのフォルダの中に、それぞれのスキル内商品を定義して JSON ファイルがあり	ます。
 
 	```bash
 	cd isps
 	ls
 	```
 
-9. **Navigate** to the *entitlement* folder.  You should see three files in this directory, one for each of the entitlements you created in our previous steps.
+9. *entitlement* フォルダに **移動** します。 先ほどのステップで作成した3つのスキル内商品のファイルが作成されているはずです。
 
 	```bash
 	cd entitlement
 	ls
 	```
 
-10. **Open** history_pack.json
+10. history_pack.json を **開いて** ください。
 
-	This JSON file contains all of the necessary fields for your in-skill product, but you'll need to add the details to get them ready to sell. Because we used the Entitlement_Template template, we have provided a small explanation for each field, make sure you replace all of them. Take a look at [the sample in our docs](https://developer.amazon.com/docs/smapi/isp-schemas.html#entitlement-schema) for an additional reference.  For this sample, at a minimum, you will need to update the name (not referenceName!), smallIconUri, largeIconUri, summary, description, purchasePromptDescription, boughtCardDescription, releaseDate and privacyPolicyUrl.  Alternatively you can copy and paste the contents of the files found here: [ISP Entitlements](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/tree/master/isps.samples/entitlement).
+	[ISP Entitlements](https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/tree/ja-JP/isps.samples/entitlement) にあるファイルの内容を、そのままコピー・ペーストしても結構です。
 
-	After updating *history.pack.json*, Fill out the details for the *science_pack.json* and *space_pack.json* files.  You will need to update with content about your science and space products including icons for each.
+	*history_pack.json* を更新したら、残りの *science_pack.json* と *space_pack.json* も同様に更新します。 
 
-	> **IMPORTANT: Don't change the *referenceName* in your files, as our codebase is relying on those to be consistent.**
+	> **重要: *referenceName* は変更しないでください。この名前はサンプルコードの中で参照していますので、変更すると動作しなくなります。**
 
-	Once you are happy with your pricing, descriptions, and the other metadata for your three entitlements, you should update the same fields plus the subscriptionPaymentFrequency for your subscription.  Alternatively you can copy and paste the contents of [All Access ISP subscription sample](https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/master/isps.samples/subscription/all_access.json) into your *all_access.json* file.
+11. サブスクリプション型のファイルを **レビューと編集** してください。
 
-11. **Review and edit** the subscription file.
+	サブスクリプション型商品も同様に、[All Access ISP subscription sample](https://raw.githubusercontent.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/ja-JP/isps.samples/subscription/all_access.json) の内容を、*all_access.json* にコピー・ペーストしてください。
 
 	```bash
 	cd ../subscription
 	open all_access.json
 	```
 
-	Now that you have customized your in-skill products, you can deploy your skill using the ASK CLI, and start testing it.
+	以上で、スキル内商品のファイルが整いました。ASK CLI でスキルをデプロイして、テストを開始することができます。
 
-	> _Note: be sure to review the output to confirm there were no errors._
+### デプロイメント
 
-### Deployment
-
-1. **Navigate** to the project's root directory. You should see a file named 'skill.json' there.
+1. プロジェクトのルートディレクトリに **移動** してください。'skill.json' という名前のファイルがあるはずです。
 
 	```bash
 	cd ../..
 	```
 
-2. **Deploy** the skill and the Lambda function in one step by running the following command:
+2. 次のコマンドで、スキルと lambda 関数を1ステップで一度に *デプロイ* します。
 
 	```bash
 	ask deploy
 	```
-	Assuming that you followed all of the setup instructions for the ASK CLI, your entire skill and Lambda function should be created on their respective portals.
 
-**Now that your have a working sample skill, you can test this using the Alexa Developer Console.** 
+**以上で、スキル作成の手順終了です。開発者コンソールでテストすることができます**
 
-[![Next](./next.png)](./testing.md)
 
-**Note: The developer account associated with the skill is never charged for in-skill products.**  For more details about testing skills with in-skill products, please refer to the [In-Skill Purchase Testing Guide](https://developer.amazon.com/docs/in-skill-purchase/isp-test-guide.html)
+[![次](./next.png)](./testing.md)
 
+**ノート: スキルに紐づいた開発者アカウントはスキル内商品で変更されません。** スキル内商品を使ったスキルのテストに関する詳細は [スキル内課金のテストガイド](https://developer.amazon.com/docs/in-skill-purchase/isp-test-guide.html) を参照してください。

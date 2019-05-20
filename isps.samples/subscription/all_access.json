@@ -4,37 +4,37 @@
   "referenceName": "all_access",
   "subscriptionInformation": {
     "subscriptionPaymentFrequency": "MONTHLY",
-    "subscriptionTrialPeriodDays": 0
+    "subscriptionTrialPeriodDays": 7
   },
   "publishingInformation": {
     "locales": {
-      "en-US": {
-        "name": "All Access",
-        "summary": "All Access is a great addition because you will hear facts about history, science and space, plus any future categories added.",
-        "description": "All Access expands the set of facts shared with you to include facts about history, science and space.",
-        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/a_purple_small.png",
-        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/a_purple_large.png",
+      "ja-JP": {
+        "name": "オールアクセス",
+        "summary": "オールアクセスでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。",
+        "description": "オールアクセスでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。",
+        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
+        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
         "examplePhrases": [
-          "Buy All Access"
+          "オールアクセスを購入"
         ],
         "keywords": [
-          "All Access"
+          "オールアクセス"
         ],
         "customProductPrompts": {
-          "purchasePromptDescription": "The All Access pass adds over 30 history, science and space facts into the set of facts randomly chosen to be shared with you.",
-          "boughtCardDescription": "Thanks for purchasing the All Access pass!  You now have access to history, science and space facts!"
+          "purchasePromptDescription": "オールアクセスでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。",
+          "boughtCardDescription": "オールアクセスを購入いただきありがとうございました。あらゆるトリビアをお楽しみください！"
         }
       }
     },
     "distributionCountries": [
-      "US"
+      "JP"
     ],
     "pricing": {
-      "amazon.com": {
-        "releaseDate": "2018-05-01T00:00Z",
+      "amazon.co.jp": {
+        "releaseDate": "2019-03-01T00:00Z",
         "defaultPriceListing": {
-          "price": 0.99,
-          "currency": "USD"
+          "price": 99,
+          "currency": "JPY"
         }
       }
     },
@@ -44,11 +44,11 @@
   },
   "privacyAndCompliance": {
     "locales": {
-      "en-US": {
+      "ja-JP": {
         "privacyPolicyUrl": "https://localhost/privacy.html"
       }
     }
   },
-  "testingInstructions": "<TESTING INSTRUCTIONS FOR THE CERTIFICATION TEAM SO THEY KNOW HOW TO PURCHASE AND USE THIS PRODUCT>",
+  "testingInstructions": "「オールアクセスを購入」と言ってください。",
   "purchasableState": "PURCHASABLE"
 }

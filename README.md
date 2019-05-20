@@ -1,27 +1,30 @@
-# Build An Alexa Skill with In-Skill Purchases - Premium Fact
+# プレミアムトリビア - スキル内課金を使ったスキルの作成
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/header._TTH_.png" />
 
-Adding premium content to your skill is a way for you to monetize your skill.  This sample skill has taken the basic fact skill and has added new categories as premium content.  This premium content is accessed through either a subscription or the one-time purchase of a given category.  This guide walks through the setup of this skill, including the creation of the in-skill products.
+スキル内課金を利用したプレミアムコンテンツの提供は、スキルで収益化を目指す方法の1つです。 このサンプルスキルは、 Alexa 豆知識スキルのサンプルをベースに、豆知識の新しいカテゴリーを、プレミアムコンテンツとして追加しています。 このプレミアムコンテンツは、サブスクリプション型と買い切り型の両方のタイプで提供されます。 本ガイドでは、このスキル内商品の作成を含み、サンプルを動かす手順をステップ毎に紹介します。
 
-Click [here](./instructions/setup-using-cli.md) if you would like to use the Alexa Skills Kit Command-Line Interface (ASK CLI).  
+Alexa Skills Kit Command-Line Interface (ASK CLI)をご利用の場合は、[こちら](./instructions/setup-using-cli.md) をクリックしてください。CLIを利用したほうが、少ない手順でサンプルを動作させることができます。
 
-To **Get Started** using the Alexa Developer Console, click the button below:
+Alexa 開発者コンソールを使って **開始** するには次のボタンをクリックしてください。
 
-[![Get Started](./getting-started.png)](./instructions/voice-user-interface.md)
+[![始めましょう!](./getting-started.png)](./instructions/voice-user-interface.md)
 
-## Additional Resources
+## 追加情報
 
-### Community
-* [Amazon Developer Forums](https://forums.developer.amazon.com/spaces/165/index.html) - Join the conversation!
-* [Hackster.io](https://www.hackster.io/amazon-alexa) - See what others are building with Alexa.
+### 開発者サイト
+* [Alexa Skills Kit 開発者サイト](https://developer.amazon.com/ja/alexa-skills-kit/learn)
 
-### Tutorials & Guides
-* [Voice Design Guide](https://developer.amazon.com/designing-for-voice/) - A great resource for learning conversational and voice user interface design.
+### コミュニティ
+* [Amazon Developer Forums](https://forums.developer.amazon.com/spaces/293/index.html) - 会話に参加してみましょう!
+* [Hackster.io](https://www.hackster.io/amazon-alexa) - 他の人がどんなスキルを作成しているか参考になります。
 
-### Documentation
-* [Alexa Skills Kit SDK for Node.js Documentation](https://ask-sdk-for-nodejs.readthedocs.io/en/latest/)
-*  [Alexa Skills Kit Documentation](https://developer.amazon.com/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html)
+### コミュニティ
+* [音声デザインガイド](https://developer.amazon.com/designing-for-voice/) - 対話と音声インターフェイスに関して学べます。
 
-## License Summary
+### ドキュメント
+* [Alexa Skills Kit SDK for Node.js ドキュメント](https://ask-sdk-for-nodejs.readthedocs.io/en/latest/)
+*  [Alexa Skills Kitオフィシャルドキュメント](https://developer.amazon.com/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html)
+
+### ライセンス
 
 This sample code is made available under a modified MIT license. See the LICENSE file.

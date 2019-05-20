@@ -1,74 +1,85 @@
-# Build An Alexa Skill with In-Skill Purchases - Premium Fact
+# プレミアムトリビア - スキル内課金を使ったスキルの作成
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/header._TTH_.png" />
 
-[![Voice User Interface](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/1-locked._TTH_.png)](./voice-user-interface.md)[![Lambda Function](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/2-locked._TTH_.png)](./lambda-function.md)[![Connect VUI to Code](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/3-locked._TTH_.png)](./connect-vui-to-code.md)[![Testing](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/4-on._TTH_.png)](./testing.md)[![Customization](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/5-off._TTH_.png)](./customization.md)[![Publication](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/6-off._TTH_.png)](./publication.md)
+[![音声ユーザーインターフェース](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/1-locked._TTH_.png)](./voice-user-interface.md)[![Lambda 関数](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/2-locked._TTH_.png)](./lambda-function.md)[![VUIとコードを接続する](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/3-locked._TTH_.png)](./connect-vui-to-code.md)[![テスト](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/4-on._TTH_.png)](./testing.md)[![カスタマイズ](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/5-off._TTH_.png)](./customization.md)[![スキルの公開](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/6-off._TTH_.png)](./publication.md)
 
-## Testing Your Alexa Skill
+## Alexa スキルのテスト
 
-So far, we have [created a Voice User Interface](./voice-user-interface.md), [a Lambda function](./lambda-function.md), [connected the two together](./connect-vui-to-code.md), and [created the in-skill products](./create-isp.md).  Your skill is now ready to test.
+ここまでで、[音声ユーザーインターフェース](./voice-user-interface.md)と [Lambda 関数](./lambda-function.md)を作成し、[それらを連携](./connect-vui-to-code.md)、 [スキル内商品の作成](./create-isp.md)を行いました。 これであなたのスキルをテストする準備が整いました。
 
-1.  **Go back to the [Amazon Developer Portal](https://developer.amazon.com/edw/home.html#/skills/list?&sc_category=Owned&sc_channel=RD&sc_campaign=Evangelism2018&sc_publisher=github&sc_content=Survey&sc_detail=premium-fact-nodejs-V2_GUI-4&sc_funnel=Convert&sc_country=WW&sc_medium=Owned_RD_Evangelism2018_github_Survey_premium-fact-nodejs-V2_GUI-4_Convert_WW_beginnersdevs&sc_segment=beginnersdevs) and select your skill from the list.** You may still have a browser tab open if you started at the beginning of this tutorial.
+1. [Amazon開発者ポータル](https://developer.amazon.com/edw/home.html#/skills/list)に戻り、あなたが作ったスキルを選択します。
 
-1. Access the **Alexa Simulator**, by selecting the **Test** link from the top navigation menu.
+1. トップナビゲーションメニューから **テスト** タブを選択し **Alexaシミュレータ**を表示します。ブラウザによってはマイクへのアクセス許可を要求する場合があります。マイクを有効にすることを推奨しますが、テキスト入力によるテストも可能です。
 
-1. Enable Testing by selecting **Development** from the drop down found directly below the top navigation menu.  Once enabled, the label should read **Skill testing is enabled in:** `Development`.
+1. 上部のナビゲーションメニューのすぐ下にあるドロップダウンから、**開発中** を選択して、テストを有効化してください。 選択すると、スキルテストが有効になっているステージが、`開発中` になります。
 
-1. To validate that your skill is working as expected, invoke your skill from the **Alexa Simulator**. You can either type or click and hold the mic from the input box to use your voice.
-	1. **Type** "Open" followed by the invocation name you gave your skill in [Step 1](./voice-user-interface.md). For example, "Open premium facts sample".
-	2. **Use your voice** by clicking and holding the mic on the side panel and saying "Open" followed by the invocation name you gave your skill.
-	3. **If you've forgotten the invocation name** for your skill, revisit the **Build** panel on the top navigation menu and select **Invocation** from the sidebar to review it.
-1. Test phrases like:
-        * tell me a random fact
-        * give me a history fact
-        * what can I buy
-        * buy history pack
-        > Note: if you have enabled a voice code to prevent accidental purchases via voice, you will be required to provide it before you can make an in-skill purchase.  If you type that code, be sure to spell the numbers out, e.g. "one two three four" instead of "1234", otherwise the simulator will not recognize your code.
+1. **Alexaシミュレータ** で、あなたのスキルが期待どおりに動作するか検証します。テキストボックスに文字を入力するか、マイクアイコンを押した状態でマイクに話しかけてみてください。
+	1. **文字入力** [Step 1](./1-voice-user-interface.md)で指定したスキルの **呼び出し名** に続き "を開いて" とタイプしてください。(例："宇宙の豆知識を開く")
+	2. **音声** テキストボックス横のマイクアイコンを押下した状態で、スキルの **呼び出し名** に続き "を開いて" と発話してください。
+	3. スキルの **呼び出し名** を忘れた場合、トップナビゲーションメニューから **ビルド** タブを選択して、左側パネルの **呼び出し名** で確認してください。
 
-> **Note: The developer account associated with the skill is never charged for in-skill products.**  For more details about testing skills with in-skill products, please refer to the [In-Skill Purchase Testing Guide](https://developer.amazon.com/docs/in-skill-purchase/isp-test-guide.html)
+1. 次のようなフレーズをテストしてみてください
+        
+      * トリビア
+      * 歴史のトリビア
+      * 何が買える?
+      * 歴史パックを買う
 
-> If you need to reset a test purchase, you can return to the In-Skill Products page in the Alexa Developer Console.  (That's on the **Build** tab, and click on **In-Skill Products** in the left nav.  If you don't see it there, click on the In-Skill Products item in the Skill Builder Checklist.)  Then click on the **Reset test purchases** link to reset your purchases for that product.  This will work regardless of how you setup the in-skill product (console or CLI).
+      > ノート: もし音声による意図しない購入を防ぐために、ボイスコードを有効にしている場合、スキル内課金をする前にそれを提供するよう要求されます。 Alexaシミュレーターでこれをタイプ入力する場合、"1234" でなく "一 二 三 四" `と入力してください。
 
-> **Pro Tip**: type or say `exit` in the simulator to reset the session before each test pass.  The simulator holds a session open longer than on a device to assist in your testing and it's easy to forget a session is still open.
+      > ノート: スキルに紐づいている開発者アカウントはスキル内課金では変更されません。 スキル内課金のテストに関する詳細は、[スキル内課金のテストガイド](https://developer.amazon.com/docs/in-skill-purchase/isp-test-guide.html) を参照してください。
 
-1. Ensure your skill works the way that you designed it to.
-	* After you interact with the Alexa Simulator, you should see the Skill I/O **JSON Input** and **JSON Output** boxes get populated with JSON data. You can also view the **Device Log** to trace your steps.
-	* If it's not working as expected, you can dig into the JSON to see exactly what Alexa is sending and receiving from the endpoint. If something is broken, AWS Lambda offers an additional testing tool to help you troubleshoot your skill.
+      > Alexa デベロッパーコンソールのスキル内商品のページから、テスト購入をリセットすることができます。(**スキル内商品** のサブメニューは、**ビルド** タブの左側にあります。見当たらない場合は、スキルビルダーのチェックリストから、スキル内商品をクリックしてください。) 商品の **テスト購入をリセット** をクリックするとリセットすることができます。 これは、スキル内商品がデベロッパーコンソールから設定されたか ASK CLI で設定されたかによらず有効です。
 
-1.  **Configure a test event in AWS Lambda.** Now that you are familiar with the **request** and **response** boxes in the Service Simulator, it's important for you to know that you can use your **requests** to directly test your Lambda function every time you update it.  To do this:
-    1.  Enter an utterance in the service simulator, and copy the generated Lambda Request (JSON Input) for the next step.
+      > **プロTip:** シミュレータで、`終了` とタイプか発話することにより、それぞれのテストパスの前にセッションをリセットすることができます。 シミュレータは、テストを容易にするために、通常のデバイスよりも長い時間セッションを開き続けますが、これにより簡単にセッションを閉じることができます。
 
-    2.  **Open your Lambda function in AWS, open the Actions menu, and select "Configure test events."**![Configure Test events drop down](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/4-5-2-configure-test-event._TTH_.png)
+1. あなたのスキルが期待どおりに動作するか検証します。
+	* Alexaシミュレータで検証をしたら、スキルI/O パネルの **JSON入力** と **JSON出力** ボックスを参照ください。また上部にある **デバイスのログ** を有効にすると、動作ステップも参照できます。
+	* もし期待する動作をしない場合は、上記のスキルI/Oパネルが実際に Lambda 関数とやり取りしている入出力となりますので、問題解析のヒントにしてください。もちろん AWS Lambda も問題解決のための追加ツールを用意しています。
 
-    3.  **Select "Create new test event". Choose "Alexa Start Session" as the Event Template from the dropdown list.** You can choose any test event in the list, as they are just templated event requests, but using "Alexa Start Session" is an easy one to remember.  
-![Alexa Start Session](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/4-5-3-alexa-start-session._TTH_.png)
+1.  **AWS Lambda のテストイベント設定** サービスシミュレーターの **リクエスト（JSON入力)** と **レスポンス（JSON出力)** について説明しました。この **リクエスト** の値を利用することで、Lambda 関数を直接テストすることができます。 次のような手順で行います。
 
-    4.  Type in an Event Name into the **Event Name** field.  Delete the contents of the code editor, and paste the Lambda request you copied above into the code editor. The Event Name is only visible to you. Name your test event something descriptive and memorable. For our example, we entered an event name as "startSession". Additionally, by copying and pasting your Lambda Request from the service simulator, you can test different utterances and skill events beyond the pre-populated templates in Lambda.
+    1.  **Alexaシミュレーター** でテキストか音声で発話をして、発生したリクエスト(JSON入力)の内容を次のステップのためにコピーしておいてください。
 
-    5.  **Click the "Create" button.** This will save your test event and bring you back to the main configuration for your lambda function.
+    2.  **AWS マネジメントコンソール** に移動して Lambda 関数を開き、**アクション** メニューの右側のドロップダウンリストから **テストイベントの設定** を選択します。
 
-    6.  **Click the "Test" button to execute the "startSession" test event.**
-![Test with event](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/4-5-5-save-and-test._TTH_.png)
+        ![テストイベントの設定](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/jp/tutorials/fact/4-5-2-configure-test-event.png)
 
-        This gives you visibility into four things:
+    3.  **新しいテストイベントの作成** を選択して、イベントテンプレートのドロップダウンリストから **Alexa Start Session** を選択します。 実際はどのイベントテンプレートを選んでも良いのですが、覚えやすいのでここでは **Alexa Start Session** を利用します。
+    
+        ![Alexa Start Session](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/jp/tutorials/fact/4-5-3-alexa-start-session.png)
 
-        *  **Your response, listed in the "Execution Result."**
-![execution result](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/4-5-5-1-execution-result._TTH_.png)
+    4.  **イベント名** フィールドにイベント名を適当に入力します。 イベント名は、テストの内容を連想しやすければ、特に何でもかまいません。例えば、"startSession"でも結構です。 コードエディターの内容を削除して、先にコピーした Lambda リクエスト(JSON入力)をペーストします。 AlexaシミュレータからLambdaリクエストをコピー・ペーストすることで、さまざまな発話にたいするテストイベントを作成することができます。      
 
-        *  **A Summary of the statistics for your request.** This includes things like duration, resources, and memory used.
-![Summary](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/4-5-5-2-summary._TTH_.png)
+    5.  **作成** ボタンをクリックします。これによりテストイベントが保存され、Lambda関数のメインページで **テスト** ボタンの左に指定したテストイベント名が現れます。
 
-        *  **Log output.**  By effectively using console.log() statements in your Lambda code, you can track what is happening inside your function, and help to figure out what is happening when something goes wrong.  You will find the log to be incredibly valuable as you move into more advanced skills.
-![CloudWatch Logs](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/4-5-5-3-log-output._TTH_.png)
+    6. 作成したテストイベント(例 startSession)を選択して **「テスト」** ボタンをクリックします。これにより Lambda 関数に対して設定したテストの内容が実行されます。
+    
+        ![テストイベント](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/jp/tutorials/fact/4-5-5-save-and-test.png)
+        
+        テストにより4つのことが確認できます。
 
-        *  **A link to your [CloudWatch](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs:) logs for this function.**  This will show you **all** of the responses and log statements from every user interaction.  This is very useful, especially when you are testing your skill from a device with your voice.  (It is the "[Click here](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs:)" link in the Log Output description.)
+      *  **レスポンス(JSON出力)** 「実行結果」内に表示されます。
 
-7.  **Other testing methods to consider:**
-    *  Testing on your Alexa enabled devices and applications - any devices registered using the same account as your Alexa developer account will have your skill enabled on them when testing is enabled in development mode.  You should always test your skill on an actual device rather than relying solely on the simulator.  Keep in mind that in-skill products may not be purchased on all devices, but already purchased products will be available for use on all devices.
-    *  [Echosim.io](https://echosim.io) - a browser-based Alexa skill testing tool that makes it easy to test your skills without carrying a physical device everywhere you go.
-    *  [Unit Testing with Alexa](https://alexa.design/postman-guide) - a modern approach to unit testing your Alexa skills with [Postman](http://getpostman.com) and [Amazon API Gateway](http://aws.amazon.com/apigateway).
+           ![実行結果](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/jp/tutorials/fact/4-5-5-1-execution-result.png)
 
-> Note: While in-skill products are only currently available in the English (US) locale, any developer account (regardless of home locale), can be used to create skills with in-skill products.  When testing, you must use an account which defaults to the amazon.com marketplace.  (You may recall see that marketplace mentioned on the in-skill products' pricing page.)  If your developer account does not default to that marketplace, or your billing address is outside the United States, then you will need to create a new account for testing purposes.  Create this account using https://www.amazon.com and set an address for somewhere in the United States.
 
-8.  **If your sample skill is working properly, you can now customize your skill.**
+      *  **実行結果の統計値の概要** ここには所用時間や課金時間、設定済みリソース、使用メモリなどが表示されます。
 
-[![Next](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/buttons/button_next_customization._TTH_.png)](./customization.md)
+           ![](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/4-5-5-2-summary._TTH_.png)
+
+      *  **ログ出力**  Lambda 関数のコード内で console.log() を適切に使うことで、 関数内で何が起こっているかトラッキングすることができます。何か問題が起きた時に原因を特定する場合に役に立つでしょう。より高度なスキルを作るようになった時、ログの有用性に気づくはずです。
+        モニタリングタグにある、**CloudWatchのログを表示** をクリックしてください。 CloudWatch についての詳細については [こちら](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs:)" を参照してください。
+
+           ![CloudWatchログ](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/jp/tutorials/fact/4-5-5-2-summary.png)
+        
+7.  **その他のテスト方法:**
+    *  Alexa 搭載デバイスやアプリケーションでのテスト - あなたの Alexa 開発者アカウントで登録されているデバイスは、開発中のスキルが有効化されており、開発モードでテストすることができます。 シミュレータだけでなく、必ず実際のデバイスでもテストするようにしてください。 スキル内商品は全てのデバイスで購入できないかもしれませんが、購入済みの商品はすべてのデバイスで有効になります。
+    *  [Echosim.io](https://echosim.io) はブラウザベースのAlexaスキルのテストツールです。実機デバイスがなくてもテストできるので便利です。
+    *  [Unit Testing with Alexa](https://github.com/alexa/alexa-cookbook/tree/master/testing/postman/README.md) は [Postman](http://getpostman.com) と [Amazon API Gateway](http://aws.amazon.com/apigateway) を使用したモダンなユニットテストのアプローチです。
+
+        > ノート: スキル内商品は、スキルの設定と同一の地域でのみ購入することができます。日本では amazon.co.jp のアカウントで登録されたデバイスから使うことができます。また、請求先住所も同じように国内で設定されている必要があります。
+
+8.  **サンプルスキルが正常に動作することを確認できたら、このスキルをカスタマイズしましょう。**
+
+[![次](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/buttons/button_next_customization._TTH_.png)](./customization.md)
