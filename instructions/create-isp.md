@@ -1,68 +1,66 @@
-# Build An Alexa Skill with In-Skill Purchases - Premium Fact
+# プレミアムトリビア - スキル内課金を使ったスキルの作成
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/header._TTH_.png" />
 
-[![Voice User Interface](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/1-locked._TTH_.png)](./voice-user-interface.md)[![Lambda Function](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/2-locked._TTH_.png)](./lambda-function.md)[![Connect VUI to Code](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/3-locked._TTH_.png)](./connect-vui-to-code.md)[![Testing](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/4-off._TTH_.png)](./testing.md)[![Customization](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/5-off._TTH_.png)](./customization.md)[![Publication](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/6-off._TTH_.png)](./publication.md)
+[![音声ユーザーインターフェース](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/1-locked._TTH_.png)](./voice-user-interface.md)[![Lambda 関数](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/2-locked._TTH_.png)](./lambda-function.md)[![VUIとコードを接続する](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/3-locked._TTH_.png)](./connect-vui-to-code.md)[![テスト](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/4-off._TTH_.png)](./testing.md)[![カスタマイズ](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/5-off._TTH_.png)](./customization.md)[![スキルの公開](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/6-off._TTH_.png)](./publication.md)
 
-# Create In-Skill Products
+# スキル内商品の作成
 
-On [page #1](./voice-user-interface.md) of this guide, we created a voice user interface for the intents and utterances we expect from our users.  On [page #2](./lambda-function.md), we created a Lambda function that contains all of our logic for the skill.  On [page #3](./connect-vui-to-code.md), we connected those two pieces together.  Now we will create the in-skill products that customers can purchase.
+このガイドの [1ページ目](./voice-user-interface.md) では、音声ユーザーインターフェイスの対話モデルを作成しました。 [2ページ目](./lambda-function.md) では、スキルのロジックを定義する Lambda 関数を作成しました。 そして [3ページ目](./connect-vui-to-code.md) ではそれら2つを接続することを行いました。 今回は、ユーザーが購入できるスキル内商品を作成します。
 
-This sample uses four in-skill products -- 3 one-time purchases (sometimes referred to as entitlements) and 1 subscription.  To get the full experience from this sample, you will need to create all of the products, however it will work with fewer -- just remember what you create and link to the skill!
+このサンプルでは、4つのスキル内商品を使います -- そのうちの3つは買い切り型の商品で、残りの1つはサブスクリプション型の商品です。 このサンプルの体験をフルに経験するには、4つすべてのスキル内商品を作成するのがよいですが、一部だけの商品を作成しても大丈夫です。 作成した商品とスキルがリンクするように留意してください。
 
-1. Navigate to the Monetization Tool by clicking on the **In-Skill Products** section while on the **Build** tab of the Developer Console. 
-    > If you cannot see the correct section in the left nav, click on the **Permissions** section, then click on **In-Skill Products**.
-1. Click **Create in-skill product**.
-1. Enter a Reference name.  This is code-friendly name you want to assign to your in-skill product.  For this sample, the code is expecting the reference name `all_access`.
-    > Be sure to enter all the reference names exactly as provided.  They are used in the sample code and it won't work properly if the name does not match exactly.
-1. Choose **Subscription**.
-1. Click **Create in-skill product**.
-1. On the **Distribution** sub-section, enter the following details for the subscription:
-
-    Field|Description|Value for Sample
+1. 開発者コンソールの **ビルド** タブで、左側の **スキル内商品** セクションをクリックして、マネタイゼーションツールを開いてください。
+1. **スキル内商品を作成** をクリックしてください。
+1. スキル内商品の参照名を入力してください。これはコードからスキル内商品を参照するための識別子ですので、スペースや特殊記号のない英語の名前を推奨します。このサンプルのコードでは、`all_access` という参照名を想定しています。
+    > 全ての参照名を指定どおり正確に入力するように注意してください。これらの名前はサンプルコードから利用していますので、一致しないとサンプルが動作しません。
+1. **サブスクリプション型** を選択してください。
+1. **スキル内商品を作成** をクリックしてください。
+1. **公開** サブセクションで、サブスクリプションに対して次を入力してください。
+    項目|説明|サンプル値
     -----|-----------|------------------
-    **Display Name**|The display name of the product.  Customers will see and hear this.  | All Access
-    **One sentence description**| Summary description of the product. Customers will hear this. | All Access is a great addition because you will hear facts about history, science and space, plus any future categories added.
-    **Detailed Description**|A full description explaining the product's functionality and any prerequisites to using it. Customers will see this.| All Access expands the set of facts shared with you to include facts about history, science and space.
-    **Example Phrases**| Example phrases customers can use to access your in-skill products. You should populate all three examples; for this sample, we'll just do one. | Buy All Access
-    **Small Icon**| Small icon used with product when displayed in the skill store or Alexa app.  You can use this placeholder icon if you don't have an image you would like to use. | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png
-    **Large Icon**| Large icon used with product when displayed in the skill store or Alexa app. You can use this placeholder icon if you don't have an image you would like to use. | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png
-    **Keywords** | Keywords that will be used with search. | All Access
-    **Purchase prompt description**| The description of the product a customer hears when making a purchase or when they cancel a subscription.| The All Access pass adds over 30 history, science and space facts into the set of facts randomly chosen to be shared with you.
-    **Purchase confirmation description**|A description of the product that displays on the skill card in the Alexa app. Customers will see this. | Thanks for purchasing the All Access pass!  You now have access to history, science and space facts!
-    **Privacy Policy URL**|A URL to the privacy policy for this locale. For this sample, we'll use a placeholder value. |https://localhost/privacy.html
+    **表示名**|この商品の表示名。 ユーザーはこの名前を見聞きします。| オールアクセス
+    **説明**| 商品のサマリー説明。 ユーザーはこの説明を聞きます。| オールアクセスでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。
+    **詳細な説明**| 商品の機能や使用要件など詳細な説明。 ユーザーはこの説明を見ます。| オールアクセスでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。
+    **サンプルフレーズ**| ユーザーがこのスキル内商品にアクセスするためのフレーズ例。 ここでは1例だけですが、３つすべてのフレーズ紹介しても結構です。| オールアクセスを購入
+    **小さいアイコン**| スキルストアや Alexa アプリで商品表示に利用する小さいアイコン。  もしお持ちでなければ、このプレースフォルダーアイコンを利用することもできます。| https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png
+    **大きいアイコン**| スキルストアや Alexa アプリで商品表示に利用する大きいアイコン。 もしお持ちでなければ、この代用アイコンを利用することもできます。| https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png
+    **キーワード** | 検索で利用されるキーワード | オールアクセス
+    **購入プロンプトの説明**| 商品を購入したりサブスクリプションをキャンセルするときにユーザーが聞く商品の説明。| オールアクセスでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。
+    **購入確認の説明**| Alexa アプリのスキルカードで表示される商品の説明。ユーザーはこれを目にします。| オールアクセスを購入いただきありがとうございました。あらゆるトリビアをお楽しみください！
+    **プライバシーポリシーのURL**|当該地区向けのプライバシーポリシーへのUR. このサンプルでは、代用値を使います。 |https://localhost/privacy.html
 
-    > Need help creating icons for your ISP or skill? Check out the [Alexa Skill Icon Builder](https://developer.amazon.com/docs/tools/icon-builder.html)
+    > ISPやスキルのアイコン作成にお困りなら、[Alexa Skill Icon Builder](https://developer.amazon.com/docs/tools/icon-builder.html) を参照してください。
 
-1. Click **Save and continue**.
-1. On the **Pricing** sub-section, the default values (amazon.com, $0.99 USD, Monthly billing, 7 day trial, releasing "today") are fine for the sample, however you can change the values if you like.
-1. Set the **Tax Category** to 'Information Services'.  This is suitable for this sample, however you should consult your tax professional for guidance on what to choose for this value.  The available options are listed [here](https://developer.amazon.com/docs/in-skill-purchase/create-isp-dev-console.html#tax-category)
-1. Click **Save and continue**.
-1. Normally you would provide testing instructions to help the certification team find and test your in-skill product.  (These testing instructions are specific to this in-skill product, and are in addition to the skill testing instructions you will provide on the **Certification** tab.)  We're going to leave them blank for now.
-1. Click **Save and finish**.
-1. If you've provided all the necessary information, you will be able to click **Link to skill** which will link this in-skill product with your skill.  If that's not an option, click **Continue** and then go back and fill in any missing information.
-1. Nice!  You now have a subscription addd to your skill.
-1. Repeat this process for the three one-time purchases using the data in the following table:
+1. **保存して続行** をクリックしてください。
+1. **価格** サブセクションで、このサンプルでは、amazon.co.jp、JPY、99円, 毎月, 7日間トライアル, リリース日 "本日" で大丈夫ですが、必要に応じて変更することもできます。
+1.  **税金カテゴリー** を設定してください。 サンプルではなんでも大丈夫ですが、実際の商品にはどの選択を使うべきか、税務の専門家に相談してください。 利用できるオプションは [ここ](https://developer.amazon.com/docs/in-skill-purchase/create-isp-dev-console.html#tax-category) にリストされています。
+1. **保存して続行** をクリックしてください。
+1. 通常、審査チームがスキル内商品を見つけたりテストするために、テスト手順を提供します。(この説明は、**認定** タブで指定する一般的なスキルのテスト手順とは別に、このスキル内商品に特化したテスト手順になります。) ここでは、とりあえずブランクのままとします。
+1. **保存して終了する** をクリックしてください。
+1. 必要な情報がすべて満たせた場合、スキルにスキル内商品をリンクさせるための **スキルへのリンク** がクリックできるはずです。 そうでない場合、**継続** をクリックして不足している情報を補ってください。
+1. お疲れ様でした! 以上で、スキルにサブスクリプションの追加が完了です。
+1. このプロセスを、次の表を使って、3つの買い切り型商品にも繰り返します。参照名をお間違いなく。
 
-    Field|Value for History Pack|Value for Science Pack|Value for Space Pack
+    項目|歴史パック用の値|科学パック用の値|宇宙パック用の値
     -----|---|----|----
-    **Reference Name**| `history_pack` | `science_pack` |  `space_pack`
-    **In-Skill Product Type** | One-Time Purchase | One-Time Purchase | One-Time Purchase
-    **Display name**| History Pack | Science Pack | Space Pack
-    **One sentence description** | The history pack is a great addition because you will hear facts about history. | The science pack is a great addition because you will hear facts about science. | The space pack is a great addition because you will hear facts about space.
-    **Detailed Description**| The history pack expands the set of facts shared with you to include facts about history. | The science pack expands the set of facts shared with you to include facts about science. | The space pack expands the set of facts shared with you to include facts about space.
-    **Example Phrases**| buy history pack | buy science pack | buy space pack
-    **Small Icon** (Placeholder)| https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png 
-    **Large Icon** (Placeholder) | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png
-    **Keywords**| history | science | space
-    **Purchase prompt description**| The history pack adds over 10 history facts into the set of facts randomly chosen to be shared with you. | The science pack adds over 10 science facts into the set of facts randomly chosen to be shared with you. | The space pack adds over 10 space facts into the set of facts randomly chosen to be shared with you.
-    **Purchase confirmation description**| Thanks for purchasing the history pack.  You now have access to history facts! | Thanks for purchasing the science pack.  You now have access to science facts! | Thanks for purchasing the space pack.  You now have access to space facts!
-    **Privacy Policy URL** (Placeholder)| https://localhost/privacy.html | https://localhost/privacy.html | https://localhost/privacy.html
-    **Tax Category** (Placeholder) | Information Services | Information Services | Information Services
+    **参照名**| `history_pack` | `science_pack` |  `space_pack`
+    **スキル内商品タイプ** | 買い切り型 | 買い切り型 | 買い切り型
+    **表示名**| 歴史パック | 科学パック | 宇宙パック
+    **説明** | 歴史パックでは歴史に関するトリビアを聞くことができます。| 科学パックでは科学に関するトリビアを聞くことができます。| 宇宙パックでは宇宙に関するトリビアを聞くことができます。
+    **詳細な説明**| 歴史パックでは歴史に関するトリビアを聞くことができます。 | 科学パックでは科学に関するトリビアを聞くことができます。 | 宇宙パックでは宇宙に関するトリビアを聞くことができます。
+    **サンプルフレーズ**| 歴史パックを購入 | 科学パックを購入 | 宇宙パックを購入
+    **小さいアイコン** (Placeholder)| https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png 
+    **大きいアイコン** (Placeholder) | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png
+    **キーワード**| 歴史 | 科学 | 宇宙
+    **購入プロンプトの説明**| 歴史パックでは歴史に関するトリビアを聞くことができます。 | 科学パックでは科学に関するトリビアを聞くことができます。 | 宇宙パックでは宇宙に関するトリビアを聞くことができます。
+    **購入確認の説明**| 歴史パックを購入いただきありがとうございました。歴史トリビアをお楽しみください！ | 科学パックを購入いただきありがとうございました。科学トリビアをお楽しみください！ | 宇宙パックを購入いただきありがとうございました。宇宙トリビアをお楽しみください！
+    **プライバシーポリシーのURL** (Placeholder)| https://localhost/privacy.html | https://localhost/privacy.html | https://localhost/privacy.html
+    **タックスカテゴリー** (Placeholder) | Information Services | Information Services | Information Services
 
-    > These above placeholder values are suitable to be used in the sample, however you should expect to use your own icons and urls when creating your in-skill products.  Failure to do so will prevent your skill from being certified.
+    > ここではサンプルでこの値のままで大丈夫ですが、実際のスキル内商品を作成するときには、独自のアイコンやURLを用意してください。 このままだと審査通過の妨げとなります。
 
-Congrats!  You have added In-Skill Products to your skill.  Now you are ready to test!
+お疲れ様でした!  以上でサンプル用のスキル内商品の追加が完了です。早速テストしてみましょう。
 
-> Before leaving the In-skill Products page, take a note of the links which say **Reset test purchases**.  During testing if you want to 'un-buy' one of your products so you can re-buy it, click on these links.
+> スキル内商品のページから移る前に、**テスト購入のリセット** というリンクがあることを覚えておいてください。 テストで購入した商品をリセットするとき、これらのリンクを使います。
 
-[![Next](./next.png)](./testing.md)
+[![次](./next.png)](./testing.md)

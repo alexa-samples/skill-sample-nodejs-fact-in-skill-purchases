@@ -4,33 +4,33 @@
   "referenceName": "space_pack",
   "publishingInformation": {
     "locales": {
-      "en-US": {
-        "name": "Space Pack",
-        "summary": "The space pack is a great addition because you will hear facts about space.",
-        "description": "The space pack expands the set of facts shared with you to include facts about space.",
+      "ja-JP": {
+        "name": "宇宙パック",
+        "summary": "宇宙パックでは宇宙に関するトリビアを聞くことができます。",
+        "description": "宇宙パックでは宇宙に関するトリビアを聞くことができます。",
         "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
         "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
         "examplePhrases": [
-          "buy space pack"
+          "宇宙パックを購入"
         ],
         "keywords": [
-          "space"
+          "宇宙"
         ],
         "customProductPrompts": {
-          "purchasePromptDescription": "The space pack adds over 10 space facts into the set of facts randomly chosen to be shared with you.",
-          "boughtCardDescription": "Thanks for purchasing the space pack.  You now have access to space facts!"
+          "purchasePromptDescription": "宇宙パックでは宇宙に関するトリビアを聞くことができます。",
+          "boughtCardDescription": "宇宙パックを購入いただきありがとうございました。宇宙トリビアをお楽しみください！"
         }
       }
     },
     "distributionCountries": [
-      "US"
+      "JP"
     ],
     "pricing": {
-      "amazon.com": {
-        "releaseDate": "2018-05-09T00:00Z",
+      "amazon.co.jp": {
+        "releaseDate": "2019-03-01T00:00Z",
         "defaultPriceListing": {
-          "price": 0.99,
-          "currency": "USD"
+          "price": 99,
+          "currency": "JPY"
         }
       }
     },
@@ -40,11 +40,11 @@
   },
   "privacyAndCompliance": {
     "locales": {
-      "en-US": {
+      "ja-JP": {
         "privacyPolicyUrl": "https://localhost/privacy.html"
       }
     }
   },
-  "testingInstructions": "<TESTING INSTRUCTIONS FOR THE CERTIFICATION TEAM SO THEY KNOW HOW TO PURCHASE AND USE THIS PRODUCT>",
+  "testingInstructions": "「宇宙パックを購入」と言ってください。",
   "purchasableState": "PURCHASABLE"
 }

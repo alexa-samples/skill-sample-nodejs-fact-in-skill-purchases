@@ -1,0 +1,203 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "プレミアムトリビア",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "GetRandomFactIntent",
+          "slots": [],
+          "samples": [
+            "トリビア"
+          ]
+        },
+        {
+          "name": "GetCategoryFactIntent",
+          "slots": [
+            {
+              "name": "factCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "{factCategory}",
+            "{factCategory} トリビア",
+            "{factCategory} のトリビア"
+          ]
+        },
+        {
+          "name": "WhatCanIBuyIntent",
+          "slots": [],
+          "samples": [
+            "プレミアムコンテンツについて",
+            "プレミアムコンテンツ",
+            "買う",
+            "買いたい",
+            "購入する",
+            "何を買える",
+            "何が買える"
+          ]
+        },
+        {
+          "name": "BuyIntent",
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "{productCategory} パックを買う",
+            "{productCategory} パックを購入",
+            "{productCategory} パックが欲しい"
+          ]
+        },
+        {
+          "name": "CancelSubscriptionIntent",
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "{productCategory} をやめる",
+            "{productCategory} をキャンセル",
+            "サブスクリプションをやめる",
+            "サブスクリプションをキャンセル"
+          ]
+        },
+        {
+          "name": "ProductDetailIntent",
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType"
+            }
+          ],
+          "samples": [
+            "課金アイテム",
+            "課金について",
+            "{productCategory} トリビアについて",
+            "{productCategory} トリビアについて教えて",
+            "{productCategory} パック",
+            "{productCategory} パックについて",
+            "{productCategory} パックについて教えて"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "id": "random",
+              "name": {
+                "value": "ランダム"
+              }
+            },
+            {
+              "id": "free",
+              "name": {
+                "value": "無料"
+              }
+            },
+            {
+              "id": "all_access",
+              "name": {
+                "value": "オールアクセス"
+              }
+            },
+            {
+              "id": "space",
+              "name": {
+                "value": "宇宙"
+              }
+            },
+            {
+              "id": "history",
+              "name": {
+                "value": "歴史"
+              }
+            },
+            {
+              "id": "science",
+              "name": {
+                "value": "科学"
+              }
+            }
+          ],
+          "name": "factType"
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "GetCategoryFactIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "factCategory",
+              "type": "factType",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            }
+          ]
+        },
+        {
+          "name": "ProductDetailIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "productCategory",
+              "type": "factType",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.592643468739.613787488648"
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "SKILL_RESPONSE"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.592643468739.613787488648",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "どのトリビアの詳細を知りたいですか？例えば、歴史トリビアについて教えて、と言ってみてください。"
+          }
+        ]
+      }
+    ]
+  }
+}

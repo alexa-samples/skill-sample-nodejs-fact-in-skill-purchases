@@ -1,30 +1,41 @@
 {
   "manifest": {
-    "publishingInformation": {
-      "locales": {
-        "en-US": {
-          "summary": "Sample Short Description",
-          "examplePhrases": [
-            "Alexa open Premium Facts Sample",
-            "tell me a science fact"
-          ],
-          "name": "Facts Sample w/In Skill Purchasing",
-          "description": "Sample Full Description"
-        }
-      },
-      "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
-      "category": "EDUCATION_AND_REFERENCE",
-      "distributionCountries": []
-    },
     "apis": {
       "custom": {
         "endpoint": {
-          "sourceDir": "lambda/custom",
-          "uri": "ask-premium-facts"
-        }
+          "uri": "premiumFacts",
+          "sourceDir": "lambda/custom"
+        },
+        "interfaces": []
       }
     },
-    "manifestVersion": "1.0"
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "locales": {
+        "ja-JP": {}
+      },
+      "allowsPurchases": true,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false
+    },
+    "publishingInformation": {
+      "locales": {
+        "ja-JP": {
+          "name": "プレミアムトリビア",
+          "summary": "科学、宇宙、歴史のプレミアムトリビアを楽しめます。",
+          "description": "科学、宇宙、歴史のプレミアムトリビアを楽しめます。",
+          "examplePhrases": [
+            "アレクサ、プレミアムトリビアをスタート"
+          ],
+          "keywords": []
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "テスト",
+      "category": "KNOWLEDGE_AND_TRIVIA",
+      "distributionCountries": []
+    }
   }
 }

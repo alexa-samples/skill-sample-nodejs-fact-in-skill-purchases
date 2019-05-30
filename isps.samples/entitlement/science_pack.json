@@ -4,33 +4,33 @@
   "referenceName": "science_pack",
   "publishingInformation": {
     "locales": {
-      "en-US": {
-        "name": "Science Pack",
-        "summary": "The science pack is a great addition because you will hear facts about science.",
-        "description": "The science pack expands the set of facts shared with you to include facts about science.",
+      "ja-JP": {
+        "name": "科学パック",
+        "summary": "科学パックでは科学に関するトリビアを聞くことができます。",
+        "description": "科学パックでは科学に関するトリビアを聞くことができます。",
         "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
         "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
         "examplePhrases": [
-          "buy science pack"
+          "科学パックを購入"
         ],
         "keywords": [
-          "science"
+          "科学"
         ],
         "customProductPrompts": {
-          "purchasePromptDescription": "The science pack adds over 10 science facts into the set of facts randomly chosen to be shared with you.",
-          "boughtCardDescription": "Thanks for purchasing the science pack.  You now have access to science facts!"
+          "purchasePromptDescription": "科学パックでは科学に関するトリビアを聞くことができます。",
+          "boughtCardDescription": "科学パックを購入いただきありがとうございました。科学トリビアをお楽しみください！"
         }
       }
     },
     "distributionCountries": [
-      "US"
+      "JP"
     ],
     "pricing": {
-      "amazon.com": {
-        "releaseDate": "2018-05-09T00:00Z",
+      "amazon.co.jp": {
+        "releaseDate": "2019-03-01T00:00Z",
         "defaultPriceListing": {
-          "price": 0.99,
-          "currency": "USD"
+          "price": 99,
+          "currency": "JPY"
         }
       }
     },
@@ -40,11 +40,11 @@
   },
   "privacyAndCompliance": {
     "locales": {
-      "en-US": {
+      "ja-JP": {
         "privacyPolicyUrl": "https://localhost/privacy.html"
       }
     }
   },
-  "testingInstructions": "<TESTING INSTRUCTIONS FOR THE CERTIFICATION TEAM SO THEY KNOW HOW TO PURCHASE AND USE THIS PRODUCT>",
+  "testingInstructions": "「科学パックを購入」と言ってください。",
   "purchasableState": "PURCHASABLE"
 }
