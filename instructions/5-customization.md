@@ -1,8 +1,6 @@
 # Build An Alexa Skill with In-Skill Purchases - Premium Fact
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/header._TTH_.png" />
 
-[![Voice User Interface](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/1-locked._TTH_.png)](./voice-user-interface.md)[![Lambda Function](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/2-locked._TTH_.png)](./lambda-function.md)[![Connect VUI to Code](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/3-locked._TTH_.png)](./connect-vui-to-code.md)[![Testing](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/4-locked._TTH_.png)](./testing.md)[![Customization](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/5-on._TTH_.png)](./customization.md)[![Publication](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/6-off._TTH_.png)](./publication.md)
-
 ## Customization / Next Steps
 
 At this point, you should have a working copy of your skill. This is a clone of a sample skill, so if you want to publish the skill, you will first need to customize it so it offers content/functionality not currently available via the Alexa Skill Store.
@@ -36,4 +34,4 @@ After making the above changes, be sure to test thoroughly.  After you're done t
 
 Once you've customized your skill, proceed to the certification / publication step.
 
-[![Next](./next.png)](./publication.md)
+[![Next](./next.png)](./6-submit-for-certification.md)

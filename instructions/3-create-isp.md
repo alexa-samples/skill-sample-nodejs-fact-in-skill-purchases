@@ -1,15 +1,13 @@
 # Build An Alexa Skill with In-Skill Purchases - Premium Fact
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/header._TTH_.png" />
 
-[![Voice User Interface](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/1-locked._TTH_.png)](./voice-user-interface.md)[![Lambda Function](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/2-locked._TTH_.png)](./lambda-function.md)[![Connect VUI to Code](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/3-locked._TTH_.png)](./connect-vui-to-code.md)[![Testing](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/4-off._TTH_.png)](./testing.md)[![Customization](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/5-off._TTH_.png)](./customization.md)[![Publication](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/6-off._TTH_.png)](./publication.md)
-
 # Create In-Skill Products
 
-On [page #1](./voice-user-interface.md) of this guide, we created a voice user interface for the intents and utterances we expect from our users.  On [page #2](./lambda-function.md), we created a Lambda function that contains all of our logic for the skill.  On [page #3](./connect-vui-to-code.md), we connected those two pieces together.  Now we will create the in-skill products that customers can purchase.
+On [page #1](./1-setup-vui-alexa-hosted.md) of this guide, we created a voice user interface for the intents and utterances we expect from our users.  On [page #2](./2-create-alexa-hosted-function.md), we created the Alexa Hosted Lambda function that contains all of our logic for the skill. Now we will create the in-skill products that customers can purchase.
 
 This sample uses four in-skill products -- 3 one-time purchases (sometimes referred to as entitlements) and 1 subscription.  To get the full experience from this sample, you will need to create all of the products, however it will work with fewer -- just remember what you create and link to the skill!
 
-1. Navigate to the Monetization Tool by clicking on the **In-Skill Products** section while on the **Build** tab of the Developer Console. 
+1. Navigate to the Monetization Tool by clicking on the **In-Skill Products** section while on the **Build** tab of the Developer Console.
     > If you cannot see the correct section in the left nav, click on the **Permissions** section, then click on **In-Skill Products**.
 1. Click **Create in-skill product**.
 1. Enter a Reference name.  This is code-friendly name you want to assign to your in-skill product.  For this sample, the code is expecting the reference name `all_access`.
@@ -51,7 +49,7 @@ This sample uses four in-skill products -- 3 one-time purchases (sometimes refer
     **One sentence description** | The history pack is a great addition because you will hear facts about history. | The science pack is a great addition because you will hear facts about science. | The space pack is a great addition because you will hear facts about space.
     **Detailed Description**| The history pack expands the set of facts shared with you to include facts about history. | The science pack expands the set of facts shared with you to include facts about science. | The space pack expands the set of facts shared with you to include facts about space.
     **Example Phrases**| buy history pack | buy science pack | buy space pack
-    **Small Icon** (Placeholder)| https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png 
+    **Small Icon** (Placeholder)| https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png
     **Large Icon** (Placeholder) | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png | https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png
     **Keywords**| history | science | space
     **Purchase prompt description**| The history pack adds over 10 history facts into the set of facts randomly chosen to be shared with you. | The science pack adds over 10 science facts into the set of facts randomly chosen to be shared with you. | The space pack adds over 10 space facts into the set of facts randomly chosen to be shared with you.
@@ -65,4 +63,4 @@ Congrats!  You have added In-Skill Products to your skill.  Now you are ready to
 
 > Before leaving the In-skill Products page, take a note of the links which say **Reset test purchases**.  During testing if you want to 'un-buy' one of your products so you can re-buy it, click on these links.
 
-[![Next](./next.png)](./testing.md)
+[![Next](./next.png)](./4-testing.md)
