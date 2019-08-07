@@ -17,17 +17,28 @@
         },
         {
           "name": "AMAZON.YesIntent",
-          "samples": []
+          "samples": [
+            "聞く",
+            "聞きたい",
+            "聞きます"
+          ]
         },
         {
           "name": "AMAZON.NoIntent",
-          "samples": []
+          "samples": [
+            "聞かない",
+            "聞きたくない"
+          ]
         },
         {
           "name": "GetRandomFactIntent",
           "slots": [],
           "samples": [
-            "トリビア"
+            "トリビア",
+            "トリビアが聞きたい",
+            "トリビアを教えて",
+            "トリビアちょうだい",
+            "トリビア聞かせて"
           ]
         },
         {
@@ -41,7 +52,12 @@
           "samples": [
             "{factCategory}",
             "{factCategory} トリビア",
-            "{factCategory} のトリビア"
+            "{factCategory} のトリビア",
+            "{factCategory} のトリビアが聞きたい",
+            "{factCategory} のトリビアを教えて",
+            "{factCategory} について教えて",
+            "{factCategory} を教えて",
+            "{factCategory} が知りたい"
           ]
         },
         {
@@ -54,7 +70,10 @@
             "買いたい",
             "購入する",
             "何を買える",
-            "何が買える"
+            "何が買える",
+            "課金したい",
+            "有料コンテンツ",
+            "有料コンテンツについて"
           ]
         },
         {
@@ -68,7 +87,9 @@
           "samples": [
             "{productCategory} パックを買う",
             "{productCategory} パックを購入",
-            "{productCategory} パックが欲しい"
+            "{productCategory} パックが欲しい",
+            "{productCategory} パックを申し込む",
+            "{productCategory} パックに課金する"
           ]
         },
         {
@@ -82,8 +103,13 @@
           "samples": [
             "{productCategory} をやめる",
             "{productCategory} をキャンセル",
+            "{productCategory} を解約",
             "サブスクリプションをやめる",
-            "サブスクリプションをキャンセル"
+            "サブスクリプションをキャンセル",
+            "サブスクをキャンセル",
+            "購入をキャンセル",
+            "有料会員をやめる",
+            "有料会員をやめたい"
           ]
         },
         {
@@ -97,11 +123,12 @@
           "samples": [
             "課金アイテム",
             "課金について",
-            "{productCategory} トリビアについて",
-            "{productCategory} トリビアについて教えて",
+            "商品の詳細",
             "{productCategory} パック",
             "{productCategory} パックについて",
-            "{productCategory} パックについて教えて"
+            "{productCategory} パックについて教えて",
+            "{productCategory} パックの詳細",
+            "{productCategory} パックについて詳しく"
           ]
         },
         {
@@ -194,7 +221,7 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "どのトリビアの詳細を知りたいですか？例えば、歴史トリビアについて教えて、と言ってみてください。"
+            "value": "どの商品の詳細を知りたいですか？例えば、歴史パックの詳細、と言ってみてください。"
           }
         ]
       }
