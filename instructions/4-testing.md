@@ -40,9 +40,11 @@
 
 ## その他のテスト方法
 
-    *  Alexa搭載デバイスやアプリケーションでのテスト: あなたの Alexa 開発者アカウントで登録されているデバイスは、開発中のスキルが有効化されており、開発モードでテストすることができます。 シミュレータだけでなく、必ず実際のデバイスでもテストするようにしてください。 スキル内商品は全てのデバイスで購入できないかもしれませんが、購入済みの商品はすべてのデバイスで有効になります。
-    *  [Echosim.io](https://echosim.io) はブラウザベースのAlexaスキルのテストツールです。実機デバイスがなくてもテストできるので便利です。
-    *  [Unit Testing with Alexa](https://github.com/alexa/alexa-cookbook/tree/master/testing/postman/README.md) は [Postman](http://getpostman.com) と [Amazon API Gateway](http://aws.amazon.com/apigateway) を使用したモダンなユニットテストのアプローチです。
+* Alexa搭載デバイスやアプリケーションでのテスト: あなたの Alexa 開発者アカウントで登録されているデバイスは、開発中のスキルが有効化されており、開発モードでテストすることができます。 シミュレータだけでなく、必ず実際のデバイスでもテストするようにしてください。 スキル内商品は全てのデバイスで購入できないかもしれませんが、購入済みの商品はすべてのデバイスで有効になります。
+
+*  [Echosim.io](https://echosim.io) はブラウザベースのAlexaスキルのテストツールです。実機デバイスがなくてもテストできるので便利です。
+
+*  [Unit Testing with Alexa](https://github.com/alexa/alexa-cookbook/tree/master/testing/postman/README.md) は [Postman](http://getpostman.com) と [Amazon API Gateway](http://aws.amazon.com/apigateway) を使用したモダンなユニットテストのアプローチです。
 
 
 **サンプルスキルが正常に動作することを確認できたら、このスキルをカスタマイズしましょう。**
