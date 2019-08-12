@@ -1,14 +1,8 @@
-/* eslint-disable no-console */
-/* eslint no-use-before-define: ["error", {"functions": false}] */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable prefer-arrow-callback */
-
+// Alexa SDK ライブラリのロード
 const Alexa = require('ask-sdk');
 
-/*
-    Static list of facts across 3 categories that serve as
-    the free and premium content served by the Skill
-*/
+// トリビアの連想配列データ
+// 無償(free)のトリビアに加え、science, history, spaceの３種類のプレミアムコンテンツを用意している。
 const ALL_FACTS = [
   { type: 'free', fact: '1年は365日です。' },
   { type: 'free', fact: 'いち日は24時間です。' },
@@ -20,45 +14,35 @@ const ALL_FACTS = [
 
 const skillName = 'プレミアムトリビア';
 
-/*
-    Function to demonstrate how to filter inSkillProduct list to get list of
-    all entitled products to render Skill CX accordingly
-*/
+//  スキルに登録されている商品リスト（inSkillProductList）から、購入された商品を抽出する関数
 function getAllEntitledProducts(inSkillProductList) {
   const entitledProductList = inSkillProductList.filter(record => record.entitled === 'ENTITLED');
   console.log(`Currently entitled products: ${JSON.stringify(entitledProductList)}`);
   return entitledProductList;
 }
 
+// 入力したトリビアの連想配列からランダムに一つを選択して返す関数
 function getRandomFact(facts) {
   const factIndex = Math.floor(Math.random() * facts.length);
   return facts[factIndex].fact;
 }
 
-function getRandomYesNoQuestion() {
-  const questions = ['他のトリビアを聞きますか？'];
-  return questions[Math.floor(Math.random() * questions.length)];
-}
 
-function getRandomGoodbye() {
-  const goodbyes = ['さようなら！', 'また使ってね！', ''];
-  return goodbyes[Math.floor(Math.random() * goodbyes.length)];
-}
-
+// 全てのトリビア連想配列から、購入した商品のトリビアだけを抽出して配列で返す関数
 function getFilteredFacts(factsToFilter, handlerInput) {
-  // lookup entitled products, and filter accordingly
+  // 購入した商品をルックアップして、必要に応じてフィルター
   const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
   const entitledProducts = sessionAttributes.entitledProducts;
   let factTypesToInclude;
   if (entitledProducts) {
-    factTypesToInclude = entitledProducts.map(item => item.referenceName.toLowerCase().replace('_pack', ''));
+    factTypesToInclude = entitledProducts.map(item => item.referenceName);
     factTypesToInclude.push('free');
   } else {
-    // no entitled products, so just give free ones
+    // 購入した商品がないので、無償のトリビアだけをセット
     factTypesToInclude = ['free'];
   }
   console.log(`types to include: ${factTypesToInclude}`);
-  if (factTypesToInclude.indexOf('all_access') >= 0) {
+  if (factTypesToInclude.indexOf('complete') >= 0) {
     return factsToFilter;
   }
   const filteredFacts = factsToFilter
@@ -67,17 +51,15 @@ function getFilteredFacts(factsToFilter, handlerInput) {
   return filteredFacts;
 }
 
-/*
-    Helper function that returns a speakable list of product names from a list of
-    entitled products.
-*/
+// 購入した商品名リストの説明文を作る関数
+// 出力例: 「歴史パック と 科学パック と ・・・パック」
 function getSpeakableListOfProducts(entitleProductsList) {
   const productNameList = entitleProductsList.map(item => item.name);
-  let productListSpeech = productNameList.join('と、'); // Generate a single string with comma separated product names
-  // productListSpeech = productListSpeech.replace(/_([^_]*)$/, 'and $1'); // Replace last comma with an 'and '
+  let productListSpeech = productNameList.join('と、');
   return productListSpeech;
 }
 
+// スキルが起動した時に呼ばれるハンドラー
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
@@ -85,21 +67,21 @@ const LaunchRequestHandler = {
   handle(handlerInput) {
     console.log('IN LAUNCHREQUEST');
 
-    // entitled products are obtained by request interceptor and stored in the session attributes
+    // 購入済みの商品リストは Request Intercepter で既に取得し、セッションアトリビュートに格納されているはず
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
     const entitledProducts = sessionAttributes.entitledProducts;
 
     if (entitledProducts && entitledProducts.length > 0) {
-      // Customer owns one or more products
+      // ユーザーは１つ以上の商品を購入している場合
       return handlerInput.responseBuilder
-        .speak(`${skillName}へようこそ。現在、${getSpeakableListOfProducts(entitledProducts)}をお持ちです。` +
+        .speak(`${skillName}へようこそ。現在、${getSpeakableListOfProducts(entitledProducts)}を、お持ちです。` +
           'トリビアを聞くには、「トリビアを教えて」もしくは「歴史のトリビアを教えて」のように言ってみてください。' +
           '「何を買える？」と聞くとプレミアムコンテンツについて説明します。どうしますか？')
         .reprompt('どうしますか？')
         .getResponse();
     }
 
-    // Not entitled to anything yet.
+    // ユーザーがまだ何も購入していない場合
     console.log('No entitledProducts');
     return handlerInput.responseBuilder
       .speak(`${skillName}へようこそ。` +
@@ -108,8 +90,9 @@ const LaunchRequestHandler = {
       .reprompt('どうしますか？')
       .getResponse();
   },
-}; // End LaunchRequestHandler
+};
 
+//　ユーザーが「ヘルプ」と言った時に呼ばれるハンドラー
 const HelpHandler = {
   canHandle(handlerInput) {
     const request = handlerInput.requestEnvelope.request;
@@ -119,27 +102,27 @@ const HelpHandler = {
   handle(handlerInput) {
     return handlerInput.responseBuilder
       .speak('トリビアを聞くには、「トリビアを教えて」もしくは「歴史のトリビアを教えて」のように言ってみてください。' +
-      '「何を買える？」と聞くとプレミアムコンテンツについて説明します。どうしますか？')
+        '「何を買える？」と聞くとプレミアムコンテンツについて説明します。どうしますか？')
       .reprompt('どうしますか？')
       .getResponse();
   },
 };
 
-// IF THE USER SAYS YES, THEY WANT ANOTHER FACT.
+// Alexaが「他のトリビアを聞きますか？」と尋ねたあと、ユーザーが「はい」と言ったら、他のトリビアを言う。
 const YesHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent' ||
-       handlerInput.requestEnvelope.request.intent.name === 'GetRandomFactIntent');
+        handlerInput.requestEnvelope.request.intent.name === 'GetRandomFactIntent');
   },
   handle(handlerInput) {
     console.log('In YesHandler');
 
-    // reduce fact list to those purchased
+    // 購入したトリビアだけを抽出する
     const filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
 
-    const speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
-    const repromptOutput = getRandomYesNoQuestion();
+    const speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)} 他のトリビアも聞きますか？`;
+    const repromptOutput = `他のトリビアも聞きますか？`;
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
@@ -148,7 +131,7 @@ const YesHandler = {
   },
 };
 
-// IF THE USER SAYS NO, THEY DON'T WANT ANOTHER FACT.  EXIT THE SKILL.
+// Alexaが「他のトリビアを聞きますか？」と尋ねたあと、ユーザーが「いいえ」と言ったら、スキルを終了する。
 const NoHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -157,13 +140,14 @@ const NoHandler = {
   handle(handlerInput) {
     console.log('IN NOHANDLER');
 
-    const speakOutput = getRandomGoodbye();
+    const speakOutput = `さようなら。また使ってね。`;
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .getResponse();
   },
 };
 
+// ユーザーが「{factCategory}のトリビアを教えて」と言った時に呼ばれるハンドラー
 const GetCategoryFactHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -172,14 +156,15 @@ const GetCategoryFactHandler = {
   handle(handlerInput) {
     console.log('In GetCategoryFactHandler');
 
-    const factCategory = getResolvedValue(handlerInput.requestEnvelope, 'factCategory');
+    const factCategory = Alexa.getSlot(handlerInput.requestEnvelope, 'factCategory')
+      .resolutions.resolutionsPerAuthority[0].values[0].value.id;
     const factCategoryValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'factCategory');
     console.log(`FACT CATEGORY = XX ${factCategory} XX`);
     let categoryFacts = ALL_FACTS;
 
-    // IF THERE WAS NOT AN ENTITY RESOLUTION MATCH FOR THIS SLOT VALUE
+    // エンティティ解決がなかったらスロットの値をそのまま採用する
     if (factCategory === undefined) {
-      const slotValue = getSpokenValue(handlerInput.requestEnvelope, 'factCategory');
+      const slotValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'factCategory');
       let speakPrefix = '';
       if (slotValue !== undefined) speakPrefix = `${slotValue}ですね。`;
       const speakOutput = `${speakPrefix}そのカテゴリのトリビアはありません。科学、宇宙、歴史のどれにしますか？`;
@@ -191,7 +176,7 @@ const GetCategoryFactHandler = {
         .getResponse();
     }
 
-    // these are all used somewhere in the switch statement
+    // 以下の switch文のどこかで使われている変数
     let speakOutput;
     let repromptOutput;
     let filteredFacts;
@@ -203,46 +188,46 @@ const GetCategoryFactHandler = {
 
     switch (factCategory) {
       case 'free':
-        // don't need to buy 'free' category, so give what was asked
+        // 'free'カテゴリの場合は無料なので、そのまま無料のトリビアを提供する
         categoryFacts = ALL_FACTS.filter(record => record.type === factCategory);
-        speakOutput = `トリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
-        repromptOutput = getRandomYesNoQuestion();
+        speakOutput = `トリビアをどうぞ。${getRandomFact(categoryFacts)} 他のトリビアも聞きますか？`;
+        repromptOutput = `他のトリビアも聞きますか？`;
         return handlerInput.responseBuilder
           .speak(speakOutput)
           .reprompt(repromptOutput)
           .getResponse();
       case 'random':
-      case 'all_access':
-        // choose from the available facts based on entitlements
+      case 'complete':
+        // complete(サブスクリプション)を購入している場合は、全てのトリビアからランダムに選んで提供する
         filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
-        speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)} ${getRandomYesNoQuestion()}`;
-        repromptOutput = getRandomYesNoQuestion();
+        speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)} 他のトリビアも聞きますか？ `;
+        repromptOutput = `他のトリビアも聞きますか？`;
         return handlerInput.responseBuilder
           .speak(speakOutput)
           .reprompt(repromptOutput)
           .getResponse();
       default:
-        // IF THERE WAS AN ENTITY RESOLUTION MATCH FOR THIS SLOT VALUE
+        // スロットにエンティティ解決にマッチするものがあった場合
         categoryFacts = ALL_FACTS.filter(record => record.type === factCategory);
         locale = handlerInput.requestEnvelope.request.locale;
         ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
         return ms.getInSkillProducts(locale).then(function checkForProductAccess(result) {
-          subscription = result.inSkillProducts.filter(record => record.referenceName === 'all_access');
-          categoryProduct = result.inSkillProducts.filter(record => record.referenceName === `${factCategory}_pack`);
+          subscription = result.inSkillProducts.filter(record => record.referenceName === 'complete');
+          categoryProduct = result.inSkillProducts.filter(record => record.referenceName === factCategory);
 
-          // IF USER HAS ACCESS TO THIS PRODUCT
+          // ユーザーが指定された商品を購入している場合は、そのトリビアを話して、続けるかどうか尋ねる
           if (isEntitled(subscription) || isEntitled(categoryProduct)) {
-            speakOutput = `トリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
-            repromptOutput = getRandomYesNoQuestion();
+            speakOutput = `トリビアをどうぞ。${getRandomFact(categoryFacts)} 他のトリビアも聞きますか？`;
+            repromptOutput = `他のトリビアも聞きますか？`;
 
             return handlerInput.responseBuilder
               .speak(speakOutput)
               .reprompt(repromptOutput)
               .getResponse();
           }
-
-          upsellMessage = `${factCategoryValue}パックはまだ購入していません。 ${categoryProduct[0].summary}詳細を聞きますか？`;
+          // **** ユーザーが指定された商品をまだ購入していなかった場合、Upsellディレクティブに送信し、アップセルのフローに進む ***
+          upsellMessage = `${factCategoryValue} パックはまだ購入していません。 ${categoryProduct[0].summary} 詳細を聞きますか？`;
 
           return handlerInput.responseBuilder
             .addDirective({
@@ -262,10 +247,8 @@ const GetCategoryFactHandler = {
   },
 };
 
-
-// Following handler demonstrates how skills can hanlde user requests to discover what
-// products are available for purchase in-skill.
-// Use says: Alexa, ask Premium facts what can i buy
+// このスキルで、どんな商品を購入できるのかを説明する
+// ユーザーが「何が買える？」と言った場合のハンドラー
 const WhatCanIBuyHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -274,8 +257,7 @@ const WhatCanIBuyHandler = {
   handle(handlerInput) {
     console.log('In WhatCanIBuy Handler');
 
-    // Inform the user about what products are available for purchase
-
+    // ユーザーにどんな商品を購入できるかを説明する。
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
@@ -283,18 +265,17 @@ const WhatCanIBuyHandler = {
       const purchasableProducts = result.inSkillProducts.filter(record => record.entitled === 'NOT_ENTITLED' && record.purchasable === 'PURCHASABLE');
 
       return handlerInput.responseBuilder
-        .speak(`現在購入できる商品は、${getSpeakableListOfProducts(purchasableProducts)}です。` +
-          '詳しく知りたい場合には、歴史パックについて教えて、のように言ってみてください。' +
-          'また購入する場合には、宇宙パックを購入、のように言ってください。どうしますか？')
+        .speak(`現在購入できる商品は、${getSpeakableListOfProducts(purchasableProducts)} です。` +
+          '詳しく知りたい場合は、歴史パックについて教えて、のように言ってみてください。' +
+          '購入する場合は、宇宙パックを購入、のように言ってください。どうしますか？')
         .reprompt('どうしますか？')
         .getResponse();
     });
   },
 };
 
-// Following handler demonstrates how skills can hanlde user requests to discover what
-// products are available for purchase in-skill.
-// Use says: Alexa, ask Premium facts what can i buy
+// ユーザーにスキル内課金商品の詳細について説明する
+// ユーザーが「{productCategory}パックについて教えて」と言った場合のハンドラー
 const ProductDetailHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -303,24 +284,22 @@ const ProductDetailHandler = {
   handle(handlerInput) {
     console.log('IN PRODUCT DETAIL HANDLER');
 
-    // Describe the requested product to the user using localized information
-    // from the entitlements API
-
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
     return ms.getInSkillProducts(locale).then(function fetchProductDetails(result) {
-      let productCategory = getResolvedValue(handlerInput.requestEnvelope, 'productCategory');
-      const spokenCategory = getSpokenValue(handlerInput.requestEnvelope, 'productCategory');
+      let productCategory = Alexa.getSlot(handlerInput.requestEnvelope, 'productCategory')
+        .resolutions.resolutionsPerAuthority[0].values[0].value.id;
+      const spokenCategory = Alexa.getSlotValue(handlerInput.requestEnvelope, 'productCategory');
 
-      // nothing spoken for the slot value
+      // ユーザーがカテゴリーを言わなかった場合、Dialogに差し戻す。Alexaが自動でユーザーに聞き直してくれる。
       if (spokenCategory === undefined) {
         return handlerInput.responseBuilder
           .addDelegateDirective()
           .getResponse();
       }
 
-      // NO ENTITY RESOLUTION MATCH
+      // エンティティ解決でもユーザーが要求したカテゴリーがなかった場合、もう一度聞きなおす。
       if (productCategory === undefined) {
         return handlerInput.responseBuilder
           .speak('すみません、分かりませんでした。もう一度お願いできますか？')
@@ -328,14 +307,12 @@ const ProductDetailHandler = {
           .getResponse();
       }
 
-      if (productCategory !== 'all_access') productCategory += '_pack';
-
       const product = result.inSkillProducts
         .filter(record => record.referenceName === productCategory);
 
       if (isProduct(product)) {
-        const speakOutput = `${product[0].summary}購入するには、${product[0].name}を購入、と言ってください。`;
-        const repromptOutput = `購入するには、${product[0].name}を購入、と言ってください。 `;
+        const speakOutput = `${product[0].summary} 購入するには、${product[0].name} を購入、と言ってください。`;
+        const repromptOutput = `購入するには、${product[0].name} を購入、と言ってください。 `;
         return handlerInput.responseBuilder
           .speak(speakOutput)
           .reprompt(repromptOutput)
@@ -349,8 +326,8 @@ const ProductDetailHandler = {
   },
 };
 
-// Following handler demonstrates how Skills would recieve Buy requests from customers
-// and then trigger a Purchase flow request to Alexa
+// ユーザーが「{productCategory}を購入する」と明示的に言った時のハンドラー
+// Alexaの購入フローをトリガーする
 const BuyHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -359,24 +336,17 @@ const BuyHandler = {
   handle(handlerInput) {
     console.log('IN BUYINTENTHANDLER');
 
-    // Inform the user about what products are available for purchase
-
     const locale = handlerInput.requestEnvelope.request.locale;
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
     return ms.getInSkillProducts(locale).then(function initiatePurchase(result) {
-      let productCategory = getResolvedValue(handlerInput.requestEnvelope, 'productCategory');
+      let productCategory = Alexa.getSlot(handlerInput.requestEnvelope, 'productCategory')
+        .resolutions.resolutionsPerAuthority[0].values[0].value.id;
 
-      // NO ENTITY RESOLUTION MATCH
-      if (productCategory === undefined) {
-        productCategory = 'all_access';
-      } else if (productCategory !== 'all_access') {
-        productCategory += '_pack';
-      }
+      // 購入する商品データを抽出
+      const product = result.inSkillProducts.filter(record => record.referenceName === productCategory);
 
-      const product = result.inSkillProducts
-        .filter(record => record.referenceName === productCategory);
-
+      // ** Buyディレクティブに送信し購入フローに進む ** 
       return handlerInput.responseBuilder
         .addDirective({
           type: 'Connections.SendRequest',
@@ -393,9 +363,8 @@ const BuyHandler = {
   },
 };
 
-// Following handler demonstrates how Skills would receive Cancel requests from customers
-// and then trigger a cancel request to Alexa
-// User says: Alexa, ask <skill name> to cancel <product name>
+// ユーザーが「{productCategory}をキャンセル」と言った時のハンドラー
+// Alexaのキャンセルフローをトリガーする
 const CancelSubscriptionHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -408,17 +377,13 @@ const CancelSubscriptionHandler = {
     const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
     return ms.getInSkillProducts(locale).then(function initiateCancel(result) {
-      let productCategory = getResolvedValue(handlerInput.requestEnvelope, 'productCategory');
+      let productCategory = Alexa.getSlot(handlerInput.requestEnvelope, 'productCategory')
+        .resolutions.resolutionsPerAuthority[0].values[0].value.id;
 
-      if (productCategory === undefined) {
-        productCategory = 'all_access';
-      } else {
-        productCategory += '_pack';
-      }
+      // 購入する商品データを抽出
+      const product = result.inSkillProducts.filter(record => record.referenceName === productCategory);
 
-      const product = result.inSkillProducts
-        .filter(record => record.referenceName === productCategory);
-
+      // Cancelディレクティブを送信
       return handlerInput.responseBuilder
         .addDirective({
           type: 'Connections.SendRequest',
@@ -435,7 +400,8 @@ const CancelSubscriptionHandler = {
   },
 };
 
-// THIS HANDLES THE CONNECTIONS.RESPONSE EVENT AFTER A BUY or UPSELL OCCURS.
+// Buy または Upsell フローが終わったあと、スキルのセッションが再開した時のハンドラー
+// スキルはAlexaから Connections.Response イベントを受け取る。
 const BuyResponseHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'Connections.Response' &&
@@ -451,7 +417,7 @@ const BuyResponseHandler = {
 
     return ms.getInSkillProducts(locale).then(function handlePurchaseResponse(result) {
       const product = result.inSkillProducts.filter(record => record.productId === productId);
-      console.log(`PRODUCT = ${JSON.stringify(product)}`);
+
       if (handlerInput.requestEnvelope.request.status.code === '200') {
         let speakOutput;
         let repromptOutput;
@@ -459,33 +425,37 @@ const BuyResponseHandler = {
         let categoryFacts = ALL_FACTS;
         switch (handlerInput.requestEnvelope.request.payload.purchaseResult) {
           case 'ACCEPTED':
-            if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
+            // 購入した
+            if (product[0].referenceName !== 'complete')
+              categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName);
 
-            speakOutput = `${product[0].name}を聞けるようになりました。${product[0].referenceName.replace('_pack', '').replace('all_access', '')}トリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
-            repromptOutput = getRandomYesNoQuestion();
+            speakOutput = `${product[0].name}のトリビアをどうぞ。${getRandomFact(categoryFacts)} 他のトリビアも聞きますか？ `;
+            repromptOutput = `他のトリビアも聞きますか？`;
             break;
           case 'DECLINED':
+            // 購入しなかった
             if (handlerInput.requestEnvelope.request.name === 'Buy') {
-              // response when declined buy request
+              // Buy リクエストでNOと言った場合
               speakOutput = `またチェックしてくださいね。他のトリビアを聞きますか？`;
               repromptOutput = '他のトリビアを聞きますか？';
               break;
             }
-            // response when declined upsell request
+            // Upsell リクエストでNOと言った場合
             filteredFacts = getFilteredFacts(ALL_FACTS, handlerInput);
-            speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)}他のトリビアも聞きますか？`;
+            speakOutput = `トリビアをどうぞ。${getRandomFact(filteredFacts)} 他のトリビアも聞きますか？`;
             repromptOutput = '他のトリビアも聞きますか？';
             break;
           case 'ALREADY_PURCHASED':
-            // may have access to more than what was asked for, but give them a random
-            // fact from the product they asked to buy
-            if (product[0].referenceName !== 'all_access') categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName.replace('_pack', ''));
+            // 既にその商品を購入している場合は、リクエストされたカテゴリーのトリビアを言う。
+            if (product[0].referenceName !== 'complete')
+              categoryFacts = ALL_FACTS.filter(record => record.type === product[0].referenceName);
 
-            speakOutput = `${product[0].referenceName.replace('_pack', '').replace('all_access', '')}のトリビアをどうぞ。${getRandomFact(categoryFacts)} ${getRandomYesNoQuestion()}`;
-            repromptOutput = getRandomYesNoQuestion();
+            speakOutput = `${product[0].name} のトリビアをどうぞ。${getRandomFact(categoryFacts)} 他のトリビアも聞きますか？`;
+            repromptOutput = `他のトリビアも聞きますか？`;
             break;
           default:
-            console.log(`unhandled purchaseResult: ${handlerInput.requestEnvelope.payload.purchaseResult}`);
+            // 何らかの理由で購入に失敗した場合。
+            console.log(`unhandled purchaseResult: ${handlerInput.requestEnvelope.payload.purchaseResult} `);
             speakOutput = `購入できませんでした。音声ショッピングの設定やお支払い方法をご確認ください。他のトリビアを聞きますか？`;
             repromptOutput = '他のトリビアを聞きますか？';
             break;
@@ -495,8 +465,8 @@ const BuyResponseHandler = {
           .reprompt(repromptOutput)
           .getResponse();
       }
-      // Something failed.
-      console.log(`Connections.Response indicated failure. error: ${handlerInput.requestEnvelope.request.status.message}`);
+      // 処理中にエラーが発生した場合
+      console.log(`Connections.Response indicated failure.error: ${handlerInput.requestEnvelope.request.status.message} `);
 
       return handlerInput.responseBuilder
         .speak('購入処理でエラーが発生しました。もう一度試すか、カスタマーサービスにご連絡ください。')
@@ -505,7 +475,8 @@ const BuyResponseHandler = {
   },
 };
 
-// THIS HANDLES THE CONNECTIONS.RESPONSE EVENT AFTER A CANCEL OCCURS.
+// Alexaのキャンセルプロセスで「キャンセルしますか？」の確認メッセージに対してユーザーが応答した時の処理
+// スキルはAlexaから Connections.Response イベントを受け取る。
 const CancelResponseHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'Connections.Response' &&
@@ -520,33 +491,38 @@ const CancelResponseHandler = {
 
     return ms.getInSkillProducts(locale).then(function handleCancelResponse(result) {
       const product = result.inSkillProducts.filter(record => record.productId === productId);
-      console.log(`PRODUCT = ${JSON.stringify(product)}`);
+
+      console.log(`PRODUCT = ${JSON.stringify(product)} `);
+
       if (handlerInput.requestEnvelope.request.status.code === '200') {
+        // ユーザーが「はい」(キャンセルする)と言った場合は、ACCEPTED
+        // ユーザーが「いいえ」（キャンセルしない）と言った場合は、DECLINED
+        // キャンセルできる商品がなかった場合は、NOT_ENTITLED
         if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'ACCEPTED') {
-          const speakOutput = `${getRandomYesNoQuestion()}`;
-          const repromptOutput = getRandomYesNoQuestion();
+          const speakOutput = `他のトリビアも聞きますか？`;
+          const repromptOutput = `他のトリビアも聞きますか？`;
           return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(repromptOutput)
             .getResponse();
         } else if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'NOT_ENTITLED') {
-          const speakOutput = `キャンセルできるサブスクリプションはありません。${getRandomYesNoQuestion()}`;
-          const repromptOutput = getRandomYesNoQuestion();
+          const speakOutput = `キャンセルできるサブスクリプションはありません。他のトリビアを聞きますか？`;
+          const repromptOutput = `他のトリビアを聞きますか？`;
           return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(repromptOutput)
             .getResponse();
         } else if (handlerInput.requestEnvelope.request.payload.purchaseResult === 'DECLINED') {
-          const speakOutput = `分かりました。${getRandomYesNoQuestion()}`;
-          const repromptOutput = getRandomYesNoQuestion();
+          const speakOutput = `分かりました。他のトリビアを聞きますか？`;
+          const repromptOutput = `他のトリビアも聞きますか？`;
           return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(repromptOutput)
             .getResponse();
         }
       }
-      // Something failed.
-      console.log(`Connections.Response indicated failure. error: ${handlerInput.requestEnvelope.request.status.message}`);
+      // 何らかのエラーが発生した場合
+      console.log(`Connections.Response indicated failure.error: ${handlerInput.requestEnvelope.request.status.message} `);
 
       return handlerInput.responseBuilder
         .speak('キャンセル処理でエラーが発生しました。もう一度試すか、カスタマーサービスにご連絡ください。')
@@ -555,6 +531,7 @@ const CancelResponseHandler = {
   },
 };
 
+// セッション終了時のハンドラー
 const SessionEndedHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest' ||
@@ -564,32 +541,19 @@ const SessionEndedHandler = {
   handle(handlerInput) {
     console.log('IN SESSIONENDEDHANDLER');
     return handlerInput.responseBuilder
-      .speak(getRandomGoodbye())
+      .speak(`さようなら。`)
       .getResponse();
   },
 };
 
-const FallbackHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
-      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.FallbackIntent';
-  },
-  handle(handlerInput) {
-    console.log('IN FallbackHandler');
-    return handlerInput.responseBuilder
-      .speak('すみません、分かりませんでした。もう一度言ってください。')
-      .reprompt('もう一度言ってください。')
-      .getResponse();
-  },
-};
-
+// エラーハンドラー
 const ErrorHandler = {
   canHandle() {
     return true;
   },
   handle(handlerInput, error) {
-    console.log(`Error handled: ${JSON.stringify(error.message)}`);
-    console.log(`handlerInput: ${JSON.stringify(handlerInput)}`);
+    console.log(`Error handled: ${JSON.stringify(error.message)} `);
+    console.log(`handlerInput: ${JSON.stringify(handlerInput)} `);
     return handlerInput.responseBuilder
       .speak('すみません、分かりませんでした。もう一度言ってください。')
       .reprompt('もう一度言ってください。')
@@ -597,66 +561,33 @@ const ErrorHandler = {
   },
 };
 
-function getResolvedValue(requestEnvelope, slotName) {
-  if (requestEnvelope &&
-    requestEnvelope.request &&
-    requestEnvelope.request.intent &&
-    requestEnvelope.request.intent.slots &&
-    requestEnvelope.request.intent.slots[slotName] &&
-    requestEnvelope.request.intent.slots[slotName].resolutions &&
-    requestEnvelope.request.intent.slots[slotName].resolutions.resolutionsPerAuthority &&
-    requestEnvelope.request.intent.slots[slotName].resolutions.resolutionsPerAuthority[0] &&
-    requestEnvelope.request.intent.slots[slotName].resolutions.resolutionsPerAuthority[0].values &&
-    requestEnvelope.request.intent.slots[slotName].resolutions.resolutionsPerAuthority[0]
-      .values[0] &&
-    requestEnvelope.request.intent.slots[slotName].resolutions.resolutionsPerAuthority[0].values[0]
-      .value &&
-    requestEnvelope.request.intent.slots[slotName].resolutions.resolutionsPerAuthority[0].values[0]
-      .value.name) {
-    return requestEnvelope.request.intent.slots[slotName].resolutions
-      .resolutionsPerAuthority[0].values[0].value.id;
-  }
-  return undefined;
-}
 
-function getSpokenValue(requestEnvelope, slotName) {
-  if (requestEnvelope &&
-    requestEnvelope.request &&
-    requestEnvelope.request.intent &&
-    requestEnvelope.request.intent.slots &&
-    requestEnvelope.request.intent.slots[slotName] &&
-    requestEnvelope.request.intent.slots[slotName].value) {
-    return requestEnvelope.request.intent.slots[slotName].value;
-  }
-  return undefined;
-}
-
+// その商品が存在するかどうかをチェックするヘルパー関数
 function isProduct(product) {
   return product &&
     product.length > 0;
 }
 
+// その商品が購入済みかどうかをチェックするヘルパー関数
 function isEntitled(product) {
   return isProduct(product) &&
     product[0].entitled === 'ENTITLED';
 }
 
-/*
-function getProductByProductId(productId) {
-  var product_record = res.inSkillProducts.filter(record => record.referenceName == productRef);
-}
-*/
 
+// Alexaサービスからスキルに入力されるRequestデータ(JSON)の内容をログにダンプ出力する(デバッグ用)
+// Response Intercepter により、全てのレスポンスが送信される直前に処理される。ß
 const RequestLog = {
   process(handlerInput) {
-    console.log(`REQUEST ENVELOPE = ${JSON.stringify(handlerInput.requestEnvelope)}`);
+    console.log(`REQUEST ENVELOPE = ${JSON.stringify(handlerInput.requestEnvelope)} `);
   },
 };
 
+// セッション開始時に、どの商品を既に購入しているかどうかを確認し、セッションアトリビュートに格納しておく
+// Request Intercepter により、全てのリクエストハンドラーが呼ばれる直前に処理される。
 const EntitledProductsCheck = {
   async process(handlerInput) {
     if (handlerInput.requestEnvelope.session.new === true) {
-      // new session, check to see what products are already owned.
       try {
         const locale = handlerInput.requestEnvelope.request.locale;
         const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
@@ -666,16 +597,18 @@ const EntitledProductsCheck = {
         sessionAttributes.entitledProducts = entitledProducts;
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
       } catch (error) {
-        console.log(`Error calling InSkillProducts API: ${error}`);
+        console.log(`Error calling InSkillProducts API: ${error} `);
       }
     }
   },
 };
 
+//  ハンドラーに入力されるhanderInputの内容と、ハンドラーから出力されるレスポンスの内容をログにダンプ出力する(デバッグ用)
+//  Response Intercepter により、全てのレスポンスが送信される直前に処理される。
 const ResponseLog = {
   process(handlerInput) {
-    console.log(`RESPONSE BUILDER = ${JSON.stringify(handlerInput)}`);
-    console.log(`RESPONSE = ${JSON.stringify(handlerInput.responseBuilder.getResponse())}`);
+    console.log(`RESPONSE BUILDER = ${JSON.stringify(handlerInput)} `);
+    console.log(`RESPONSE = ${JSON.stringify(handlerInput.responseBuilder.getResponse())} `);
   },
 };
 
@@ -692,8 +625,7 @@ exports.handler = Alexa.SkillBuilders.standard()
     BuyHandler,
     CancelSubscriptionHandler,
     SessionEndedHandler,
-    HelpHandler,
-    FallbackHandler,
+    HelpHandler
   )
   .addRequestInterceptors(
     RequestLog,
