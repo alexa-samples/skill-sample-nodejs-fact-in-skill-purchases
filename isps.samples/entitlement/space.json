@@ -1,15 +1,15 @@
 {
   "version": "1.0",
   "type": "ENTITLEMENT",
-  "referenceName": "space_pack",
+  "referenceName": "space",
   "publishingInformation": {
     "locales": {
       "ja-JP": {
         "name": "宇宙パック",
         "summary": "宇宙パックでは宇宙に関するトリビアを聞くことができます。",
         "description": "宇宙パックでは宇宙に関するトリビアを聞くことができます。",
-        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
-        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
+        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/ad87/992c945c486b4aadb3fb9947e060f070/APP_ICON?versionId=.kRLgOlCtZVcUjD7uxIGWpGf3wodIyms&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190808T075638Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190808%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3772f03895044f417c614123b4365e6335cb260d43b4f93d830eff4d81b65e33",
+        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f5c7/4e1feeddd76c43a9823e433c34c149d4/APP_ICON_LARGE?versionId=HFHizIcBnfKhU8L6KTqvjio_KsUuV51I&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190808T075638Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190808%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=22e4d1dada5d4dbf3efcb9337e662b7a65e9ccca9ef267bed6f38cb0dbbe9ab3",
         "examplePhrases": [
           "宇宙パックを購入"
         ],
@@ -29,7 +29,7 @@
       "amazon.co.jp": {
         "releaseDate": "2019-03-01T00:00Z",
         "defaultPriceListing": {
-          "price": 99,
+          "price": 300,
           "currency": "JPY"
         }
       }

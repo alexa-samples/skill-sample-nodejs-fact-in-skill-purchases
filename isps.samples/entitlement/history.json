@@ -1,15 +1,15 @@
 {
   "version": "1.0",
   "type": "ENTITLEMENT",
-  "referenceName": "history_pack",
+  "referenceName": "history",
   "publishingInformation": {
     "locales": {
       "ja-JP": {
         "name": "歴史パック",
         "summary": "歴史パックでは歴史に関するトリビアを聞くことができます。",
         "description": "歴史パックでは歴史に関するトリビアを聞くことができます。",
-        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
-        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
+        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2ae5/1befc6b8d1cb4cc687c1f4ba0127c872/APP_ICON?versionId=GgOc6O1zSHG6N5R39ihYiihiG1Kn9vfP&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190808T075641Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190808%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=a703afe0ed1f6c04b98e3f498f478dfce634f975a55c90ac6b837aceae1940dc",
+        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/6181/a69925397e224195ba1b7fd40cbdff8b/APP_ICON_LARGE?versionId=G2en8eueWeSlTTQAZzNrhyPVYip5p_x2&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190808T075641Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190808%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3dbba7a29564851abed07f94a849c48af1fd696a750dba99f8e8ffb6d70fa78c",
         "examplePhrases": [
           "歴史パックを購入"
         ],
@@ -29,7 +29,7 @@
       "amazon.co.jp": {
         "releaseDate": "2019-03-01T00:00Z",
         "defaultPriceListing": {
-          "price": 99,
+          "price": 300,
           "currency": "JPY"
         }
       }
