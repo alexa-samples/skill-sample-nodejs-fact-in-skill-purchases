@@ -1,3 +1,5 @@
+Regions:  [🇯🇵](../../tree/ja-JP) 
+
 # Build An Alexa Skill with In-Skill Purchases - Premium Fact
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/header._TTH_.png" />
 
