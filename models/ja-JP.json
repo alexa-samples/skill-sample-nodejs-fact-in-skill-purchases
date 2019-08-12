@@ -41,7 +41,11 @@
           "samples": [
             "{factCategory}",
             "{factCategory} トリビア",
-            "{factCategory} のトリビア"
+            "{factCategory} のトリビア",
+            "{factCategory} の話をして",
+            "{factCategory} のトリビアを教えて",
+            "{factCategory} について教えて",
+            "{factCategory} にことが知りたい"
           ]
         },
         {
@@ -97,8 +101,6 @@
           "samples": [
             "課金アイテム",
             "課金について",
-            "{productCategory} トリビアについて",
-            "{productCategory} トリビアについて教えて",
             "{productCategory} パック",
             "{productCategory} パックについて",
             "{productCategory} パックについて教えて"
@@ -125,9 +127,9 @@
               }
             },
             {
-              "id": "all_access",
+              "id": "complete",
               "name": {
-                "value": "オールアクセス"
+                "value": "コンプリート"
               }
             },
             {
@@ -145,7 +147,10 @@
             {
               "id": "science",
               "name": {
-                "value": "科学"
+                "value": "科学",
+                "synonyms": [
+                  "化学"
+                ]
               }
             }
           ],
