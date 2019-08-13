@@ -1,1 +1,24 @@
+# for MacOS
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Dependency directories
 node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+
+# Serverless directories
+.serverless/
+
+# DynamoDB Local files
+.dynamodb/

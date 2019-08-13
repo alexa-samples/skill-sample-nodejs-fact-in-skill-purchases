@@ -159,9 +159,9 @@
               }
             },
             {
-              "id": "all_access",
+              "id": "complete",
               "name": {
-                "value": "オールアクセス"
+                "value": "コンプリート"
               }
             },
             {
@@ -179,7 +179,10 @@
             {
               "id": "science",
               "name": {
-                "value": "科学"
+                "value": "科学",
+                "synonyms": [
+                  "化学"
+                ]
               }
             }
           ],

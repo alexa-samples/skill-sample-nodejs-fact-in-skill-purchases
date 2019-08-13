@@ -6,6 +6,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "ask-sdk": "^2.5.2"
+    "ask-sdk": "^2.7.0"
   }
 }

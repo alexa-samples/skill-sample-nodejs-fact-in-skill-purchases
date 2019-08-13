@@ -10,16 +10,6 @@
       }
     },
     "manifestVersion": "1.0",
-    "privacyAndCompliance": {
-      "locales": {
-        "ja-JP": {}
-      },
-      "allowsPurchases": true,
-      "usesPersonalInfo": false,
-      "isChildDirected": false,
-      "isExportCompliant": true,
-      "containsAds": false
-    },
     "publishingInformation": {
       "locales": {
         "ja-JP": {
