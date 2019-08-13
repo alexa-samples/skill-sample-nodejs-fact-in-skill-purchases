@@ -42,10 +42,11 @@
             "{factCategory}",
             "{factCategory} トリビア",
             "{factCategory} のトリビア",
-            "{factCategory} の話をして",
+            "{factCategory} のトリビアが聞きたい",
             "{factCategory} のトリビアを教えて",
             "{factCategory} について教えて",
-            "{factCategory} にことが知りたい"
+            "{factCategory} を教えて",
+            "{factCategory} が知りたい"
           ]
         },
         {
@@ -101,6 +102,7 @@
           "samples": [
             "課金アイテム",
             "課金について",
+            "商品の詳細",
             "{productCategory} パック",
             "{productCategory} パックについて",
             "{productCategory} パックについて教えて"
