@@ -1,4 +1,4 @@
-# スキル内課金を実装したAlexaスキルのビルド - プレミアムトリビア
+# プレミアムトリビア - スキル内課金を使ったスキルの作成
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/header._TTH_.png" />
 
 
