@@ -8,8 +8,8 @@
         "name": "歴史パック",
         "summary": "歴史パックでは歴史に関するトリビアを聞くことができます。",
         "description": "歴史パックでは歴史に関するトリビアを聞くことができます。",
-        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/6789/097478749d8d435ca0ab3235f3a4ba5a/APP_ICON?versionId=1CHZ5DoPgNAPbU2y2btW2aJ4sv_hgMQd&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190818T055305Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190818%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=aa82d24311f3b5584a678e64418c2cd76ec435432d1ef7e3d1847b3688a54ae5",
-        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4c76/da8d33482e764253bd90ed3936432922/APP_ICON_LARGE?versionId=IDDnREkKU70ov4xvWQL8.D.I.cpnwZv7&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190818T055305Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190818%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3a165623000eac90a9051f05212b6e3e6a5bcf44d2754ddda2d280e7d8afe290",
+        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/h_blue_small.png",
+        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/h_blue_large.png",
         "examplePhrases": [
           "歴史パックを購入"
         ],

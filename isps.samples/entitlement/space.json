@@ -8,8 +8,8 @@
         "name": "宇宙パック",
         "summary": "宇宙パックでは宇宙に関するトリビアを聞くことができます。",
         "description": "宇宙パックでは宇宙に関するトリビアを聞くことができます。",
-        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/6b31/5c1ff67ad4cd4fb1afd7c9b756f2d4b2/APP_ICON?versionId=aITAL1wBbhydFgQ145szzb.95.dgfxqF&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190818T055307Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190818%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=864871a05b3145a8d441349a54f9beaf7ea50b1b204cff206c0b38083e1b611d",
-        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f9f2/31c66c1afdc646488cb6bbf42f3b56ec/APP_ICON_LARGE?versionId=RiP2OlJ426tzV92u2BzWGTmhSsxw0fz2&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190818T055307Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190818%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=400e7885ee4eb67914a546139991acfe1b1927670d665978d874347ebbb979a6",
+        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
+        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
         "examplePhrases": [
           "宇宙パックを購入"
         ],

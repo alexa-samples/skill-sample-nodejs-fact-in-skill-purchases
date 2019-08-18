@@ -12,8 +12,8 @@
         "name": "コンプリート",
         "summary": "コンプリートでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。",
         "description": "コンプリートでは、歴史・科学・宇宙に加えて、今後追加されるジャンルのトリビアも聞くことができます。",
-        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f28b/a12ae6a68bad4fcea4b1304ad67d63a8/APP_ICON?versionId=2jx6KrguQI5d0KkkqhNL8iMrl4Wef07K&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190818T055310Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190818%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=982476712ddf761e4e752565c82cea05a1835ec0bd1158f3c23e53bbf0bf899b",
-        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/895b/7942d25fb5814538865af9589f2e8fc9/APP_ICON_LARGE?versionId=fSTrP3OgD2nCkpSWlUychJ60WBpUsk2S&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190818T055310Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190818%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=332119bdd728aeb275ee7135b0f31d2a05175235bd1973f915a6425754f066da",
+        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/a_purple_small.png",
+        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/a_purple_large.png",
         "examplePhrases": [
           "コンプリートを購入"
         ],
