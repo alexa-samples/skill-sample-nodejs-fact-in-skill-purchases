@@ -8,8 +8,8 @@
         "name": "科学パック",
         "summary": "科学パックでは科学に関するトリビアを聞くことができます。",
         "description": "科学パックでは科学に関するトリビアを聞くことができます。",
-        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/ca5a/5d4ce4513c9141948c518bc2901f0bd9/APP_ICON?versionId=r96EE5FAAbwmyOYrgGuifgEjkk.haFez&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190808T075637Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190808%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=32f598fc85f5fdb1823aa8a84a06ef9c672583f4a67ad7526eb5beba3f6dc93d",
-        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/8c9a/21aee7bbc4fd4ff4871055239dfb8342/APP_ICON_LARGE?versionId=b9Bl2mcLQ2nM.RE_cMJG97jeu8d9PtXM&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190808T075637Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190808%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=c58486d540b4fb238b039585556bc8489bccf9795cb89169d7829df7510e6e3b",
+        "smallIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_small.png",
+        "largeIconUri": "https://github.com/alexa/skill-sample-nodejs-fact-in-skill-purchases/raw/master/isps.samples/s_blue_large.png",
         "examplePhrases": [
           "科学パックを購入"
         ],
