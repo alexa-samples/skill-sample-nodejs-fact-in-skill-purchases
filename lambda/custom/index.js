@@ -639,17 +639,34 @@ const CancelResponseHandler = {
   },
 };
 
+const CancelAndStopIntentHandler = {
+	canHandle(handlerInput) {
+		return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+	},
+	handle(handlerInput) {
+    console.log('IN: CancelAndStopIntentHandler.handle');
+		return handlerInput.responseBuilder
+			.speak(getRandomGoodbye())
+			.getResponse();
+	},
+};
+
 const SessionEndedHandler = {
   canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest' ||
-      (handlerInput.requestEnvelope.request.type === 'IntentRequest' && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent') ||
-      (handlerInput.requestEnvelope.request.type === 'IntentRequest' && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent');
+    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
   },
   handle(handlerInput) {
     console.log('IN: SessionEndedHandler.handle');
-    return handlerInput.responseBuilder
-      .speak(getRandomGoodbye())
-      .getResponse();
+    const { request } = handlerInput.requestEnvelope;
+    // log the reason why the session was ended
+    console.log(`Session ended with reason: ${request.reason}`);
+    // log the error if any
+    if (request.error) {
+      console.log(`Session ended with error: ${JSON.stringify(request.error)}`);
+    }
+    return handlerInput.responseBuilder.getResponse();
   },
 };
 
@@ -775,6 +792,7 @@ exports.handler = Alexa.SkillBuilders.standard()
     ProductDetailHandler,
     BuyHandler,
     CancelSubscriptionHandler,
+    CancelAndStopIntentHandler,
     SessionEndedHandler,
     HelpHandler,
     FallbackHandler,
