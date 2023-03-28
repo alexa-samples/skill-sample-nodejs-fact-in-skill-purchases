@@ -36,7 +36,10 @@
             "read fact",
             "read a fact",
             "Tell me a fact",
-            "Give me a fact"
+            "Give me a fact",
+            "Get her a fact",
+            "Get him a fact",
+            "Get us a fact"
           ]
         },
         {
