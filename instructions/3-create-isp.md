@@ -37,7 +37,7 @@ This sample uses four in-skill products -- 3 one-time purchases (sometimes refer
 1. Normally you would provide testing instructions to help the certification team find and test your in-skill product.  (These testing instructions are specific to this in-skill product, and are in addition to the skill testing instructions you will provide on the **Certification** tab.)  We're going to leave them blank for now.
 1. Click **Save**.
 1. If you've provided all the necessary information, you will be able to click **Link to skill** which will link this in-skill product with your skill.  If that's not an option, click **Continue** and then go back and fill in any missing information.
-1. Nice!  You now have a subscription addd to your skill.
+1. Nice!  You now have a subscription added to your skill.
 1. Repeat this process for the three one-time purchases using the data in the following table:
 
     Field|Value for History Pack|Value for Science Pack|Value for Space Pack
